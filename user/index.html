@@ -1804,44 +1804,46 @@
             }, 800);
         });
         
-        // Navigation click handler
+        // Navigation click handler - FIXED LIKE PROFILE PAGE
         navItems.forEach(item => {
             item.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                // Update active nav item
-                navItems.forEach(nav => nav.classList.remove('active'));
-                item.classList.add('active');
-                
-                // Show themed loader
-                pageLoader.classList.add('active');
-                
-                // Simulate page navigation
-                setTimeout(() => {
-                    pageLoader.classList.remove('active');
+                // Don't prevent default for active page (Home page in this case)
+                if (!item.classList.contains('active')) {
+                    // Show themed loader
+                    pageLoader.classList.add('active');
                     
-                    // Update page title based on navigation
-                    const navText = item.querySelector('.nav-text').textContent;
-                    document.querySelector('.welcome-title').textContent = 
-                        `What do you want to do in ${navText}?`;
-                }, 1000);
+                    // Update active nav item
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // Get href from anchor tag
+                    const href = item.getAttribute('href');
+                    
+                    // Simulate page navigation
+                    setTimeout(() => {
+                        if (href && href !== '#') {
+                            // Navigate to the page
+                            window.location.href = href;
+                        } else {
+                            // If it's the home link, just remove loader
+                            pageLoader.classList.remove('active');
+                        }
+                    }, 800); // Match profile page timing
+                }
             });
         });
         
-        // Service card click handler - FIXED: Allow navigation
+        // Service card click handler
         serviceCards.forEach(card => {
             card.addEventListener('click', (e) => {
-                // Don't prevent default - allow natural navigation
-                // Only show loader briefly
+                // Show loader briefly before navigation
                 pageLoader.classList.add('active');
                 
-                // In a real app, the page will navigate normally
-                // The loader will be shown for 1 second
+                // Navigation will happen naturally via href
+                // Remove loader after 0.8 seconds as fallback (matching profile page)
                 setTimeout(() => {
-                    // Allow natural navigation to happen
-                    // Remove the loader if navigation hasn't happened (as fallback)
                     pageLoader.classList.remove('active');
-                }, 1000);
+                }, 800);
             });
         });
         
@@ -2096,94 +2098,6 @@
                     </button>
                 </div>
             `;
-        });
-        
-        // Individual service card handlers with loader but allowing natural navigation
-        document.getElementById('homeDeliveryCard').addEventListener('click', function(e) {
-            pageLoader.classList.add('active');
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-                // Navigation will happen naturally via the href attribute
-            }, 1000);
-        });
-        
-        document.getElementById('repairServicesCard').addEventListener('click', function(e) {
-            pageLoader.classList.add('active');
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-            }, 1000);
-        });
-        
-        document.getElementById('gasRefillCard').addEventListener('click', function(e) {
-            pageLoader.classList.add('active');
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-            }, 1000);
-        });
-        
-        document.getElementById('packageCard').addEventListener('click', function(e) {
-            pageLoader.classList.add('active');
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-            }, 1000);
-        });
-        
-        document.getElementById('laundryCard').addEventListener('click', function(e) {
-            pageLoader.classList.add('active');
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-            }, 1000);
-        });
-        
-        document.getElementById('gasRefillCard2').addEventListener('click', function(e) {
-            pageLoader.classList.add('active');
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-            }, 1000);
-        });
-        
-        document.getElementById('buyForMeCard').addEventListener('click', function(e) {
-            pageLoader.classList.add('active');
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-            }, 1000);
-        });
-        
-        // Bottom navigation links (except Home) should also navigate naturally
-        document.querySelector('a[href="orders.html"]').addEventListener('click', function(e) {
-            e.preventDefault(); // Keep this for demo purposes since we're on a single page
-            pageLoader.classList.add('active');
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-                alert('Would navigate to Orders page');
-            }, 1000);
-        });
-        
-        document.querySelector('a[href="create-order.html"]').addEventListener('click', function(e) {
-            e.preventDefault(); // Keep this for demo purposes since we're on a single page
-            pageLoader.classList.add('active');
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-                alert('Would navigate to Create Order page');
-            }, 1000);
-        });
-        
-        document.querySelector('a[href="favorites.html"]').addEventListener('click', function(e) {
-            e.preventDefault(); // Keep this for demo purposes since we're on a single page
-            pageLoader.classList.add('active');
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-                alert('Would navigate to Favorites page');
-            }, 1000);
-        });
-        
-        document.querySelector('a[href="profile.html"]').addEventListener('click', function(e) {
-            e.preventDefault(); // Keep this for demo purposes since we're on a single page
-            pageLoader.classList.add('active');
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-                alert('Would navigate to Profile page');
-            }, 1000);
         });
     </script>
 </body>
