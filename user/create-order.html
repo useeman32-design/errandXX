@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Errand - ErrandX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Professional Color Palette */
+            --primary-green: #5CC47E;
+            --primary-dark: #1F4B2E;
+            --primary-light: #E8F5E9;
+            --secondary-blue: #4A90E2;
+            --secondary-orange: #FF8A00;
+            --secondary-red: #FF5252;
+            --background-light: #F3FFF7;
+            --card-background: #FFFFFF;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --text-white: #FFFFFF;
+            --border-color: #E5E7EB;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.16);
+            --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.20);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius-sm: 8px;
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+        }
+
+        .dark-mode {
+            --primary-green: #6DD88F;
+            --primary-dark: #1F4B2E;
+            --primary-light: #2D5A44;
+            --secondary-blue: #6AAFFF;
+            --secondary-orange: #FFA033;
+            --secondary-red: #FF6B6B;
+            --background-light: #0F2A1C;
+            --card-background: #1F4B2E;
+            --text-dark: #F0F7F2;
+            --text-light: #A3C9B4;
+            --text-white: #FFFFFF;
+            --border-color: #2D5A44;
+            --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 8px 28px rgba(0, 0, 0, 0.30);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.40);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            transition: var(--transition);
+            padding-bottom: 85px;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Animated Background Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(92, 196, 126, 0.15) 0%,
+                rgba(92, 196, 126, 0.22) 25%,
+                rgba(92, 196, 126, 0.15) 50%,
+                rgba(92, 196, 126, 0.22) 75%,
+                rgba(92, 196, 126, 0.15) 100%
+            );
+            background-size: 400% 100%;
+            animation: slideBackground 25s ease-in-out infinite;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .dark-mode body::before {
+            background: linear-gradient(
+                90deg,
+                rgba(109, 216, 143, 0.22) 0%,
+                rgba(109, 216, 143, 0.12) 25%,
+                rgba(109, 216, 143, 0.22) 50%,
+                rgba(109, 216, 143, 0.12) 75%,
+                rgba(109, 216, 143, 0.22) 100%
+            );
+            opacity: 0.4;
+        }
+
+        @keyframes slideBackground {
+            0% { background-position: 400% 0; }
+            100% { background-position: -400% 0; }
+        }
+
+        /* Enhanced floating elements */
+        .bg-float {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 30s ease-in-out infinite;
+        }
+
+        .bg-float:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: 10%;
+            right: -150px;
+            animation-delay: 0s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.18) 0%, rgba(92, 196, 126, 0.08) 70%, transparent 100%);
+        }
+
+        .bg-float:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            bottom: 20%;
+            left: -120px;
+            animation-delay: 7s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.15) 0%, rgba(92, 196, 126, 0.05) 70%, transparent 100%);
+        }
+
+        .bg-float:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            top: 60%;
+            right: -100px;
+            animation-delay: 14s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.12) 0%, rgba(92, 196, 126, 0.03) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(1) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.25) 0%, rgba(109, 216, 143, 0.08) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(2) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.20) 0%, rgba(109, 216, 143, 0.05) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(3) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.18) 0%, rgba(109, 216, 143, 0.03) 70%, transparent 100%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            33% { transform: translateY(-40px) rotate(8deg) scale(1.05); }
+            66% { transform: translateY(30px) rotate(-8deg) scale(0.95); }
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* Container with proper margins */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+        }
+
+        /* Reduced Header Size */
+        .dashboard-header {
+            background: var(--primary-dark);
+            color: var(--text-white);
+            padding: 14px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Back Button */
+        .back-button {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Theme Toggle in Header */
+        .theme-toggle-header {
+            position: relative;
+            background: rgba(255, 255, 255, 0.15);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            color: white;
+        }
+
+        .theme-toggle-header:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Dashboard Content */
+        .dashboard-content {
+            padding: 20px 0;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* Services Grid - 2 per row on mobile */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 25px;
+        }
+
+        @media (min-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 24px;
+            }
+        }
+
+        /* Service Card - More compact and professional */
+        .service-card {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 0;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            cursor: pointer;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 100px; /* Reduced from 130px */
+            overflow: hidden;
+            position: relative;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.05);
+        }
+
+        .service-content {
+            padding: 14px; /* Reduced from 16px */
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-name {
+            font-size: 14px; /* Reduced from 15px */
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px; /* Reduced from 6px */
+            line-height: 1.3;
+        }
+
+        .service-description {
+            font-size: 12px; /* Reduced from 13px */
+            color: var(--text-light);
+            line-height: 1.4;
+            margin-bottom: 6px; /* Reduced from 8px */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Pricing Information */
+        .service-pricing {
+            margin-top: auto;
+            padding-top: 6px; /* Reduced from 8px */
+            border-top: 1px solid var(--border-color);
+        }
+
+        .price-amount {
+            font-size: 13px; /* Reduced from 14px */
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 1px; /* Reduced from 2px */
+        }
+
+        .price-note {
+            font-size: 10px; /* Reduced from 11px */
+            color: var(--text-light);
+        }
+
+        /* Bulk Errand Special Styling */
+        .bulk-card {
+            border: 2px solid var(--primary-green);
+            position: relative;
+            overflow: visible;
+        }
+
+        .bulk-badge {
+            position: absolute;
+            top: 8px; /* Adjusted for smaller card */
+            right: 8px; /* Adjusted for smaller card */
+            background: var(--primary-green);
+            color: white;
+            padding: 3px 6px; /* Reduced padding */
+            border-radius: 10px; /* Reduced from 12px */
+            font-size: 9px; /* Reduced from 10px */
+            font-weight: 600;
+            z-index: 2;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .bulk-card .service-name {
+            color: var(--primary-green);
+        }
+
+        /* Professional Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-background);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 0 18px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-top: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: var(--transition);
+            flex: 1;
+            padding: 8px 0;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        .nav-text {
+            font-size: 12px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-item.active {
+            color: var(--primary-green);
+        }
+
+        .nav-item.active .nav-text {
+            font-weight: 600;
+        }
+
+        .nav-item:hover {
+            color: var(--primary-green);
+        }
+
+        .create-nav-item {
+            position: relative;
+            margin-top: -35px;
+        }
+
+        .create-button {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-dark));
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .create-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(92, 196, 126, 0.3);
+        }
+
+        .create-button i {
+            color: white;
+            font-size: 28px;
+        }
+
+        /* Enhanced Theme-Tailored Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 0.3s, visibility 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            backdrop-filter: blur(6px);
+        }
+
+        .loader.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loader {
+            background: rgba(243, 255, 247, 0.95);
+        }
+
+        .dark-mode .loader {
+            background: rgba(15, 42, 28, 0.97);
+        }
+
+        .loader-spinner {
+            width: 70px;
+            height: 70px;
+            border: 4px solid rgba(92, 196, 126, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-green);
+            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .loader-spinner::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 4px solid transparent;
+            border-radius: 50%;
+            border-top-color: rgba(92, 196, 126, 0.1);
+            animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite reverse;
+        }
+
+        .dark-mode .loader-spinner {
+            border-color: rgba(109, 216, 143, 0.25);
+            border-top-color: var(--primary-green);
+        }
+
+        .dark-mode .loader-spinner::before {
+            border-top-color: rgba(109, 216, 143, 0.15);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-dark);
+            letter-spacing: 0.5px;
+        }
+
+        .dark-mode .loader-text {
+            color: var(--text-light);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+            
+            .services-grid {
+                gap: 12px;
+            }
+            
+            .service-image {
+                height: 90px; /* Even smaller on mobile */
+            }
+            
+            .create-button {
+                width: 64px;
+                height: 64px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-content {
+                padding: 25px 0;
+            }
+            
+            .page-title {
+                font-size: 32px;
+            }
+            
+            .service-image {
+                height: 110px; /* Slightly taller on desktop */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Background Floating Elements -->
+    <div class="bg-float"></div>
+    <div class="bg-float"></div>
+    <div class="bg-float"></div>
+
+    <!-- Reduced Header Size -->
+    <header class="dashboard-header">
+        <div class="container header-container">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button class="back-button" id="backButton">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="logo-container">
+                    <img src="img/logo.png" alt="ErrandX" class="logo-img">
+                </div>
+            </div>
+            
+            <div class="user-info">
+                <button class="theme-toggle-header" id="themeToggleHeader">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard-content container">
+        <!-- Page Header -->
+        <section class="page-header">
+            <h1 class="page-title">Create New Errand</h1>
+        </section>
+
+        <!-- Services Grid - 2 per row on mobile -->
+        <section class="services-section">
+            <div class="services-grid">
+                <!-- Home Delivery -->
+                <div class="service-card" data-service="home-delivery">
+                    <div class="service-image">
+                        <img src="img/1.png" alt="Home Delivery">
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-name">Home Delivery</h3>
+                        <p class="service-description">Get anything delivered to your doorstep quickly</p>
+                        <div class="service-pricing">
+                            <div class="price-amount">From ₦500</div>
+                            <div class="price-note">Based on distance</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Package (A - B) -->
+                <div class="service-card" data-service="package">
+                    <div class="service-image">
+                        <img src="img/2.png" alt="Package Delivery">
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-name">Package (A - B)</h3>
+                        <p class="service-description">Send packages anywhere in the city</p>
+                        <div class="service-pricing">
+                            <div class="price-amount">From ₦700</div>
+                            <div class="price-note">Based on weight & distance</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gas Refill -->
+                <div class="service-card" data-service="gas-refill">
+                    <div class="service-image">
+                        <img src="img/3.png" alt="Gas Refill">
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-name">Gas Refill</h3>
+                        <p class="service-description">Safe gas cylinder refills delivered to your home</p>
+                        <div class="service-pricing">
+                            <div class="price-amount">From ₦8,500</div>
+                            <div class="price-note">Includes delivery & safety check</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Buy For Me -->
+                <div class="service-card" data-service="buy-for-me">
+                    <div class="service-image">
+                        <img src="img/4.png" alt="Buy For Me">
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-name">Buy For Me</h3>
+                        <p class="service-description">We purchase and deliver items for you</p>
+                        <div class="service-pricing">
+                            <div class="price-amount">From ₦1,000</div>
+                            <div class="price-note">+ cost of items</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Laundry Delivery -->
+                <div class="service-card" data-service="laundry">
+                    <div class="service-image">
+                        <img src="img/5.png" alt="Laundry Delivery">
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-name">Laundry Delivery</h3>
+                        <p class="service-description">We deliver your cleaned clothes</p>
+                        <div class="service-pricing">
+                            <div class="price-amount">From ₦800</div>
+                            <div class="price-note">+ laundry service cost</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Repairs & Services -->
+                <div class="service-card" data-service="repair-services">
+                    <div class="service-image">
+                        <img src="img/6.png" alt="Repairs & Services">
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-name">Repairs & Services</h3>
+                        <p class="service-description">Professional repairs and maintenance services</p>
+                        <div class="service-pricing">
+                            <div class="price-amount">From ₦2,000</div>
+                            <div class="price-note">Based on service type</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bulk Errand -->
+                <div class="service-card bulk-card" data-service="bulk">
+                    <div class="bulk-badge">
+                        <i class="fas fa-bolt"></i> SAVE
+                    </div>
+                    <div class="service-image">
+                        <img src="img/x.png" alt="Bulk Errand">
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-name">Bulk Errand</h3>
+                        <p class="service-description">Multiple pickups in one trip for maximum savings</p>
+                        <div class="service-pricing">
+                            <div class="price-amount">Custom Pricing</div>
+                            <div class="price-note">Save with multiple errands</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Professional Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <span class="nav-text">Home</span>
+        </a>
+        
+        <a href="orders.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+            <span class="nav-text">Orders</span>
+        </a>
+        
+        
+        <div class="create-nav-item">
+            <button class="create-button" id="createButton">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+        
+        <a href="favorites.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <span class="nav-text">Favorites</span>
+        </a>
+        
+        <a href="profile.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <span class="nav-text">Profile</span>
+        </a>
+    </nav>
+
+    <!-- Enhanced Theme-Tailored Loader -->
+    <div class="loader" id="pageLoader">
+        <div class="loader-spinner"></div>
+        <p class="loader-text">Loading...</p>
+    </div>
+
+    <script>
+        // Theme Toggle in Header
+        const themeToggleHeader = document.getElementById('themeToggleHeader');
+        const themeIconHeader = themeToggleHeader.querySelector('i');
+        
+        // Check for saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+
+        // Apply saved theme
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIconHeader.className = 'fas fa-sun';
+        } else {
+            document.body.classList.remove('dark-mode');
+            themeIconHeader.className = 'fas fa-moon';
+        }
+
+        themeToggleHeader.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeIconHeader.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        });
+        
+        // Enhanced Theme-Tailored Loader
+        const pageLoader = document.getElementById('pageLoader');
+        const navItems = document.querySelectorAll('.nav-item');
+        const serviceCards = document.querySelectorAll('.service-card');
+        const createButton = document.getElementById('createButton');
+        const backButton = document.getElementById('backButton');
+        
+        // Simulate initial page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                pageLoader.classList.remove('active');
+            }, 800);
+        });
+        
+        // Back button handler
+        backButton.addEventListener('click', () => {
+            pageLoader.classList.add('active');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 800);
+        });
+        
+        // Navigation click handler
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Update active nav item
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+                
+                // Show themed loader
+                pageLoader.classList.add('active');
+                
+                // Get href from anchor tag
+                const href = item.getAttribute('href');
+                
+                // Simulate page navigation
+                setTimeout(() => {
+                    if (href && href !== '#') {
+                        window.location.href = href;
+                    } else {
+                        pageLoader.classList.remove('active');
+                    }
+                }, 1000);
+            });
+        });
+        
+        // Service card click handler
+        serviceCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const service = card.getAttribute('data-service');
+                
+                // Show loader
+                pageLoader.classList.add('active');
+                
+                // Simulate loading service page
+                setTimeout(() => {
+                    pageLoader.classList.remove('active');
+                    
+                    // Based on service type, navigate to appropriate page
+                    let servicePage = '';
+                    let serviceName = '';
+                    
+                    switch(service) {
+                        case 'home-delivery':
+                            servicePage = 'home-delivery.html';
+                            serviceName = 'Home Delivery';
+                            break;
+                        case 'package':
+                            servicePage = 'package.html';
+                            serviceName = 'Package Delivery';
+                            break;
+                        case 'gas-refill':
+                            servicePage = 'gas-refill.html';
+                            serviceName = 'Gas Refill';
+                            break;
+                        case 'buy-for-me':
+                            servicePage = 'buy-for-me.html';
+                            serviceName = 'Buy For Me';
+                            break;
+                        case 'laundry':
+                            servicePage = 'laundry.html';
+                            serviceName = 'Laundry Delivery';
+                            break;
+                        case 'repair-services':
+                            servicePage = 'repair-services.html';
+                            serviceName = 'Repairs & Services';
+                            break;
+                        case 'bulk':
+                            servicePage = 'bulk-errand.html';
+                            serviceName = 'Bulk Errand';
+                            break;
+                    }
+                    
+                    if (servicePage) {
+                        // In a real app, this would navigate to the service page
+                        // For demo, show an alert
+                        const priceElement = card.querySelector('.price-amount');
+                        const price = priceElement ? priceElement.textContent : '';
+                        
+                        alert(`Creating ${serviceName} errand...\n\n${price}\n\nYou would be redirected to the order form to complete your request.`);
+                        
+                        // Uncomment this line for actual navigation:
+                        // window.location.href = servicePage;
+                    }
+                }, 1200);
+            });
+        });
+        
+        // Create button handler (center button in bottom nav)
+        createButton.addEventListener('click', () => {
+            // This button just stays on the create errands page
+            // Scroll to top and show a message
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Show a brief message
+            const message = document.createElement('div');
+            message.innerHTML = `
+                <div style="position:fixed; top:20px; left:50%; transform:translateX(-50%); background:var(--primary-green); color:white; padding:12px 20px; border-radius:var(--border-radius); box-shadow:var(--shadow-lg); z-index:1000; animation:fadeInOut 3s ease-in-out;">
+                    <i class="fas fa-check-circle"></i> Select a service to create errand
+                </div>
+            `;
+            document.body.appendChild(message);
+            
+            // Remove message after 3 seconds
+            setTimeout(() => {
+                message.remove();
+            }, 3000);
+        });
+        
+        // Add CSS for fade animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInOut {
+                0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+                15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Handle image errors with fallback
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            img.addEventListener('error', function() {
+                const parent = this.parentElement;
+                const serviceName = parent.parentElement.querySelector('.service-name')?.textContent;
+                
+                // Create fallback icon based on service type
+                let iconClass = 'fas fa-box';
+                if (serviceName?.includes('Home')) iconClass = 'fas fa-home';
+                if (serviceName?.includes('Package')) iconClass = 'fas fa-shipping-fast';
+                if (serviceName?.includes('Gas')) iconClass = 'fas fa-fire';
+                if (serviceName?.includes('Buy')) iconClass = 'fas fa-shopping-cart';
+                if (serviceName?.includes('Laundry')) iconClass = 'fas fa-tshirt';
+                if (serviceName?.includes('Repair')) iconClass = 'fas fa-tools';
+                if (serviceName?.includes('Bulk')) iconClass = 'fas fa-boxes';
+                
+                // Replace image with icon
+                parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(92, 196, 126, 0.1);">
+                    <i class="${iconClass}" style="font-size:24px;color:var(--primary-green)"></i>
+                </div>`;
+            });
+        });
+        
+        // Simulate network status for loader
+        window.addEventListener('online', () => {
+            console.log('Network connection restored');
+        });
+        
+        window.addEventListener('offline', () => {
+            pageLoader.classList.add('active');
+            pageLoader.innerHTML = `
+                <div style="text-align:center;">
+                    <i class="fas fa-wifi-slash" style="font-size:48px;color:var(--text-light);margin-bottom:20px;"></i>
+                    <p class="loader-text" style="margin-bottom:20px;">No Internet Connection</p>
+                    <button onclick="location.reload()" style="background:var(--primary-green);color:white;border:none;padding:10px 20px;border-radius:20px;cursor:pointer;">
+                        Retry
+                    </button>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

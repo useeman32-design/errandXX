@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - ErrandX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Copying all styles from home page */
+        :root {
+            /* Professional Color Palette */
+            --primary-green: #5CC47E;
+            --primary-dark: #1F4B2E;
+            --primary-light: #E8F5E9;
+            --secondary-blue: #4A90E2;
+            --secondary-orange: #FF8A00;
+            --secondary-red: #FF5252;
+            --secondary-green: #4CAF50;
+            --secondary-gray: #9E9E9E;
+            --background-light: #F3FFF7;
+            --card-background: #FFFFFF;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --text-white: #FFFFFF;
+            --border-color: #E5E7EB;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.16);
+            --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.20);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius-sm: 8px;
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+        }
+
+        .dark-mode {
+            --primary-green: #6DD88F;
+            --primary-dark: #1F4B2E;
+            --primary-light: #2D5A44;
+            --secondary-blue: #6AAFFF;
+            --secondary-orange: #FFA033;
+            --secondary-red: #FF6B6B;
+            --secondary-green: #66BB6A;
+            --secondary-gray: #BDBDBD;
+            --background-light: #0F2A1C;
+            --card-background: #1F4B2E;
+            --text-dark: #F0F7F2;
+            --text-light: #A3C9B4;
+            --text-white: #FFFFFF;
+            --border-color: #2D5A44;
+            --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 8px 28px rgba(0, 0, 0, 0.30);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.40);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            transition: var(--transition);
+            padding-bottom: 85px;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Animated Background Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(92, 196, 126, 0.15) 0%,
+                rgba(92, 196, 126, 0.22) 25%,
+                rgba(92, 196, 126, 0.15) 50%,
+                rgba(92, 196, 126, 0.22) 75%,
+                rgba(92, 196, 126, 0.15) 100%
+            );
+            background-size: 400% 100%;
+            animation: slideBackground 25s ease-in-out infinite;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .dark-mode body::before {
+            background: linear-gradient(
+                90deg,
+                rgba(109, 216, 143, 0.22) 0%,
+                rgba(109, 216, 143, 0.12) 25%,
+                rgba(109, 216, 143, 0.22) 50%,
+                rgba(109, 216, 143, 0.12) 75%,
+                rgba(109, 216, 143, 0.22) 100%
+            );
+            opacity: 0.4;
+        }
+
+        @keyframes slideBackground {
+            0% { background-position: 400% 0; }
+            100% { background-position: -400% 0; }
+        }
+
+        /* Enhanced floating elements */
+        .bg-float {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 30s ease-in-out infinite;
+        }
+
+        .bg-float:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: 10%;
+            right: -150px;
+            animation-delay: 0s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.18) 0%, rgba(92, 196, 126, 0.08) 70%, transparent 100%);
+        }
+
+        .bg-float:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            bottom: 20%;
+            left: -120px;
+            animation-delay: 7s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.15) 0%, rgba(92, 196, 126, 0.05) 70%, transparent 100%);
+        }
+
+        .bg-float:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            top: 60%;
+            right: -100px;
+            animation-delay: 14s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.12) 0%, rgba(92, 196, 126, 0.03) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(1) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.25) 0%, rgba(109, 216, 143, 0.08) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(2) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.20) 0%, rgba(109, 216, 143, 0.05) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(3) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.18) 0%, rgba(109, 216, 143, 0.03) 70%, transparent 100%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            33% { transform: translateY(-40px) rotate(8deg) scale(1.05); }
+            66% { transform: translateY(30px) rotate(-8deg) scale(0.95); }
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* Container with proper margins */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+        }
+
+        /* Reduced Header Size */
+        .dashboard-header {
+            background: var(--primary-dark);
+            color: var(--text-white);
+            padding: 14px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Back Button */
+        .back-button {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Theme Toggle in Header */
+        .theme-toggle-header {
+            position: relative;
+            background: rgba(255, 255, 255, 0.15);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            color: white;
+        }
+
+        .theme-toggle-header:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Dashboard Content */
+        .dashboard-content {
+            padding: 20px 0;
+        }
+
+        /* Page Header - Simplified */
+        .page-header {
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* Tabs Navigation - Simplified */
+        .tabs-navigation {
+            display: flex;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 4px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-button.active {
+            background: var(--primary-green);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-button:hover:not(.active) {
+            background: var(--primary-light);
+            color: var(--text-dark);
+        }
+
+        /* Orders Section */
+        .orders-section {
+            margin-top: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            margin-top: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Orders Table - Exactly like home page */
+        .orders-table {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            padding: 18px;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+            cursor: pointer;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .order-item:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .order-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        .order-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .order-details {
+            flex: 1;
+        }
+
+        .order-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .order-info {
+            font-size: 13px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 6px;
+        }
+
+        .order-date {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 6px;
+        }
+
+        .order-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            gap: 6px;
+        }
+
+        .status-assigned {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--secondary-blue);
+        }
+
+        .status-progress {
+            background: rgba(255, 138, 0, 0.1);
+            color: var(--secondary-orange);
+        }
+
+        .status-pending {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+        }
+
+        .status-completed {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--secondary-green);
+        }
+
+        .status-cancelled {
+            background: rgba(158, 158, 158, 0.1);
+            color: var(--secondary-gray);
+        }
+
+        .order-actions {
+            margin-left: 12px;
+        }
+
+        .track-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .track-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .view-btn {
+            background: var(--secondary-blue);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .view-btn:hover {
+            background: #3a7bc8;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Professional Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-background);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 0 18px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-top: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: var(--transition);
+            flex: 1;
+            padding: 8px 0;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        .nav-text {
+            font-size: 12px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-item.active {
+            color: var(--primary-green);
+        }
+
+        .nav-item.active .nav-text {
+            font-weight: 600;
+        }
+
+        .nav-item:hover {
+            color: var(--primary-green);
+        }
+
+        .create-nav-item {
+            position: relative;
+            margin-top: -35px;
+        }
+
+        .create-button {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-dark));
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .create-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(92, 196, 126, 0.3);
+        }
+
+        .create-button i {
+            color: white;
+            font-size: 28px;
+        }
+
+        /* Enhanced Theme-Tailored Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 0.3s, visibility 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            backdrop-filter: blur(6px);
+        }
+
+        .loader.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loader {
+            background: rgba(243, 255, 247, 0.95);
+        }
+
+        .dark-mode .loader {
+            background: rgba(15, 42, 28, 0.97);
+        }
+
+        .loader-spinner {
+            width: 70px;
+            height: 70px;
+            border: 4px solid rgba(92, 196, 126, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-green);
+            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .loader-spinner::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 4px solid transparent;
+            border-radius: 50%;
+            border-top-color: rgba(92, 196, 126, 0.1);
+            animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite reverse;
+        }
+
+        .dark-mode .loader-spinner {
+            border-color: rgba(109, 216, 143, 0.25);
+            border-top-color: var(--primary-green);
+        }
+
+        .dark-mode .loader-spinner::before {
+            border-top-color: rgba(109, 216, 143, 0.15);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-dark);
+            letter-spacing: 0.5px;
+        }
+
+        .dark-mode .loader-text {
+            color: var(--text-light);
+        }
+
+        /* Very Low Opacity Loader for Tracking */
+        .tracking-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2500;
+            transition: opacity 0.3s, visibility 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            backdrop-filter: blur(2px);
+        }
+
+        .tracking-loader.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tracking-loader {
+            background: rgba(243, 255, 247, 0.15);
+        }
+
+        .dark-mode .tracking-loader {
+            background: rgba(15, 42, 28, 0.15);
+        }
+
+        .tracking-loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(92, 196, 126, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-green);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 15px;
+        }
+
+        .dark-mode .tracking-loader-spinner {
+            border-color: rgba(109, 216, 143, 0.2);
+            border-top-color: var(--primary-green);
+        }
+
+        .tracking-loader-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            opacity: 0.7;
+        }
+
+        .dark-mode .tracking-loader-text {
+            color: var(--text-light);
+            opacity: 0.6;
+        }
+
+        /* Tracking Modal - Exactly like home page */
+        .tracking-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            padding: 20px;
+        }
+
+        .tracking-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tracking-modal-content {
+            background: var(--card-background);
+            border-radius: var(--border-radius-lg);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            animation: modalSlideUp 0.3s ease-out;
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tracking-modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--card-background);
+            z-index: 1;
+        }
+
+        .tracking-modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .close-modal-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .close-modal-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary-green);
+        }
+
+        .tracking-modal-body {
+            padding: 20px;
+        }
+
+        /* Updated Rider Info with Vehicle Type */
+        .rider-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .rider-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 3px solid var(--primary-green);
+        }
+
+        .rider-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .rider-details h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .rider-phone {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 6px;
+        }
+
+        .rider-vehicle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(92, 196, 126, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--primary-green);
+        }
+
+        .rider-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 8px;
+        }
+
+        .rider-rating i {
+            color: #FFC107;
+            font-size: 14px;
+        }
+
+        /* Updated Compact Tracking Details */
+        .tracking-details-compact {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .detail-item-compact {
+            background: var(--primary-light);
+            padding: 12px;
+            border-radius: var(--border-radius-sm);
+        }
+
+        .detail-label {
+            font-size: 11px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        /* Delivery Status */
+        .delivery-status {
+            background: var(--primary-light);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .status-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .status-badge-large {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .status-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-step-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--border-color);
+            color: var(--text-light);
+            flex-shrink: 0;
+            font-size: 14px;
+        }
+
+        .status-step.active .status-step-icon {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .status-step.completed .status-step-icon {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .status-step-content {
+            flex: 1;
+        }
+
+        .status-step-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .status-step-time {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .status-step.completed .status-step-title,
+        .status-step.active .status-step-title {
+            color: var(--primary-green);
+        }
+
+        .call-rider-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .call-rider-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            gap: 6px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+            
+            .order-image {
+                width: 65px;
+                height: 65px;
+            }
+            
+            .tracking-modal-content {
+                margin: 10px;
+            }
+            
+            .tracking-details-compact {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .tab-button {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+            
+            .create-button {
+                width: 64px;
+                height: 64px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-content {
+                padding: 25px 0;
+            }
+            
+            .page-title {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Background Floating Elements -->
+    <div class="bg-float"></div>
+    <div class="bg-float"></div>
+    <div class="bg-float"></div>
+
+    <!-- Reduced Header Size -->
+    <header class="dashboard-header">
+        <div class="container header-container">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button class="back-button" id="backButton">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="logo-container">
+                    <img src="img/logo.png" alt="ErrandX" class="logo-img">
+                </div>
+            </div>
+            
+            <div class="user-info">
+                <button class="theme-toggle-header" id="themeToggleHeader">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard-content container">
+        <!-- Page Header -->
+        <section class="page-header">
+            <h1 class="page-title">My Orders</h1>
+        </section>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs-navigation">
+            <button class="tab-button active" data-tab="active">
+                <i class="fas fa-clock"></i>
+                Active
+            </button>
+            <button class="tab-button" data-tab="completed">
+                <i class="fas fa-check-circle"></i>
+                Completed
+            </button>
+        </div>
+
+        <!-- Active Orders Section -->
+        <section class="orders-section" id="activeOrdersSection">
+            <div class="section-header">
+                <h2 class="section-title">Active Orders</h2>
+            </div>
+            
+            <div class="orders-table" id="activeOrdersTable">
+                <!-- Order 1 -->
+                <div class="order-item" data-order="1" data-type="active">
+                    <div class="order-image">
+                        <img src="img/2.png" alt="Package Delivery">
+                    </div>
+                    <div class="order-details">
+                        <h3 class="order-name">Package (A - B)</h3>
+                        <div class="order-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            From Main Market to Tudun Wada
+                        </div>
+                        <div class="order-date">
+                            <i class="far fa-calendar"></i> Today, 9:30 AM
+                        </div>
+                        <span class="order-status status-assigned">
+                            <i class="fas fa-user"></i>
+                            Rider Assigned
+                        </span>
+                    </div>
+                    <div class="order-actions">
+                        <button class="track-btn" data-order="1">Track</button>
+                    </div>
+                </div>
+                
+                <!-- Order 2 -->
+                <div class="order-item" data-order="2" data-type="active">
+                    <div class="order-image">
+                        <img src="img/5.png" alt="Laundry Delivery">
+                    </div>
+                    <div class="order-details">
+                        <h3 class="order-name">Laundry Delivery</h3>
+                        <div class="order-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            From Cleaners to Home
+                        </div>
+                        <div class="order-date">
+                            <i class="far fa-calendar"></i> Today, 10:15 AM
+                        </div>
+                        <span class="order-status status-progress">
+                            <i class="fas fa-sync-alt"></i>
+                            In Progress
+                        </span>
+                    </div>
+                    <div class="order-actions">
+                        <button class="track-btn" data-order="2">Track</button>
+                    </div>
+                </div>
+                
+                <!-- Order 3 -->
+                <div class="order-item" data-order="3" data-type="active">
+                    <div class="order-image">
+                        <img src="img/1.png" alt="Grocery Delivery">
+                    </div>
+                    <div class="order-details">
+                        <h3 class="order-name">Grocery Delivery</h3>
+                        <div class="order-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            From Market to Home
+                        </div>
+                        <div class="order-date">
+                            <i class="far fa-calendar"></i> Today, 11:00 AM
+                        </div>
+                        <span class="order-status status-pending">
+                            <i class="fas fa-clock"></i>
+                            Pending Pickup
+                        </span>
+                    </div>
+                    <div class="order-actions">
+                        <button class="track-btn" data-order="3">Track</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Completed Orders Section -->
+        <section class="orders-section" id="completedOrdersSection" style="display: none;">
+            <div class="section-header">
+                <h2 class="section-title">Completed Orders</h2>
+            </div>
+            
+            <div class="orders-table" id="completedOrdersTable">
+                <!-- Completed Order 1 -->
+                <div class="order-item" data-order="4" data-type="completed">
+                    <div class="order-image">
+                        <img src="img/3.png" alt="Gas Refill">
+                    </div>
+                    <div class="order-details">
+                        <h3 class="order-name">Gas Refill</h3>
+                        <div class="order-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            From Gas Station to Home
+                        </div>
+                        <div class="order-date">
+                            <i class="far fa-calendar"></i> Yesterday, 3:30 PM
+                        </div>
+                        <span class="order-status status-completed">
+                            <i class="fas fa-check"></i>
+                            Completed
+                        </span>
+                    </div>
+                    <div class="order-actions">
+                        <button class="view-btn" data-order="4">View</button>
+                    </div>
+                </div>
+                
+                <!-- Completed Order 2 -->
+                <div class="order-item" data-order="5" data-type="completed">
+                    <div class="order-image">
+                        <img src="img/6.png" alt="Phone Repair">
+                    </div>
+                    <div class="order-details">
+                        <h3 class="order-name">Phone Repair</h3>
+                        <div class="order-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            From Home to Repair Shop
+                        </div>
+                        <div class="order-date">
+                            <i class="far fa-calendar"></i> 2 days ago, 1:00 PM
+                        </div>
+                        <span class="order-status status-completed">
+                            <i class="fas fa-check"></i>
+                            Completed
+                        </span>
+                    </div>
+                    <div class="order-actions">
+                        <button class="view-btn" data-order="5">View</button>
+                    </div>
+                </div>
+                
+                <!-- Completed Order 3 -->
+                <div class="order-item" data-order="6" data-type="completed">
+                    <div class="order-image">
+                        <img src="img/4.png" alt="Buy For Me">
+                    </div>
+                    <div class="order-details">
+                        <h3 class="order-name">Buy For Me - Groceries</h3>
+                        <div class="order-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            From Market to Office
+                        </div>
+                        <div class="order-date">
+                            <i class="far fa-calendar"></i> 3 days ago, 10:00 AM
+                        </div>
+                        <span class="order-status status-completed">
+                            <i class="fas fa-check"></i>
+                            Completed
+                        </span>
+                    </div>
+                    <div class="order-actions">
+                        <button class="view-btn" data-order="6">View</button>
+                    </div>
+                </div>
+                
+                <!-- Cancelled Order 1 -->
+                <div class="order-item" data-order="7" data-type="completed">
+                    <div class="order-image">
+                        <img src="img/1.png" alt="Food Delivery">
+                    </div>
+                    <div class="order-details">
+                        <h3 class="order-name">Food Delivery</h3>
+                        <div class="order-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            From Restaurant to Home
+                        </div>
+                        <div class="order-date">
+                            <i class="far fa-calendar"></i> 4 days ago, 7:00 PM
+                        </div>
+                        <span class="order-status status-cancelled">
+                            <i class="fas fa-times"></i>
+                            Cancelled
+                        </span>
+                    </div>
+                    <div class="order-actions">
+                        <button class="view-btn" data-order="7">View</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Professional Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <span class="nav-text">Home</span>
+        </a>
+        
+        <a href="orders.html" class="nav-item active">
+            <div class="nav-icon">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+            <span class="nav-text">Orders</span>
+        </a>
+        
+        <a href="create-order.html" class="nav-item active">
+        <div class="create-nav-item">
+            <button class="create-button">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+         </a>
+        <a href="favorites.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <span class="nav-text">Favorites</span>
+        </a>
+        
+        <a href="profile.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <span class="nav-text">Profile</span>
+        </a>
+    </nav>
+
+    <!-- Enhanced Theme-Tailored Loader -->
+    <div class="loader" id="pageLoader">
+        <div class="loader-spinner"></div>
+        <p class="loader-text">Loading...</p>
+    </div>
+
+    <!-- Very Low Opacity Tracking Loader -->
+    <div class="tracking-loader" id="trackingLoader">
+        <div class="tracking-loader-spinner"></div>
+        <p class="tracking-loader-text">Loading...</p>
+    </div>
+
+    <!-- Tracking Modal - Exactly like home page -->
+    <div class="tracking-modal" id="trackingModal">
+        <div class="tracking-modal-content">
+            <div class="tracking-modal-header">
+                <h2 class="tracking-modal-title" id="modalTitle">Order Details</h2>
+                <button class="close-modal-btn" id="closeTrackingModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="tracking-modal-body">
+                <!-- Rider Info with Vehicle Type -->
+                <div class="rider-info">
+                    <div class="rider-image">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rider">
+                    </div>
+                    <div class="rider-details">
+                        <h3 id="riderName">Abdul Sani</h3>
+                        <p class="rider-phone" id="riderPhone">+234 812 345 6789</p>
+                        <span class="rider-vehicle" id="riderVehicle">
+                            <i class="fas fa-motorcycle"></i> Motorcycle
+                        </span>
+                        <div class="rider-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span style="margin-left: 5px; font-size: 14px;">4.5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compact Tracking Details -->
+                <div class="tracking-details-compact">
+                    <div class="detail-item-compact">
+                        <div class="detail-label">Pickup Location</div>
+                        <div class="detail-value" id="pickupLocation">Main Market, Gusau</div>
+                    </div>
+                    <div class="detail-item-compact">
+                        <div class="detail-label">Delivery Location</div>
+                        <div class="detail-value" id="deliveryLocation">Tudun Wada, Gusau</div>
+                    </div>
+                    <div class="detail-item-compact">
+                        <div class="detail-label">Contact Person</div>
+                        <div class="detail-value" id="contactPerson">Aisha Bello</div>
+                    </div>
+                    <div class="detail-item-compact">
+                        <div class="detail-label">Contact Phone</div>
+                        <div class="detail-value" id="contactPhone">+234 813 456 7890</div>
+                    </div>
+                    <div class="detail-item-compact">
+                        <div class="detail-label">Package Details</div>
+                        <div class="detail-value" id="packageDetails">Medium (5kg)</div>
+                    </div>
+                    <div class="detail-item-compact">
+                        <div class="detail-label">Estimated Time</div>
+                        <div class="detail-value" id="estimatedTime">30-45 mins</div>
+                    </div>
+                </div>
+
+                <!-- Delivery Status -->
+                <div class="delivery-status">
+                    <div class="status-header">
+                        <h3 class="status-title">Delivery Status</h3>
+                        <span class="status-badge-large status-assigned" id="deliveryStatusBadge">
+                            Package Picked Up
+                        </span>
+                    </div>
+                    
+                    <div class="status-timeline" id="statusTimeline">
+                        <div class="status-step completed">
+                            <div class="status-step-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div class="status-step-content">
+                                <div class="status-step-title">Order Confirmed</div>
+                                <div class="status-step-time">Today, 9:30 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="status-step completed">
+                            <div class="status-step-icon">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="status-step-content">
+                                <div class="status-step-title">Rider Assigned</div>
+                                <div class="status-step-time">Today, 9:45 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="status-step active">
+                            <div class="status-step-icon">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <div class="status-step-content">
+                                <div class="status-step-title">Package Picked Up</div>
+                                <div class="status-step-time">Today, 10:15 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="status-step">
+                            <div class="status-step-icon">
+                                <i class="fas fa-shipping-fast"></i>
+                            </div>
+                            <div class="status-step-content">
+                                <div class="status-step-title">In Transit</div>
+                                <div class="status-step-time">Estimated: 10:30 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="status-step">
+                            <div class="status-step-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="status-step-content">
+                                <div class="status-step-title">Delivered</div>
+                                <div class="status-step-time">Estimated: 11:00 AM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call Rider Button - Only for active orders -->
+                <button class="call-rider-btn" id="callRiderBtn" style="display: none;">
+                    <i class="fas fa-phone"></i>
+                    Call Rider
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle in Header
+        const themeToggleHeader = document.getElementById('themeToggleHeader');
+        const themeIconHeader = themeToggleHeader.querySelector('i');
+        
+        // Check for saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+
+        // Apply saved theme
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIconHeader.className = 'fas fa-sun';
+        } else {
+            document.body.classList.remove('dark-mode');
+            themeIconHeader.className = 'fas fa-moon';
+        }
+
+        themeToggleHeader.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeIconHeader.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        });
+        
+        // Enhanced Theme-Tailored Loader
+        const pageLoader = document.getElementById('pageLoader');
+        const trackingLoader = document.getElementById('trackingLoader');
+        const navItems = document.querySelectorAll('.nav-item');
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const orderItems = document.querySelectorAll('.order-item');
+        const trackButtons = document.querySelectorAll('.track-btn');
+        const viewButtons = document.querySelectorAll('.view-btn');
+        const createButton = document.querySelector('.create-button');
+        const backButton = document.getElementById('backButton');
+        const trackingModal = document.getElementById('trackingModal');
+        const closeTrackingModal = document.getElementById('closeTrackingModal');
+        const callRiderBtn = document.getElementById('callRiderBtn');
+        
+        // Simulate initial page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                pageLoader.classList.remove('active');
+            }, 800);
+        });
+        
+        // Back button handler
+        backButton.addEventListener('click', () => {
+            pageLoader.classList.add('active');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 800);
+        });
+        
+        // Navigation click handler
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Update active nav item
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+                
+                // Show themed loader
+                pageLoader.classList.add('active');
+                
+                // Get href from anchor tag
+                const href = item.getAttribute('href');
+                
+                // Simulate page navigation
+                setTimeout(() => {
+                    if (href && href !== '#') {
+                        window.location.href = href;
+                    } else {
+                        pageLoader.classList.remove('active');
+                    }
+                }, 1000);
+            });
+        });
+        
+        // Tab switching functionality
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tab = button.getAttribute('data-tab');
+                
+                // Update active tab button
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Show/hide sections based on tab
+                if (tab === 'active') {
+                    document.getElementById('activeOrdersSection').style.display = 'block';
+                    document.getElementById('completedOrdersSection').style.display = 'none';
+                } else if (tab === 'completed') {
+                    document.getElementById('activeOrdersSection').style.display = 'none';
+                    document.getElementById('completedOrdersSection').style.display = 'block';
+                }
+            });
+        });
+        
+        // Order item click handler
+        orderItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                // Only trigger if not clicking on action buttons
+                if (!e.target.closest('.track-btn') && !e.target.closest('.view-btn')) {
+                    const orderId = item.getAttribute('data-order');
+                    const orderType = item.getAttribute('data-type');
+                    
+                    // Show order details based on type
+                    if (orderType === 'active') {
+                        // For active orders, simulate track button click
+                        const trackBtn = item.querySelector('.track-btn');
+                        if (trackBtn) {
+                            trackBtn.click();
+                        }
+                    } else {
+                        // For completed orders, show details modal
+                        showOrderDetails(orderId, 'completed');
+                    }
+                }
+            });
+        });
+        
+        // Track button click handler (for active orders)
+        trackButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const orderId = button.getAttribute('data-order');
+                showOrderDetails(orderId, 'active');
+            });
+        });
+        
+        // View button click handler (for completed orders)
+        viewButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const orderId = button.getAttribute('data-order');
+                showOrderDetails(orderId, 'completed');
+            });
+        });
+        
+        // Function to show order details modal
+        function showOrderDetails(orderId, orderType) {
+            // Show very low opacity loader
+            trackingLoader.classList.add('active');
+            
+            // Set different data based on order ID after 1.4 seconds
+            setTimeout(() => {
+                const vehicleTypes = [
+                    { icon: 'fas fa-motorcycle', type: 'Motorcycle' },
+                    { icon: 'fas fa-bicycle', type: 'Bicycle' },
+                    { icon: 'fas fa-car', type: 'Car' },
+                    { icon: 'fas fa-truck-pickup', type: 'Pickup Truck' }
+                ];
+                
+                const randomVehicle = vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)];
+                
+                // Set modal title based on order type
+                document.getElementById('modalTitle').textContent = orderType === 'active' ? 'Track Your Errand' : 'Order Details';
+                
+                // Show/hide call rider button based on order type
+                if (orderType === 'active') {
+                    callRiderBtn.style.display = 'flex';
+                } else {
+                    callRiderBtn.style.display = 'none';
+                }
+                
+                switch(orderId) {
+                    case '1': // Package (A - B)
+                        document.getElementById('riderName').textContent = 'Abdul Sani';
+                        document.getElementById('riderPhone').textContent = '+234 812 345 6789';
+                        document.getElementById('riderVehicle').innerHTML = `<i class="${randomVehicle.icon}"></i> ${randomVehicle.type}`;
+                        document.getElementById('pickupLocation').textContent = 'Main Market, Gusau';
+                        document.getElementById('deliveryLocation').textContent = 'Tudun Wada, Gusau';
+                        document.getElementById('contactPerson').textContent = 'Aisha Bello';
+                        document.getElementById('contactPhone').textContent = '+234 813 456 7890';
+                        document.getElementById('packageDetails').textContent = 'Medium (5kg)';
+                        document.getElementById('estimatedTime').textContent = '30-45 mins';
+                        document.getElementById('deliveryStatusBadge').textContent = 'Package Picked Up';
+                        updateStatusTimeline('picked');
+                        break;
+                    case '2': // Laundry Delivery
+                        document.getElementById('riderName').textContent = 'Musa Ahmed';
+                        document.getElementById('riderPhone').textContent = '+234 814 567 8901';
+                        document.getElementById('riderVehicle').innerHTML = `<i class="${randomVehicle.icon}"></i> ${randomVehicle.type}`;
+                        document.getElementById('pickupLocation').textContent = 'Cleaners Center, Gusau';
+                        document.getElementById('deliveryLocation').textContent = 'Home Address, Gusau';
+                        document.getElementById('contactPerson').textContent = 'Usman';
+                        document.getElementById('contactPhone').textContent = '+234 801 234 5678';
+                        document.getElementById('packageDetails').textContent = 'Laundry Bag (3kg)';
+                        document.getElementById('estimatedTime').textContent = '15-20 mins';
+                        document.getElementById('deliveryStatusBadge').textContent = 'In Progress';
+                        updateStatusTimeline('in-progress');
+                        break;
+                    case '3': // Grocery Delivery
+                        document.getElementById('riderName').textContent = 'Ibrahim Yusuf';
+                        document.getElementById('riderPhone').textContent = '+234 815 678 9012';
+                        document.getElementById('riderVehicle').innerHTML = `<i class="${randomVehicle.icon}"></i> ${randomVehicle.type}`;
+                        document.getElementById('pickupLocation').textContent = 'Main Market, Gusau';
+                        document.getElementById('deliveryLocation').textContent = 'Home Address, Gusau';
+                        document.getElementById('contactPerson').textContent = 'Usman';
+                        document.getElementById('contactPhone').textContent = '+234 801 234 5678';
+                        document.getElementById('packageDetails').textContent = 'Grocery (8kg)';
+                        document.getElementById('estimatedTime').textContent = '45-60 mins';
+                        document.getElementById('deliveryStatusBadge').textContent = 'Pending Pickup';
+                        updateStatusTimeline('pending');
+                        break;
+                    case '4': // Gas Refill
+                        document.getElementById('riderName').textContent = 'Musa Ahmed';
+                        document.getElementById('riderPhone').textContent = '+234 814 567 8901';
+                        document.getElementById('riderVehicle').innerHTML = `<i class="${randomVehicle.icon}"></i> ${randomVehicle.type}`;
+                        document.getElementById('pickupLocation').textContent = 'Gas Station, Gusau';
+                        document.getElementById('deliveryLocation').textContent = 'Home Address, Gusau';
+                        document.getElementById('contactPerson').textContent = 'Usman';
+                        document.getElementById('contactPhone').textContent = '+234 801 234 5678';
+                        document.getElementById('packageDetails').textContent = 'Gas Cylinder';
+                        document.getElementById('estimatedTime').textContent = '45-60 mins';
+                        document.getElementById('deliveryStatusBadge').textContent = 'Completed';
+                        updateStatusTimeline('completed');
+                        break;
+                    case '5': // Phone Repair
+                        document.getElementById('riderName').textContent = 'Ibrahim Yusuf';
+                        document.getElementById('riderPhone').textContent = '+234 815 678 9012';
+                        document.getElementById('riderVehicle').innerHTML = `<i class="${randomVehicle.icon}"></i> ${randomVehicle.type}`;
+                        document.getElementById('pickupLocation').textContent = 'Home Address, Gusau';
+                        document.getElementById('deliveryLocation').textContent = 'Repair Shop, Gusau';
+                        document.getElementById('contactPerson').textContent = 'Usman';
+                        document.getElementById('contactPhone').textContent = '+234 801 234 5678';
+                        document.getElementById('packageDetails').textContent = 'Phone Package';
+                        document.getElementById('estimatedTime').textContent = '30-45 mins';
+                        document.getElementById('deliveryStatusBadge').textContent = 'Completed';
+                        updateStatusTimeline('completed');
+                        break;
+                    case '6': // Buy For Me
+                        document.getElementById('riderName').textContent = 'Abdul Sani';
+                        document.getElementById('riderPhone').textContent = '+234 812 345 6789';
+                        document.getElementById('riderVehicle').innerHTML = `<i class="${randomVehicle.icon}"></i> ${randomVehicle.type}`;
+                        document.getElementById('pickupLocation').textContent = 'Main Market, Gusau';
+                        document.getElementById('deliveryLocation').textContent = 'Office, Gusau';
+                        document.getElementById('contactPerson').textContent = 'Usman';
+                        document.getElementById('contactPhone').textContent = '+234 801 234 5678';
+                        document.getElementById('packageDetails').textContent = 'Grocery Items';
+                        document.getElementById('estimatedTime').textContent = '60-75 mins';
+                        document.getElementById('deliveryStatusBadge').textContent = 'Completed';
+                        updateStatusTimeline('completed');
+                        break;
+                    case '7': // Food Delivery (Cancelled)
+                        document.getElementById('riderName').textContent = 'Not Assigned';
+                        document.getElementById('riderPhone').textContent = 'N/A';
+                        document.getElementById('riderVehicle').innerHTML = `<i class="fas fa-ban"></i> N/A`;
+                        document.getElementById('pickupLocation').textContent = 'Restaurant, Gusau';
+                        document.getElementById('deliveryLocation').textContent = 'Home Address, Gusau';
+                        document.getElementById('contactPerson').textContent = 'Usman';
+                        document.getElementById('contactPhone').textContent = '+234 801 234 5678';
+                        document.getElementById('packageDetails').textContent = 'Food Package';
+                        document.getElementById('estimatedTime').textContent = 'N/A';
+                        document.getElementById('deliveryStatusBadge').textContent = 'Cancelled';
+                        updateStatusTimeline('cancelled');
+                        break;
+                }
+                
+                // Hide loader and show tracking modal
+                trackingLoader.classList.remove('active');
+                trackingModal.classList.add('active');
+            }, 1400); // 1.4 seconds
+        }
+        
+        // Update status timeline based on status
+        function updateStatusTimeline(status) {
+            const steps = document.querySelectorAll('.status-step');
+            steps.forEach(step => step.classList.remove('active', 'completed'));
+            
+            // Update status badge
+            const statusBadge = document.getElementById('deliveryStatusBadge');
+            statusBadge.className = 'status-badge-large';
+            
+            switch(status) {
+                case 'pending':
+                    steps[0].classList.add('completed');
+                    steps[1].classList.add('active');
+                    statusBadge.classList.add('status-pending');
+                    statusBadge.innerHTML = '<i class="fas fa-clock"></i> Pending Pickup';
+                    break;
+                case 'picked':
+                    steps[0].classList.add('completed');
+                    steps[1].classList.add('completed');
+                    steps[2].classList.add('active');
+                    statusBadge.classList.add('status-assigned');
+                    statusBadge.innerHTML = '<i class="fas fa-box-open"></i> Package Picked Up';
+                    break;
+                case 'in-progress':
+                    steps[0].classList.add('completed');
+                    steps[1].classList.add('completed');
+                    steps[2].classList.add('completed');
+                    steps[3].classList.add('active');
+                    statusBadge.classList.add('status-progress');
+                    statusBadge.innerHTML = '<i class="fas fa-sync-alt"></i> In Progress';
+                    break;
+                case 'completed':
+                    steps.forEach(step => step.classList.add('completed'));
+                    statusBadge.classList.add('status-completed');
+                    statusBadge.innerHTML = '<i class="fas fa-check"></i> Completed';
+                    break;
+                case 'cancelled':
+                    steps[0].classList.add('completed');
+                    statusBadge.classList.add('status-cancelled');
+                    statusBadge.innerHTML = '<i class="fas fa-times"></i> Cancelled';
+                    break;
+            }
+        }
+        
+        // Close tracking modal
+        closeTrackingModal.addEventListener('click', () => {
+            trackingModal.classList.remove('active');
+        });
+        
+        // Close modal when clicking outside
+        trackingModal.addEventListener('click', (e) => {
+            if (e.target === trackingModal) {
+                trackingModal.classList.remove('active');
+            }
+        });
+        
+        // Call rider button
+        callRiderBtn.addEventListener('click', () => {
+            const phoneNumber = document.getElementById('riderPhone').textContent;
+            alert(`Calling ${phoneNumber}...`);
+        });
+        
+        // Create button handler
+        createButton.addEventListener('click', () => {
+            pageLoader.classList.add('active');
+            setTimeout(() => {
+                pageLoader.classList.remove('active');
+                window.location.href = 'index.html';
+            }, 800);
+        });
+        
+        // Handle image errors with fallback
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            img.addEventListener('error', function() {
+                const parent = this.parentElement;
+                const serviceName = parent.parentElement.querySelector('.order-name')?.textContent ||
+                                   parent.parentElement.querySelector('#riderName')?.textContent;
+                
+                // Create fallback icon based on service type
+                let iconClass = 'fas fa-box';
+                if (serviceName?.includes('Package')) iconClass = 'fas fa-shipping-fast';
+                if (serviceName?.includes('Laundry')) iconClass = 'fas fa-tshirt';
+                if (serviceName?.includes('Grocery')) iconClass = 'fas fa-shopping-basket';
+                if (serviceName?.includes('Gas')) iconClass = 'fas fa-fire';
+                if (serviceName?.includes('Phone')) iconClass = 'fas fa-mobile-alt';
+                if (serviceName?.includes('Buy')) iconClass = 'fas fa-shopping-cart';
+                if (serviceName?.includes('Food')) iconClass = 'fas fa-utensils';
+                if (serviceName?.includes('Abdul') || serviceName?.includes('Musa') || serviceName?.includes('Ibrahim')) {
+                    iconClass = 'fas fa-user';
+                }
+                
+                // Replace image with icon
+                parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(92, 196, 126, 0.1);">
+                    <i class="${iconClass}" style="font-size:32px;color:var(--primary-green)"></i>
+                </div>`;
+            });
+        });
+        
+        // Simulate network status for loader
+        window.addEventListener('online', () => {
+            console.log('Network connection restored');
+        });
+        
+        window.addEventListener('offline', () => {
+            pageLoader.classList.add('active');
+            pageLoader.innerHTML = `
+                <div style="text-align:center;">
+                    <i class="fas fa-wifi-slash" style="font-size:48px;color:var(--text-light);margin-bottom:20px;"></i>
+                    <p class="loader-text" style="margin-bottom:20px;">No Internet Connection</p>
+                    <button onclick="location.reload()" style="background:var(--primary-green);color:white;border:none;padding:10px 20px;border-radius:20px;cursor:pointer;">
+                        Retry
+                    </button>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
