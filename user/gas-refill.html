@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Delivery - ErrandX</title>
+    <title>Gas Refill Service - ErrandX</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -392,8 +392,8 @@
 
         .section-title {
             font-size: 20px;
-            color: var(--text-dark);
             font-weight: 600;
+            color: var(--text-dark);
         }
 
         /* Form Groups */
@@ -435,6 +435,59 @@
         .form-textarea {
             min-height: 100px;
             resize: vertical;
+        }
+
+        /* Cylinder size options */
+        .cylinder-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .cylinder-option {
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--primary-light);
+        }
+
+        .cylinder-option:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cylinder-option.selected {
+            border-color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .cylinder-size {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 5px;
+        }
+
+        .cylinder-unit {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Custom cylinder input */
+        .custom-cylinder-input {
+            display: none;
+            margin-top: 15px;
+        }
+        
+        .custom-cylinder-input.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
         }
 
         /* Location Options */
@@ -746,14 +799,14 @@
             transform: translateY(-2px);
         }
 
-        /* Receiver Information */
-        .receiver-options {
+        /* Contact Person Options */
+        .contact-options {
             display: flex;
             gap: 15px;
             margin-bottom: 20px;
         }
 
-        .receiver-option {
+        .contact-option {
             flex: 1;
             border: 2px solid var(--border-color);
             border-radius: var(--border-radius-sm);
@@ -764,37 +817,37 @@
             text-align: center;
         }
 
-        .receiver-option:hover {
+        .contact-option:hover {
             border-color: var(--primary-green);
             transform: translateY(-2px);
             box-shadow: var(--shadow-sm);
         }
 
-        .receiver-option.selected {
+        .contact-option.selected {
             border-color: var(--primary-green);
             background: rgba(92, 196, 126, 0.1);
             transform: translateY(-2px);
         }
 
-        .receiver-icon {
+        .contact-icon {
             font-size: 24px;
             color: var(--primary-green);
             margin-bottom: 10px;
         }
 
-        .receiver-title {
+        .contact-title {
             font-size: 16px;
             font-weight: 600;
             color: var(--text-dark);
             margin-bottom: 5px;
         }
 
-        .receiver-desc {
+        .contact-desc {
             font-size: 12px;
             color: var(--text-light);
         }
 
-        .receiver-info-display {
+        .contact-info-display {
             background: var(--primary-light);
             border-radius: var(--border-radius-sm);
             padding: 15px;
@@ -818,7 +871,7 @@
             font-weight: 600;
         }
 
-        .receiver-form {
+        .contact-form {
             background: var(--primary-light);
             border-radius: var(--border-radius-sm);
             padding: 20px;
@@ -908,7 +961,7 @@
             color: var(--text-light);
         }
 
-        #itemPhotoInput {
+        #cylinderPhotoInput {
             display: none;
         }
 
@@ -922,6 +975,127 @@
             max-height: 200px;
             border-radius: var(--border-radius-sm);
             border: 1px solid var(--border-color);
+        }
+
+        /* Safety Checkboxes */
+        .safety-checkboxes {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .checkbox-item:hover {
+            border-color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.05);
+        }
+
+        .checkbox-item.checked {
+            border-color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.1);
+        }
+
+        .checkbox-input {
+            display: none;
+        }
+
+        .checkbox-custom {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .checkbox-custom i {
+            color: white;
+            font-size: 12px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .checkbox-input:checked + .checkbox-custom {
+            background: var(--primary-green);
+            border-color: var(--primary-green);
+        }
+
+        .checkbox-input:checked + .checkbox-custom i {
+            opacity: 1;
+        }
+
+        .checkbox-label {
+            flex: 1;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .checkbox-desc {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 3px;
+        }
+
+        /* Payment Options */
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .payment-option {
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--primary-light);
+        }
+
+        .payment-option:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .payment-option.selected {
+            border-color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .payment-icon {
+            font-size: 24px;
+            color: var(--primary-green);
+            margin-bottom: 8px;
+        }
+
+        .payment-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .payment-desc {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 5px;
         }
 
         /* Rider Selection */
@@ -1442,6 +1616,28 @@
             color: var(--text-light);
         }
 
+        /* Drop-off Contact Change Button */
+        .change-contact-btn {
+            background: transparent;
+            border: 1px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 8px 16px;
+            border-radius: var(--border-radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .change-contact-btn:hover {
+            background: rgba(92, 196, 126, 0.1);
+            transform: translateY(-2px);
+        }
+
         /* Responsive Adjustments */
         @media (max-width: 480px) {
             .container {
@@ -1456,11 +1652,11 @@
                 font-size: 10px;
             }
             
-            .location-options {
+            .cylinder-options, .location-options, .payment-options {
                 grid-template-columns: 1fr;
             }
             
-            .receiver-options {
+            .contact-options {
                 flex-direction: column;
             }
             
@@ -1503,6 +1699,10 @@
             .page-title {
                 font-size: 32px;
             }
+            
+            .location-options, .payment-options {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
         }
     </style>
 </head>
@@ -1536,7 +1736,7 @@
     <main class="dashboard-content container">
         <!-- Page Header -->
         <section class="page-header">
-            <h1 class="page-title">Home Delivery</h1>
+            <h1 class="page-title">Gas Refill Service 🔥</h1>
         </section>
 
         <!-- Delivery Steps Indicator -->
@@ -1544,11 +1744,11 @@
             <div class="steps-indicator">
                 <div class="step active" data-step="1">
                     <div class="step-icon">1</div>
-                    <div class="step-title">Pickup Details</div>
+                    <div class="step-title">Cylinder Details</div>
                 </div>
                 <div class="step" data-step="2">
                     <div class="step-icon">2</div>
-                    <div class="step-title">Delivery Details</div>
+                    <div class="step-title">Pickup & Safety</div>
                 </div>
                 <div class="step" data-step="3">
                     <div class="step-icon">3</div>
@@ -1560,8 +1760,69 @@
                 </div>
             </div>
 
-            <!-- Step 1: Pickup Details -->
+            <!-- Step 1: Cylinder Details -->
             <div class="step-content active" id="step1">
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-gas-pump"></i>
+                        </div>
+                        <h2 class="section-title">Cylinder Information</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Cylinder Size (in kg)</label>
+                        <div class="cylinder-options">
+                            <div class="cylinder-option selected" data-size="3">
+                                <div class="cylinder-size">3</div>
+                                <div class="cylinder-unit">Kilograms</div>
+                            </div>
+                            <div class="cylinder-option" data-size="5">
+                                <div class="cylinder-size">5</div>
+                                <div class="cylinder-unit">Kilograms</div>
+                            </div>
+                            <div class="cylinder-option" data-size="6">
+                                <div class="cylinder-size">6</div>
+                                <div class="cylinder-unit">Kilograms</div>
+                            </div>
+                            <div class="cylinder-option" data-size="12.5">
+                                <div class="cylinder-size">12.5</div>
+                                <div class="cylinder-unit">Kilograms</div>
+                            </div>
+                            <div class="cylinder-option" data-size="25">
+                                <div class="cylinder-size">25</div>
+                                <div class="cylinder-unit">Kilograms</div>
+                            </div>
+                            <div class="cylinder-option" data-size="custom">
+                                <div class="cylinder-size">Custom</div>
+                                <div class="cylinder-unit">Enter size</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Cylinder Input -->
+                    <div class="custom-cylinder-input" id="customCylinderInput">
+                        <div class="form-group">
+                            <label class="form-label required">Enter Cylinder Size (kg)</label>
+                            <input type="number" class="form-input" id="customCylinderSize" placeholder="Enter cylinder size in kilograms" min="1" max="100" step="0.1">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Preferred Gas Station (Optional)</label>
+                        <input type="text" class="form-input" id="gasStation" placeholder="Enter preferred gas station name">
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn next-btn" id="nextToStep2">
+                        Continue to Pickup Details <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Pickup & Safety Details -->
+            <div class="step-content" id="step2">
                 <div class="form-section">
                     <div class="section-header">
                         <div class="section-icon">
@@ -1571,89 +1832,25 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label required">Pickup Location Type</label>
+                        <label class="form-label required">Pickup Address</label>
                         <div class="location-options">
-                            <div class="location-option selected" data-type="shop">
-                                <div class="location-icon">
-                                    <i class="fas fa-store"></i>
-                                </div>
-                                <div class="location-name">Shop</div>
-                            </div>
-                            <div class="location-option" data-type="home">
+                            <div class="location-option selected" data-type="home">
                                 <div class="location-icon">
                                     <i class="fas fa-home"></i>
                                 </div>
-                                <div class="location-name">Home</div>
+                                <div class="location-name">Home Address</div>
                             </div>
                             <div class="location-option" data-type="custom">
                                 <div class="location-icon">
-                                    <i class="fas fa-map-pin"></i>
+                                    <i class="fas fa-pen"></i>
                                 </div>
-                                <div class="location-name">Custom</div>
+                                <div class="location-name">Custom Address</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label required">Pickup Address</label>
-                        <textarea class="form-textarea" id="pickupAddress" placeholder="Enter detailed pickup address (for manual review if map fails)" rows="3"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Select on Map (Optional)</label>
-                        <div class="map-container">
-                            <div id="pickupMap"></div>
-                        </div>
-                        <div class="map-controls">
-                            <button class="map-btn secondary" id="useCurrentLocation">
-                                <i class="fas fa-location-arrow"></i> Use My Location
-                            </button>
-                            <button class="map-btn" id="confirmMapLocation">
-                                <i class="fas fa-check"></i> Confirm Location
-                            </button>
-                        </div>
-                        
-                        <!-- New Coordinates Display Field -->
-                        <div class="coordinates-display-container" id="coordinatesDisplayContainer">
-                            <label class="form-label" style="margin-top: 15px;">Confirmed Map Location</label>
-                            <div class="coordinates-display empty" id="coordinatesDisplay">
-                                No location confirmed yet. Click "Confirm Location" to set coordinates.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">Pickup Contact Person</label>
-                        <input type="text" class="form-input" id="pickupContactName" placeholder="Enter contact person name">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">Pickup Contact Phone</label>
-                        <div class="phone-input-group">
-                            <input type="tel" class="form-input" id="pickupContactPhone" placeholder="Enter phone number">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="action-buttons">
-                    <button class="action-btn next-btn" id="nextToStep2">
-                        Continue to Delivery Details <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Step 2: Delivery Details -->
-            <div class="step-content" id="step2">
-                <div class="form-section">
-                    <div class="section-header">
-                        <div class="section-icon">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <h2 class="section-title">Delivery Location</h2>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">Select Home Address</label>
+                    <!-- Home Address Section -->
+                    <div class="form-group" id="homeAddressSection">
                         <div class="address-list" id="homeAddresses">
                             <div class="address-item selected" data-address="home1">
                                 <div class="address-title">
@@ -1681,90 +1878,182 @@
                         </button>
                     </div>
 
+                    <!-- Custom Address Section -->
+                    <div class="form-group" id="customAddressSection" style="display: none;">
+                        <label class="form-label required">Enter Address Manually</label>
+                        <textarea class="form-textarea" id="customPickupAddress" placeholder="Enter detailed pickup address" rows="3"></textarea>
+                    </div>
+
                     <div class="form-group">
-                        <label class="form-label required">Receiver Information</label>
-                        <div class="receiver-options">
-                            <div class="receiver-option selected" id="receiverSelf">
-                                <div class="receiver-icon">
+                        <label class="form-label">Select on Map (Optional)</label>
+                        <div class="map-container">
+                            <div id="pickupMap"></div>
+                        </div>
+                        <div class="map-controls">
+                            <button class="map-btn secondary" id="useCurrentLocation">
+                                <i class="fas fa-location-arrow"></i> Use My Location
+                            </button>
+                            <button class="map-btn" id="confirmMapLocation">
+                                <i class="fas fa-check"></i> Confirm Location
+                            </button>
+                        </div>
+                        
+                        <div class="coordinates-display-container" id="coordinatesDisplayContainer">
+                            <label class="form-label" style="margin-top: 15px;">Confirmed Map Location</label>
+                            <div class="coordinates-display empty" id="coordinatesDisplay">
+                                No location confirmed yet. Click "Confirm Location" to set coordinates.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h2 class="section-title">Pickup Contact Person</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Who will be at the pickup?</label>
+                        <div class="contact-options">
+                            <div class="contact-option selected" id="contactMe">
+                                <div class="contact-icon">
                                     <i class="fas fa-user-check"></i>
                                 </div>
-                                <div class="receiver-title">It's me</div>
-                                <div class="receiver-desc">Receiver is yourself</div>
+                                <div class="contact-title">Me</div>
+                                <div class="contact-desc">I will be available</div>
                             </div>
-                            <div class="receiver-option" id="receiverOther">
-                                <div class="receiver-icon">
+                            <div class="contact-option" id="contactOther">
+                                <div class="contact-icon">
                                     <i class="fas fa-user-plus"></i>
                                 </div>
-                                <div class="receiver-title">Someone else</div>
-                                <div class="receiver-desc">Different receiver</div>
+                                <div class="contact-title">Someone else</div>
+                                <div class="contact-desc">Another person will be available</div>
                             </div>
                         </div>
                         
-                        <!-- Display user info when "It's me" is selected -->
-                        <div class="receiver-info-display" id="selfReceiverInfo">
+                        <!-- Display user info when "Me" is selected -->
+                        <div class="contact-info-display" id="selfContactInfo">
                             <div class="info-row">
                                 <span class="info-label">Name:</span>
                                 <span class="info-value" id="userNameDisplay">Usman Abdullahi</span>
                             </div>
                             <div class="info-row">
-                                <span class="info-label">Phone Numbers:</span>
-                                <span class="info-value" id="userPhoneDisplay">+234 801 234 5678, +234 812 345 6789</span>
+                                <span class="info-label">Phone Number:</span>
+                                <span class="info-value" id="userPhoneDisplay">+234 801 234 5678</span>
                             </div>
                         </div>
                         
                         <!-- Form for "Someone else" -->
-                        <div class="receiver-form" id="otherReceiverForm" style="display: none;">
+                        <div class="contact-form" id="otherContactForm" style="display: none;">
                             <div class="form-group">
-                                <label class="form-label required">Receiver Name</label>
-                                <input type="text" class="form-input" id="receiverName" placeholder="Enter receiver full name">
+                                <label class="form-label required">Contact Person Name</label>
+                                <input type="text" class="form-input" id="contactName" placeholder="Enter contact person full name">
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required">Receiver Phone Numbers</label>
-                                <div id="receiverPhoneInputs">
-                                    <div class="phone-input-group">
-                                        <input type="tel" class="form-input" placeholder="Primary phone number">
-                                        <button type="button" class="remove-phone-btn" style="display: none;">
-                                            <i class="fas fa-minus"></i> Remove
-                                        </button>
-                                    </div>
+                                <label class="form-label required">Contact Phone Number</label>
+                                <div class="phone-input-group">
+                                    <input type="tel" class="form-input" id="contactPhone" placeholder="Enter phone number">
                                 </div>
-                                <button type="button" class="add-phone-btn" id="addReceiverPhone">
-                                    <i class="fas fa-plus"></i> Add Another Number
-                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label class="form-label required">Item Description</label>
-                        <textarea class="form-textarea" id="itemDescription" placeholder="Describe the item to be delivered" rows="3"></textarea>
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h2 class="section-title">Safety Checklist</h2>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Item Photo (Optional)</label>
-                        <div class="photo-upload-area" id="itemPhotoUpload">
+                        <p style="color: var(--text-light); margin-bottom: 20px; font-size: 14px;">Please confirm the following safety checks before we proceed with the gas refill:</p>
+                        
+                        <div class="safety-checkboxes">
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="checkbox-input" id="valveCheck">
+                                <div class="checkbox-custom">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div>
+                                    <div class="checkbox-label">Valve OK</div>
+                                    <div class="checkbox-desc">The cylinder valve is working properly</div>
+                                </div>
+                            </label>
+                            
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="checkbox-input" id="leakageCheck">
+                                <div class="checkbox-custom">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div>
+                                    <div class="checkbox-label">No leakage</div>
+                                    <div class="checkbox-desc">There are no signs of gas leakage</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h2 class="section-title">Cylinder Photo</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Upload Cylinder Photo (Optional, max 5MB)</label>
+                        <div class="photo-upload-area" id="cylinderPhotoUpload">
                             <div class="upload-icon">
                                 <i class="fas fa-camera"></i>
                             </div>
-                            <div class="upload-text">Add item photo</div>
-                            <div class="upload-subtext">Click to upload or drag and drop</div>
-                            <input type="file" id="itemPhotoInput" accept="image/*">
+                            <div class="upload-text">Add cylinder photo</div>
+                            <div class="upload-subtext">Click to upload or drag and drop (max 5MB)</div>
+                            <input type="file" id="cylinderPhotoInput" accept="image/*">
                         </div>
-                        <div class="photo-preview" id="itemPhotoPreview" style="display: none;">
-                            <img id="previewItemImage" class="preview-image" alt="Item preview">
+                        <div class="photo-preview" id="cylinderPhotoPreview" style="display: none;">
+                            <img id="previewCylinderImage" class="preview-image" alt="Cylinder preview">
                         </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h2 class="section-title">Drop-off Contact</h2>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Delivery Note (Optional)</label>
-                        <textarea class="form-textarea" id="deliveryNote" placeholder="Any special instructions for the rider" rows="2"></textarea>
+                        <p style="color: var(--text-light); margin-bottom: 15px; font-size: 14px;">The drop-off contact is usually the same as the pickup contact.</p>
+                        
+                        <div class="contact-info-display">
+                            <div class="info-row">
+                                <span class="info-label">Name:</span>
+                                <span class="info-value" id="dropoffNameDisplay">Usman Abdullahi</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Phone Number:</span>
+                                <span class="info-value" id="dropoffPhoneDisplay">+234 801 234 5678</span>
+                            </div>
+                            <button class="change-contact-btn" id="changeDropoffContactBtn">
+                                <i class="fas fa-exchange-alt"></i> Change Drop-off Contact
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="action-buttons">
                     <button class="action-btn prev-btn" id="backToStep1">
-                        <i class="fas fa-arrow-left"></i> Back to Pickup
+                        <i class="fas fa-arrow-left"></i> Back to Cylinder Details
                     </button>
                     <button class="action-btn next-btn" id="nextToStep3">
                         Continue to Select Rider <i class="fas fa-arrow-right"></i>
@@ -1862,7 +2151,7 @@
                                         <div class="rider-name">Ibrahim Yusuf</div>
                                         <div class="rider-details">
                                             <span class="rider-vehicle">
-                                                <i class="fas fa-bicycle"></i> Bicycle
+                                                <i class="fas fa-truck"></i> Truck
                                             </span>
                                             <span class="rider-rating">
                                                 <i class="fas fa-star"></i>
@@ -1874,7 +2163,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="rider-price">₦650</div>
+                                <div class="rider-price">₦1,100</div>
                             </div>
                         </div>
 
@@ -1915,28 +2204,24 @@
                         <h3 class="summary-title">Order Summary</h3>
                         <div class="summary-details">
                             <div class="summary-row">
-                                <span class="summary-label">Delivery Distance</span>
-                                <span>5.2 km</span>
+                                <span class="summary-label">Service Fee (Fixed)</span>
+                                <span>₦500</span>
                             </div>
                             <div class="summary-row">
-                                <span class="summary-label">Estimated Time</span>
-                                <span>25-35 mins</span>
-                            </div>
-                            <div class="summary-row">
-                                <span class="summary-label">Service Fee</span>
-                                <span>₦150</span>
+                                <span class="summary-label">Rider Fee</span>
+                                <span id="riderFee">₦850</span>
                             </div>
                         </div>
                         <div class="summary-total">
                             <span>Total Amount</span>
-                            <span id="totalAmount">₦850</span>
+                            <span id="totalAmount">₦1,350</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="action-buttons">
                     <button class="action-btn prev-btn" id="backToStep2">
-                        <i class="fas fa-arrow-left"></i> Back to Delivery
+                        <i class="fas fa-arrow-left"></i> Back to Pickup Details
                     </button>
                     <button class="action-btn next-btn" id="nextToStep4">
                         Proceed to Checkout <i class="fas fa-arrow-right"></i>
@@ -1958,54 +2243,60 @@
                         <h3 class="summary-title">Order Summary</h3>
                         <div class="summary-details">
                             <div class="summary-row">
-                                <span class="summary-label">Pickup Location</span>
-                                <span id="summaryPickup">-</span>
+                                <span class="summary-label">Cylinder Size</span>
+                                <span id="summaryCylinderSizeFinal">12.5 kg</span>
                             </div>
                             <div class="summary-row">
-                                <span class="summary-label">Delivery Location</span>
-                                <span id="summaryDelivery">-</span>
+                                <span class="summary-label">Pickup Location</span>
+                                <span id="summaryPickup">123 Main Street, Tudun Wada</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Pickup Contact</span>
+                                <span id="summaryContact">Usman Abdullahi (+234 801 234 5678)</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Drop-off Contact</span>
+                                <span id="summaryDropoffContact">Usman Abdullahi (+234 801 234 5678)</span>
                             </div>
                             <div class="summary-row">
                                 <span class="summary-label">Selected Rider</span>
-                                <span id="summaryRider">-</span>
+                                <span id="summaryRider">Abdul Sani (Motorcycle)</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Service Fee</span>
+                                <span>₦500</span>
                             </div>
                             <div class="summary-row">
                                 <span class="summary-label">Rider Fee</span>
                                 <span id="summaryRiderFee">₦850</span>
                             </div>
-                            <div class="summary-row">
-                                <span class="summary-label">Service Fee</span>
-                                <span>₦150</span>
-                            </div>
                         </div>
                         <div class="summary-total">
                             <span>Total Amount</span>
-                            <span id="summaryTotal">₦1,000</span>
+                            <span id="summaryTotal">₦1,350</span>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Select Payment Method</label>
+                        <div class="payment-options">
+                            <div class="payment-option selected" data-payment="online">
+                                <div class="payment-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="payment-name">Pay Online</div>
+                                <div class="payment-desc">Pay service & rider fees online</div>
+                            </div>
+                        </div>
+                        <p style="font-size: 12px; color: var(--text-light); margin-top: 10px; padding: 10px; background: var(--primary-light); border-radius: var(--border-radius-sm);">
+                            <strong>Note:</strong> Gas payment will be made to the rider upon arrival. You can pay for gas either online or offline/cash to the rider.
+                        </p>
                     </div>
 
                     <div class="timer-container" id="timerContainer">
                         <div class="timer-title">Waiting for rider to accept your order</div>
                         <div class="timer" id="countdownTimer">02:00</div>
                         <div class="timer-message" id="timerMessage">Rider has 2 minutes to accept your request</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">Select Payment Method</label>
-                        <div class="location-options">
-                            <div class="location-option selected" data-payment="card">
-                                <div class="location-icon">
-                                    <i class="fas fa-credit-card"></i>
-                                </div>
-                                <div class="location-name">Card Payment</div>
-                            </div>
-                            <div class="location-option" data-payment="transfer">
-                                <div class="location-icon">
-                                    <i class="fas fa-university"></i>
-                                </div>
-                                <div class="location-name">Bank Transfer</div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -2099,7 +2390,7 @@
                         <label class="form-label">Set as Primary Address</label>
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <input type="checkbox" id="setAsPrimary" style="width: 20px; height: 20px;">
-                            <label for="setAsPrimary" style="font-size: 14px; color: var(--text-dark);">Make this your primary delivery address</label>
+                            <label for="setAsPrimary" style="font-size: 14px; color: var(--text-dark);">Make this your primary address</label>
                         </div>
                     </div>
                     
@@ -2150,7 +2441,7 @@
                 <div style="text-align: center; padding: 20px 0;">
                     <div class="loader-spinner" style="margin: 0 auto 20px;"></div>
                     <h3 style="margin-bottom: 10px; color: var(--text-dark);">Processing Payment</h3>
-                    <p style="color: var(--text-light); margin-bottom: 30px;">Please wait while we process your payment of <strong id="paymentAmount">₦1,000</strong></p>
+                    <p style="color: var(--text-light); margin-bottom: 30px;">Please wait while we process your payment of <strong id="paymentAmount">₦1,350</strong></p>
                 </div>
             </div>
         </div>
@@ -2170,14 +2461,45 @@
                     <div style="width: 80px; height: 80px; background: var(--primary-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
                         <i class="fas fa-check" style="color: white; font-size: 36px;"></i>
                     </div>
-                    <h3 style="margin-bottom: 10px; color: var(--text-dark);">Your order has been confirmed!</h3>
-                    <p style="color: var(--text-light); margin-bottom: 20px;">Rider <strong id="confirmedRiderName">Abdul Sani</strong> has accepted your delivery request.</p>
-                    <p style="color: var(--text-light); margin-bottom: 30px;">Estimated delivery time: <strong>25-35 minutes</strong></p>
+                    <h3 style="margin-bottom: 10px; color: var(--text-dark);">Your gas refill order has been confirmed!</h3>
+                    <p style="color: var(--text-light); margin-bottom: 20px;">Rider <strong id="confirmedRiderName">Abdul Sani</strong> has accepted your request.</p>
+                    <p style="color: var(--text-light); margin-bottom: 10px;">Estimated pickup time: <strong>15-25 minutes</strong></p>
+                    <p style="color: var(--text-light); margin-bottom: 30px;">Estimated delivery time: <strong>45-60 minutes</strong></p>
                     
                     <div class="action-buttons">
                         <button class="action-btn prev-btn" id="viewOrderDetails">View Order Details</button>
                         <button class="action-btn next-btn" id="goToOrders">Track Order</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Drop-off Contact Change Modal -->
+    <div class="modal" id="changeContactModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Change Drop-off Contact</h2>
+                <button class="close-modal-btn" id="closeContactModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label required">Drop-off Contact Name</label>
+                    <input type="text" class="form-input" id="newDropoffName" placeholder="Enter contact person full name">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label required">Drop-off Contact Phone</label>
+                    <div class="phone-input-group">
+                        <input type="tel" class="form-input" id="newDropoffPhone" placeholder="Enter phone number">
+                    </div>
+                </div>
+                
+                <div class="action-buttons" style="margin-top: 30px;">
+                    <button type="button" class="action-btn prev-btn" id="cancelContactChangeBtn">Cancel</button>
+                    <button type="button" class="action-btn next-btn" id="saveContactChangeBtn">Save Changes</button>
                 </div>
             </div>
         </div>
@@ -2223,40 +2545,48 @@
         let currentStep = 1;
         
         // Step 1 Elements
-        const locationOptions = document.querySelectorAll('.location-option[data-type]');
+        const cylinderOptions = document.querySelectorAll('.cylinder-option');
+        const customCylinderInput = document.getElementById('customCylinderInput');
+        const customCylinderSize = document.getElementById('customCylinderSize');
         const nextToStep2Btn = document.getElementById('nextToStep2');
         
         // Step 2 Elements
+        const locationOptions = document.querySelectorAll('.step-content#step2 .location-option[data-type]');
+        const homeAddressSection = document.getElementById('homeAddressSection');
+        const customAddressSection = document.getElementById('customAddressSection');
         const addressItems = document.querySelectorAll('.address-item');
         const addAddressBtn = document.getElementById('addAddressBtn');
-        const receiverSelf = document.getElementById('receiverSelf');
-        const receiverOther = document.getElementById('receiverOther');
-        const selfReceiverInfo = document.getElementById('selfReceiverInfo');
-        const otherReceiverForm = document.getElementById('otherReceiverForm');
-        const addReceiverPhone = document.getElementById('addReceiverPhone');
-        const receiverPhoneInputs = document.getElementById('receiverPhoneInputs');
-        const itemPhotoUpload = document.getElementById('itemPhotoUpload');
-        const itemPhotoInput = document.getElementById('itemPhotoInput');
-        const itemPhotoPreview = document.getElementById('itemPhotoPreview');
-        const previewItemImage = document.getElementById('previewItemImage');
+        const contactMe = document.getElementById('contactMe');
+        const contactOther = document.getElementById('contactOther');
+        const selfContactInfo = document.getElementById('selfContactInfo');
+        const otherContactForm = document.getElementById('otherContactForm');
+        const safetyCheckboxes = document.querySelectorAll('.checkbox-input');
+        const cylinderPhotoUpload = document.getElementById('cylinderPhotoUpload');
+        const cylinderPhotoInput = document.getElementById('cylinderPhotoInput');
+        const cylinderPhotoPreview = document.getElementById('cylinderPhotoPreview');
+        const previewCylinderImage = document.getElementById('previewCylinderImage');
+        const changeDropoffContactBtn = document.getElementById('changeDropoffContactBtn');
         const backToStep1Btn = document.getElementById('backToStep1');
         const nextToStep3Btn = document.getElementById('nextToStep3');
         
         // Step 3 Elements
         const riderItems = document.querySelectorAll('.rider-item');
+        const riderFee = document.getElementById('riderFee');
         const totalAmount = document.getElementById('totalAmount');
         const backToStep2Btn = document.getElementById('backToStep2');
         const nextToStep4Btn = document.getElementById('nextToStep4');
         
         // Step 4 Elements
+        const summaryCylinderSizeFinal = document.getElementById('summaryCylinderSizeFinal');
         const summaryPickup = document.getElementById('summaryPickup');
-        const summaryDelivery = document.getElementById('summaryDelivery');
+        const summaryContact = document.getElementById('summaryContact');
+        const summaryDropoffContact = document.getElementById('summaryDropoffContact');
         const summaryRider = document.getElementById('summaryRider');
         const summaryRiderFee = document.getElementById('summaryRiderFee');
         const summaryTotal = document.getElementById('summaryTotal');
         const countdownTimer = document.getElementById('countdownTimer');
         const timerMessage = document.getElementById('timerMessage');
-        const paymentOptions = document.querySelectorAll('.location-option[data-payment]');
+        const paymentOptions = document.querySelectorAll('.payment-option');
         const proceedPaymentBtn = document.getElementById('proceedPayment');
         const backToStep3Btn = document.getElementById('backToStep3');
         
@@ -2265,6 +2595,10 @@
         const closeAddressModal = document.getElementById('closeAddressModal');
         const cancelAddressBtn = document.getElementById('cancelAddressBtn');
         const addressForm = document.getElementById('addressForm');
+        const changeContactModal = document.getElementById('changeContactModal');
+        const closeContactModal = document.getElementById('closeContactModal');
+        const cancelContactChangeBtn = document.getElementById('cancelContactChangeBtn');
+        const saveContactChangeBtn = document.getElementById('saveContactChangeBtn');
         const paymentModal = document.getElementById('paymentModal');
         const closePaymentModal = document.getElementById('closePaymentModal');
         const paymentAmount = document.getElementById('paymentAmount');
@@ -2286,9 +2620,11 @@
         let timeLeft = 120; // 2 minutes in seconds
         
         // Selected options
+        let selectedCylinderSize = 12.5;
+        let selectedLocationType = 'home';
         let selectedRider = 1;
         let selectedRiderPrice = 850;
-        let selectedPayment = 'card';
+        let selectedPayment = 'online';
         
         // Map variables
         let map;
@@ -2296,22 +2632,29 @@
         let userLocation = [11.9814, 6.7714]; // Gusau, Zamfara coordinates
         let selectedCoordinates = null;
         let selectedAddress = '';
-        let currentMapLayer = 'satellite'; // Default to satellite
-        
-        // Tile layers
-        let satelliteLayer, streetLayer;
         
         // User data (simulated - in real app, this would come from profile)
         const userData = {
             name: "Usman Abdullahi",
-            phones: ["+234 801 234 5678", "+234 812 345 6789"]
+            phone: "+234 801 234 5678"
         };
+        
+        // Drop-off contact data
+        let dropoffContact = {
+            name: userData.name,
+            phone: userData.phone
+        };
+        
+        // Service fee (fixed)
+        const serviceFee = 500;
         
         // Simulate initial page load
         window.addEventListener('load', () => {
             setTimeout(() => {
                 pageLoader.classList.remove('active');
                 initializeMap();
+                updateTotalAmount();
+                updateSummary();
             }, 800);
         });
         
@@ -2323,12 +2666,7 @@
             }).setView(userLocation, 13);
             
             // Create tile layers with empty attribution
-            satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-                attribution: '', // Empty string to remove attribution
-                maxZoom: 19
-            });
-            
-            streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
                 attribution: '', // Empty string to remove attribution
                 maxZoom: 19
             });
@@ -2382,14 +2720,30 @@
                     this.classList.add('active');
                     
                     // Switch map layer
+                    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                        attribution: '',
+                        maxZoom: 19
+                    });
+                    
+                    const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '',
+                        maxZoom: 19
+                    });
+                    
                     if (type === 'satellite') {
-                        map.removeLayer(streetLayer);
+                        map.eachLayer(layer => {
+                            if (layer._url && layer._url.includes('openstreetmap')) {
+                                map.removeLayer(layer);
+                            }
+                        });
                         satelliteLayer.addTo(map);
-                        currentMapLayer = 'satellite';
                     } else {
-                        map.removeLayer(satelliteLayer);
+                        map.eachLayer(layer => {
+                            if (layer._url && layer._url.includes('arcgisonline')) {
+                                map.removeLayer(layer);
+                            }
+                        });
                         streetLayer.addTo(map);
-                        currentMapLayer = 'street';
                     }
                 });
             });
@@ -2399,31 +2753,9 @@
         function updateCoordinates(lat, lng) {
             selectedCoordinates = { lat, lng };
             
-            // In a real app, you would call a reverse geocoding API here
-            // For demo, we'll simulate an address lookup
-            simulateReverseGeocoding(lat, lng);
-        }
-        
-        // Simulate reverse geocoding (in real app, use a service like Nominatim)
-        function simulateReverseGeocoding(lat, lng) {
-            // This is a simulation - in a real app, you would use:
-            // fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
-            
-            const addresses = [
-                "123 Main Street, Tudun Wada, Gusau",
-                "Market Square, Gusau Central Market",
-                "Zamfara State University Road",
-                "Unguwan Gwaza Residential Area",
-                "Gusau City Center"
-            ];
-            
-            // Pick a pseudo-random address based on coordinates
-            const index = Math.abs(Math.round((lat + lng) * 1000) % addresses.length);
-            selectedAddress = addresses[index];
-            
-            // Update confirmation modal text
-            confirmationAddressText.textContent = 
-                `${selectedAddress}\n\nCoordinates: ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+            // Only show coordinates, no address lookup
+            const coordinatesText = `Latitude: ${lat.toFixed(6)}\nLongitude: ${lng.toFixed(6)}`;
+            confirmationAddressText.textContent = coordinatesText;
         }
         
         // Show the confirmation modal
@@ -2438,17 +2770,14 @@
         
         // Handle location confirmation
         function confirmLocation() {
-            if (selectedCoordinates && selectedAddress) {
+            if (selectedCoordinates) {
                 // Show the coordinates display container
                 const container = document.getElementById('coordinatesDisplayContainer');
                 const display = document.getElementById('coordinatesDisplay');
                 
                 container.style.display = 'block';
-                display.textContent = `${selectedAddress}\n\nCoordinates: ${selectedCoordinates.lat.toFixed(6)}, ${selectedCoordinates.lng.toFixed(6)}`;
+                display.textContent = `Latitude: ${selectedCoordinates.lat.toFixed(6)}\nLongitude: ${selectedCoordinates.lng.toFixed(6)}`;
                 display.classList.remove('empty');
-                
-                // Note: We DON'T update the pickupAddress textarea
-                // That stays for manual entry only
                 
                 showNotification('Location confirmed successfully!', 'success');
             }
@@ -2574,26 +2903,64 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
-        // Step 1: Location Options
-        locationOptions.forEach(option => {
+        // Step 1: Cylinder Size Selection
+        cylinderOptions.forEach(option => {
             option.addEventListener('click', () => {
-                locationOptions.forEach(opt => opt.classList.remove('selected'));
+                cylinderOptions.forEach(opt => opt.classList.remove('selected'));
                 option.classList.add('selected');
+                
+                const size = option.getAttribute('data-size');
+                if (size === 'custom') {
+                    customCylinderInput.classList.add('active');
+                    customCylinderSize.focus();
+                    selectedCylinderSize = parseFloat(customCylinderSize.value) || 0;
+                } else {
+                    customCylinderInput.classList.remove('active');
+                    selectedCylinderSize = parseFloat(size);
+                }
+                
+                updateTotalAmount();
+                updateSummary();
             });
         });
         
+        // Custom cylinder size input
+        customCylinderSize.addEventListener('input', function() {
+            selectedCylinderSize = parseFloat(this.value) || 0;
+            updateTotalAmount();
+            updateSummary();
+        });
+        
+        // Update total amount function (only service fee + rider fee)
+        function updateTotalAmount() {
+            const total = serviceFee + selectedRiderPrice;
+            totalAmount.textContent = `₦${total.toLocaleString()}`;
+            summaryTotal.textContent = `₦${total.toLocaleString()}`;
+            paymentAmount.textContent = `₦${total.toLocaleString()}`;
+        }
+        
         // Step 1: Next button
         nextToStep2Btn.addEventListener('click', () => {
-            // Check if map was used but not confirmed
-            const coordsDisplay = document.getElementById('coordinatesDisplay');
-            const pickupAddress = document.getElementById('pickupAddress').value;
-            
-            if (selectedCoordinates && coordsDisplay.classList.contains('empty')) {
-                showNotification('Please confirm the map location before proceeding', 'error');
+            // Validate cylinder size
+            if (selectedCylinderSize <= 0) {
+                showNotification('Please select or enter a valid cylinder size', 'error');
                 return;
             }
             
             goToStep(2);
+        });
+        
+        // Step 2: Location Type Selection
+        locationOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                locationOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                selectedLocationType = option.getAttribute('data-type');
+                
+                // Show/hide appropriate sections
+                homeAddressSection.style.display = selectedLocationType === 'home' ? 'block' : 'none';
+                customAddressSection.style.display = selectedLocationType === 'custom' ? 'block' : 'none';
+            });
         });
         
         // Step 2: Address Selection
@@ -2609,67 +2976,62 @@
             addAddressModal.classList.add('active');
         });
         
-        // Step 2: Receiver Information Toggle
-        receiverSelf.addEventListener('click', () => {
-            receiverSelf.classList.add('selected');
-            receiverOther.classList.remove('selected');
-            selfReceiverInfo.style.display = 'block';
-            otherReceiverForm.style.display = 'none';
+        // Step 2: Contact Person Selection
+        contactMe.addEventListener('click', () => {
+            contactMe.classList.add('selected');
+            contactOther.classList.remove('selected');
+            selfContactInfo.style.display = 'block';
+            otherContactForm.style.display = 'none';
             
-            // Update user info display
-            document.getElementById('userNameDisplay').textContent = userData.name;
-            document.getElementById('userPhoneDisplay').textContent = userData.phones.join(', ');
+            // Update drop-off info
+            updateDropoffContact(userData.name, userData.phone);
         });
         
-        receiverOther.addEventListener('click', () => {
-            receiverOther.classList.add('selected');
-            receiverSelf.classList.remove('selected');
-            selfReceiverInfo.style.display = 'none';
-            otherReceiverForm.style.display = 'block';
+        contactOther.addEventListener('click', () => {
+            contactOther.classList.add('selected');
+            contactMe.classList.remove('selected');
+            selfContactInfo.style.display = 'none';
+            otherContactForm.style.display = 'block';
         });
         
-        // Step 2: Add Receiver Phone Number
-        addReceiverPhone.addEventListener('click', () => {
-            const phoneInputs = document.querySelectorAll('#receiverPhoneInputs .phone-input-group');
+        // Update contact info when form changes
+        document.getElementById('contactName').addEventListener('input', updatePickupContactSummary);
+        document.getElementById('contactPhone').addEventListener('input', updatePickupContactSummary);
+        
+        function updatePickupContactSummary() {
+            const name = document.getElementById('contactName').value || 'Someone else';
+            const phone = document.getElementById('contactPhone').value || 'Not specified';
             
-            if (phoneInputs.length < 2) { // Max 2 phone numbers
-                const phoneDiv = document.createElement('div');
-                phoneDiv.className = 'phone-input-group';
-                phoneDiv.innerHTML = `
-                    <input type="tel" class="form-input" placeholder="Additional phone number">
-                    <button type="button" class="remove-phone-btn">
-                        <i class="fas fa-minus"></i> Remove
-                    </button>
-                `;
-                receiverPhoneInputs.appendChild(phoneDiv);
-                
-                // Add event listener to new remove button
-                phoneDiv.querySelector('.remove-phone-btn').addEventListener('click', () => {
-                    phoneDiv.remove();
-                });
-                
-                // Show remove button on first input
-                if (phoneInputs.length === 1) {
-                    phoneInputs[0].querySelector('.remove-phone-btn').style.display = 'block';
-                }
+            // Update drop-off info if pickup contact is also drop-off contact
+            if (contactMe.classList.contains('selected')) {
+                updateDropoffContact(userData.name, userData.phone);
             } else {
-                showNotification('Maximum 2 phone numbers allowed', 'error');
+                updateDropoffContact(name, phone);
             }
+            
+            // Update summary
+            summaryContact.textContent = `${name} (${phone})`;
+        }
+        
+        // Step 2: Cylinder Photo Upload
+        cylinderPhotoUpload.addEventListener('click', () => {
+            cylinderPhotoInput.click();
         });
         
-        // Step 2: Item Photo Upload
-        itemPhotoUpload.addEventListener('click', () => {
-            itemPhotoInput.click();
-        });
-        
-        itemPhotoInput.addEventListener('change', (e) => {
+        cylinderPhotoInput.addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
                 const file = e.target.files[0];
+                // Check file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    showNotification('File size exceeds 5MB limit. Please select a smaller file.', 'error');
+                    return;
+                }
+                
                 if (file.type.startsWith('image/')) {
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        previewItemImage.src = e.target.result;
-                        itemPhotoPreview.style.display = 'block';
+                        previewCylinderImage.src = e.target.result;
+                        cylinderPhotoPreview.style.display = 'block';
                     };
                     reader.readAsDataURL(file);
                 } else {
@@ -2678,19 +3040,101 @@
             }
         });
         
+        // Step 2: Change Drop-off Contact Button
+        changeDropoffContactBtn.addEventListener('click', () => {
+            // Populate modal with current drop-off contact
+            document.getElementById('newDropoffName').value = dropoffContact.name;
+            document.getElementById('newDropoffPhone').value = dropoffContact.phone;
+            
+            changeContactModal.classList.add('active');
+        });
+        
+        // Close contact change modal
+        closeContactModal.addEventListener('click', () => {
+            changeContactModal.classList.remove('active');
+        });
+        
+        cancelContactChangeBtn.addEventListener('click', () => {
+            changeContactModal.classList.remove('active');
+        });
+        
+        saveContactChangeBtn.addEventListener('click', () => {
+            const newName = document.getElementById('newDropoffName').value;
+            const newPhone = document.getElementById('newDropoffPhone').value;
+            
+            if (!newName.trim() || !newPhone.trim()) {
+                showNotification('Please enter both name and phone number', 'error');
+                return;
+            }
+            
+            updateDropoffContact(newName, newPhone);
+            changeContactModal.classList.remove('active');
+            showNotification('Drop-off contact updated successfully!', 'success');
+        });
+        
+        // Update drop-off contact function
+        function updateDropoffContact(name, phone) {
+            dropoffContact = { name, phone };
+            
+            // Update display
+            document.getElementById('dropoffNameDisplay').textContent = name;
+            document.getElementById('dropoffPhoneDisplay').textContent = phone;
+            
+            // Update summary
+            summaryDropoffContact.textContent = `${name} (${phone})`;
+        }
+        
         // Step 2: Back button
         backToStep1Btn.addEventListener('click', () => {
             goToStep(1);
         });
         
-        // Step 2: Next button
+        // Step 2: Next button - validate safety checkboxes
         nextToStep3Btn.addEventListener('click', () => {
-            // Update summary with pickup and delivery locations
-            const pickupAddress = document.getElementById('pickupAddress').value;
-            const selectedAddress = document.querySelector('.address-item.selected .address-details').textContent;
+            // Validate location
+            if (selectedLocationType === 'custom') {
+                const customAddress = document.getElementById('customPickupAddress').value;
+                if (!customAddress.trim()) {
+                    showNotification('Please enter a custom pickup address', 'error');
+                    return;
+                }
+            }
             
-            summaryPickup.textContent = pickupAddress || '-';
-            summaryDelivery.textContent = selectedAddress.replace(/\n/g, ', ');
+            // Check if map was used but not confirmed
+            const coordsDisplay = document.getElementById('coordinatesDisplay');
+            if (selectedCoordinates && coordsDisplay.classList.contains('empty')) {
+                showNotification('Please confirm the map location before proceeding', 'error');
+                return;
+            }
+            
+            // Check if safety checkboxes are checked
+            const valveChecked = document.getElementById('valveCheck').checked;
+            const leakageChecked = document.getElementById('leakageCheck').checked;
+            
+            if (!valveChecked || !leakageChecked) {
+                showNotification('Please confirm all safety checks before proceeding', 'error');
+                return;
+            }
+            
+            // Update summary with pickup location
+            let pickupLocation = '';
+            if (selectedLocationType === 'home') {
+                pickupLocation = document.querySelector('.address-item.selected .address-details').textContent;
+            } else if (selectedLocationType === 'custom') {
+                pickupLocation = document.getElementById('customPickupAddress').value || 'Custom address entered';
+            }
+            summaryPickup.textContent = pickupLocation.replace(/\n/g, ', ');
+            
+            // Update pickup contact summary
+            let pickupContactName, pickupContactPhone;
+            if (contactMe.classList.contains('selected')) {
+                pickupContactName = userData.name;
+                pickupContactPhone = userData.phone;
+            } else {
+                pickupContactName = document.getElementById('contactName').value || 'Someone else';
+                pickupContactPhone = document.getElementById('contactPhone').value || 'Not specified';
+            }
+            summaryContact.textContent = `${pickupContactName} (${pickupContactPhone})`;
             
             goToStep(3);
         });
@@ -2705,22 +3149,16 @@
                 
                 // Get rider price from the displayed price
                 const priceText = rider.querySelector('.rider-price').textContent;
-                selectedRiderPrice = parseInt(priceText.replace('₦', ''));
+                selectedRiderPrice = parseInt(priceText.replace(/[₦,]/g, ''));
                 
-                // Update total amount
+                // Update rider fee and total amount
+                riderFee.textContent = `₦${selectedRiderPrice.toLocaleString()}`;
                 updateTotalAmount();
                 
                 // Update summary in step 4
                 updateOrderSummary();
             });
         });
-        
-        // Update total amount function
-        function updateTotalAmount() {
-            const serviceFee = 150;
-            const total = selectedRiderPrice + serviceFee;
-            totalAmount.textContent = `₦${total}`;
-        }
         
         // Update order summary for step 4
         function updateOrderSummary() {
@@ -2729,12 +3167,7 @@
             const riderVehicle = selectedRiderElement.querySelector('.rider-vehicle').textContent;
             
             summaryRider.textContent = `${riderName} (${riderVehicle})`;
-            summaryRiderFee.textContent = `₦${selectedRiderPrice}`;
-            
-            const serviceFee = 150;
-            const total = selectedRiderPrice + serviceFee;
-            summaryTotal.textContent = `₦${total}`;
-            paymentAmount.textContent = `₦${total}`;
+            summaryRiderFee.textContent = `₦${selectedRiderPrice.toLocaleString()}`;
             confirmedRiderName.textContent = riderName;
         }
         
@@ -2808,12 +3241,12 @@
                     timerMessage.textContent = 'Rider has accepted your delivery request';
                     proceedPaymentBtn.disabled = false;
                     
-                    showNotification('Rider has accepted your delivery request!', 'success');
+                    showNotification('Rider has accepted your gas refill request!', 'success');
                 }, 1000); // Show acceptance after 1 second
             }
         }
         
-        // Step 4: Payment Options
+        // Step 4: Payment Options - Only one option now
         paymentOptions.forEach(option => {
             option.addEventListener('click', () => {
                 paymentOptions.forEach(opt => opt.classList.remove('selected'));
@@ -2930,6 +3363,14 @@
             }, 1000);
         });
         
+        // Update summary function
+        function updateSummary() {
+            // Update cylinder size in summary
+            const sizeText = selectedCylinderSize === Math.floor(selectedCylinderSize) ? 
+                selectedCylinderSize.toString() : selectedCylinderSize.toFixed(1);
+            document.getElementById('summaryCylinderSizeFinal').textContent = `${sizeText} kg`;
+        }
+        
         // Show notification function
         function showNotification(message, type = 'success') {
             // Create notification element
@@ -3005,9 +3446,9 @@
                     // Create text fallback for logo
                     const parent = this.parentElement;
                     parent.innerHTML = '<span style="color:white; font-weight:bold; font-size:20px;">ErrandX</span>';
-                } else if (this.id === 'previewItemImage') {
-                    // Handle item preview error
-                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150"><rect width="200" height="150" fill="%23f0f0f0"/><text x="100" y="80" text-anchor="middle" fill="%23999" font-size="16" font-family="Arial">Image Preview</text></svg>';
+                } else if (this.id === 'previewCylinderImage') {
+                    // Handle cylinder preview error
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150"><rect width="200" height="150" fill="%23f0f0f0"/><text x="100" y="80" text-anchor="middle" fill="%23999" font-size="16" font-family="Arial">Cylinder Preview</text></svg>';
                 }
             });
         });
@@ -3030,12 +3471,15 @@
             `;
         });
         
-        // Initialize total amount and set default receiver info
+        // Initialize with default values
         updateTotalAmount();
+        updateSummary();
         
-        // Set default receiver info on page load
+        // Set default contact info on page load
         document.getElementById('userNameDisplay').textContent = userData.name;
-        document.getElementById('userPhoneDisplay').textContent = userData.phones.join(', ');
+        document.getElementById('userPhoneDisplay').textContent = userData.phone;
+        updateDropoffContact(userData.name, userData.phone);
+        summaryContact.textContent = `${userData.name} (${userData.phone})`;
     </script>
 </body>
 </html>

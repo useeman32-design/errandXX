@@ -1130,7 +1130,7 @@
             font-size: 28px;
         }
 
-        /* Enhanced Theme-Tailored Loader */
+        /* Enhanced Theme-Tailored Loader - UNIVERSAL FIX */
         .loader {
             position: fixed;
             top: 0;
@@ -1142,7 +1142,7 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            transition: opacity 0.3s, visibility 0.3s;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
             opacity: 0;
             visibility: hidden;
             backdrop-filter: blur(6px);
@@ -1235,6 +1235,17 @@
             
             .modal-actions, .delete-actions {
                 flex-direction: column;
+            }
+            
+            /* Improved loader for mobile */
+            .loader-spinner {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 20px;
+            }
+            
+            .loader-text {
+                font-size: 16px;
             }
         }
 
@@ -1608,60 +1619,73 @@
             themeIconHeader.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
         });
         
-        // Enhanced Theme-Tailored Loader
+        // Enhanced Theme-Tailored Loader - UNIVERSAL SOLUTION
         const pageLoader = document.getElementById('pageLoader');
         const navItems = document.querySelectorAll('.nav-item');
         const backButton = document.getElementById('backButton');
         const createButton = document.querySelector('.create-button');
         
-        // Simulate initial page load
+        // Store current page to prevent loader on current page click
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        
+        // Simulate initial page load - CONSISTENT ACROSS ALL PAGES
         window.addEventListener('load', () => {
+            // Show loader immediately
+            pageLoader.classList.add('active');
+            
+            // Hide loader after consistent time (1.5 seconds)
             setTimeout(() => {
                 pageLoader.classList.remove('active');
-            }, 800);
+            }, 1500);
         });
         
-        // Back button handler
-        backButton.addEventListener('click', () => {
+        // UNIVERSAL NAVIGATION HANDLER - Works the same on all pages
+        function handleNavigation(e, targetUrl) {
+            // Always prevent default for navigation
+            e.preventDefault();
+            
+            // Don't navigate if already on this page
+            if (targetUrl === currentPage || (targetUrl === 'index.html' && currentPage === '')) {
+                return;
+            }
+            
+            // Show loader immediately
             pageLoader.classList.add('active');
+            
+            // Update active nav item
+            navItems.forEach(nav => {
+                const navHref = nav.getAttribute('href');
+                if (navHref === targetUrl) {
+                    nav.classList.add('active');
+                } else {
+                    nav.classList.remove('active');
+                }
+            });
+            
+            // Navigate after showing loader for 1.5 seconds
             setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 800);
+                window.location.href = targetUrl;
+            }, 1500);
+        }
+        
+        // Back button handler - CONSISTENT WITH OTHER NAVIGATION
+        backButton.addEventListener('click', (e) => {
+            handleNavigation(e, 'index.html');
         });
         
-        // Navigation click handler
+        // Navigation click handler - UNIVERSAL
         navItems.forEach(item => {
             item.addEventListener('click', (e) => {
-                if (item.classList.contains('active')) return;
-                
-                // Update active nav item
-                navItems.forEach(nav => nav.classList.remove('active'));
-                item.classList.add('active');
-                
-                // Show themed loader
-                pageLoader.classList.add('active');
-                
-                // Get href from anchor tag
                 const href = item.getAttribute('href');
-                
-                // Simulate page navigation
-                setTimeout(() => {
-                    if (href && href !== '#') {
-                        window.location.href = href;
-                    } else {
-                        pageLoader.classList.remove('active');
-                    }
-                }, 1000);
+                if (href && href !== '#') {
+                    handleNavigation(e, href);
+                }
             });
         });
         
-        // Create button handler
-        createButton.addEventListener('click', () => {
-            pageLoader.classList.add('active');
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-                window.location.href = 'index.html';
-            }, 800);
+        // Create button handler - CONSISTENT
+        createButton.addEventListener('click', (e) => {
+            handleNavigation(e, 'create-order.html');
         });
         
         // Favorites Management
@@ -2035,6 +2059,16 @@
                 }
             });
         });
+        
+        // SIMPLE, RELIABLE SOLUTION FOR ALL PAGES
+        console.log('Favorites page loader initialized');
+        console.log('Current page:', currentPage);
+        
+        // Make sure loader shows properly on mobile
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            console.log('Mobile device detected - loader optimized');
+            // Additional mobile optimizations can go here
+        }
     </script>
 </body>
 </html>

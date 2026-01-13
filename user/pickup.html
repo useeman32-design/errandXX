@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Delivery - ErrandX</title>
+    <title>Package Pickup/Drop-off - ErrandX</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -490,7 +490,7 @@
             position: relative;
         }
 
-        #pickupMap {
+        #pickupMap, #dropoffMap {
             width: 100%;
             height: 100%;
         }
@@ -873,8 +873,12 @@
             transform: translateY(-2px);
         }
 
-        /* Photo Upload */
-        .photo-upload-area {
+        /* Professional File Upload - Enhanced */
+        .file-upload-container {
+            margin-bottom: 20px;
+        }
+        
+        .file-upload-area {
             border: 2px dashed var(--border-color);
             border-radius: var(--border-radius-sm);
             padding: 30px 20px;
@@ -882,9 +886,10 @@
             cursor: pointer;
             transition: var(--transition);
             margin-bottom: 15px;
+            position: relative;
         }
 
-        .photo-upload-area:hover {
+        .file-upload-area:hover {
             border-color: var(--primary-green);
             background: rgba(92, 196, 126, 0.05);
             transform: translateY(-2px);
@@ -897,19 +902,51 @@
         }
 
         .upload-text {
-            font-size: 14px;
+            font-size: 16px;
             color: var(--text-dark);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 500;
         }
 
         .upload-subtext {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--text-light);
         }
-
-        #itemPhotoInput {
-            display: none;
+        
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        
+        .custom-file-input {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--border-radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .custom-file-input:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        #packagePhotoInput {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
         }
 
         .photo-preview {
@@ -923,7 +960,13 @@
             border-radius: var(--border-radius-sm);
             border: 1px solid var(--border-color);
         }
-
+        
+        .preview-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
         /* Rider Selection */
         .riders-list {
             display: flex;
@@ -1442,6 +1485,17 @@
             color: var(--text-light);
         }
 
+        /* Custom Package Type Input */
+        .custom-package-input {
+            display: none;
+            margin-top: 15px;
+        }
+        
+        .custom-package-input.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
         /* Responsive Adjustments */
         @media (max-width: 480px) {
             .container {
@@ -1503,6 +1557,10 @@
             .page-title {
                 font-size: 32px;
             }
+            
+            .location-options {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
         }
     </style>
 </head>
@@ -1536,7 +1594,8 @@
     <main class="dashboard-content container">
         <!-- Page Header -->
         <section class="page-header">
-            <h1 class="page-title">Home Delivery</h1>
+            <h1 class="page-title">Package Pickup/Drop-off</h1>
+            <p style="color: var(--text-light); margin-top: 5px;">Send packages from any location to any destination (A → B)</p>
         </section>
 
         <!-- Delivery Steps Indicator -->
@@ -1548,14 +1607,18 @@
                 </div>
                 <div class="step" data-step="2">
                     <div class="step-icon">2</div>
-                    <div class="step-title">Delivery Details</div>
+                    <div class="step-title">Drop-off Details</div>
                 </div>
                 <div class="step" data-step="3">
                     <div class="step-icon">3</div>
-                    <div class="step-title">Select Rider</div>
+                    <div class="step-title">Package Info</div>
                 </div>
                 <div class="step" data-step="4">
                     <div class="step-icon">4</div>
+                    <div class="step-title">Select Rider</div>
+                </div>
+                <div class="step" data-step="5">
+                    <div class="step-icon">5</div>
                     <div class="step-title">Checkout</div>
                 </div>
             </div>
@@ -1567,23 +1630,29 @@
                         <div class="section-icon">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
-                        <h2 class="section-title">Pickup Location</h2>
+                        <h2 class="section-title">Pickup Location (Point A)</h2>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label required">Pickup Location Type</label>
                         <div class="location-options">
-                            <div class="location-option selected" data-type="shop">
+                            <div class="location-option selected" data-type="home">
+                                <div class="location-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="location-name">Home</div>
+                            </div>
+                            <div class="location-option" data-type="shop">
                                 <div class="location-icon">
                                     <i class="fas fa-store"></i>
                                 </div>
                                 <div class="location-name">Shop</div>
                             </div>
-                            <div class="location-option" data-type="home">
+                            <div class="location-option" data-type="office">
                                 <div class="location-icon">
-                                    <i class="fas fa-home"></i>
+                                    <i class="fas fa-building"></i>
                                 </div>
-                                <div class="location-name">Home</div>
+                                <div class="location-name">Office</div>
                             </div>
                             <div class="location-option" data-type="custom">
                                 <div class="location-icon">
@@ -1596,7 +1665,7 @@
 
                     <div class="form-group">
                         <label class="form-label required">Pickup Address</label>
-                        <textarea class="form-textarea" id="pickupAddress" placeholder="Enter detailed pickup address (for manual review if map fails)" rows="3"></textarea>
+                        <textarea class="form-textarea" id="pickupAddress" placeholder="Enter detailed pickup address" rows="3"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -1605,18 +1674,18 @@
                             <div id="pickupMap"></div>
                         </div>
                         <div class="map-controls">
-                            <button class="map-btn secondary" id="useCurrentLocation">
+                            <button class="map-btn secondary" id="useCurrentLocationPickup">
                                 <i class="fas fa-location-arrow"></i> Use My Location
                             </button>
-                            <button class="map-btn" id="confirmMapLocation">
+                            <button class="map-btn" id="confirmMapLocationPickup">
                                 <i class="fas fa-check"></i> Confirm Location
                             </button>
                         </div>
                         
-                        <!-- New Coordinates Display Field -->
-                        <div class="coordinates-display-container" id="coordinatesDisplayContainer">
+                        <!-- Coordinates Display Field -->
+                        <div class="coordinates-display-container" id="pickupCoordinatesDisplayContainer">
                             <label class="form-label" style="margin-top: 15px;">Confirmed Map Location</label>
-                            <div class="coordinates-display empty" id="coordinatesDisplay">
+                            <div class="coordinates-display empty" id="pickupCoordinatesDisplay">
                                 No location confirmed yet. Click "Confirm Location" to set coordinates.
                             </div>
                         </div>
@@ -1628,33 +1697,71 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label required">Pickup Contact Phone</label>
-                        <div class="phone-input-group">
-                            <input type="tel" class="form-input" id="pickupContactPhone" placeholder="Enter phone number">
+                        <label class="form-label required">Pickup Contact Phone Numbers</label>
+                        <div id="pickupPhoneInputs">
+                            <div class="phone-input-group">
+                                <input type="tel" class="form-input" placeholder="Primary phone number">
+                                <button type="button" class="remove-phone-btn" style="display: none;">
+                                    <i class="fas fa-minus"></i> Remove
+                                </button>
+                            </div>
                         </div>
+                        <button type="button" class="add-phone-btn" id="addPickupPhone">
+                            <i class="fas fa-plus"></i> Add Another Number
+                        </button>
                     </div>
                 </div>
 
                 <div class="action-buttons">
                     <button class="action-btn next-btn" id="nextToStep2">
-                        Continue to Delivery Details <i class="fas fa-arrow-right"></i>
+                        Continue to Drop-off Details <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Step 2: Delivery Details -->
+            <!-- Step 2: Drop-off Details -->
             <div class="step-content" id="step2">
                 <div class="form-section">
                     <div class="section-header">
                         <div class="section-icon">
-                            <i class="fas fa-home"></i>
+                            <i class="fas fa-flag-checkered"></i>
                         </div>
-                        <h2 class="section-title">Delivery Location</h2>
+                        <h2 class="section-title">Drop-off Location (Point B)</h2>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label required">Select Home Address</label>
-                        <div class="address-list" id="homeAddresses">
+                        <label class="form-label required">Drop-off Location Type</label>
+                        <div class="location-options">
+                            <div class="location-option selected" data-type="home">
+                                <div class="location-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="location-name">Home</div>
+                            </div>
+                            <div class="location-option" data-type="shop">
+                                <div class="location-icon">
+                                    <i class="fas fa-store"></i>
+                                </div>
+                                <div class="location-name">Shop</div>
+                            </div>
+                            <div class="location-option" data-type="office">
+                                <div class="location-icon">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <div class="location-name">Office</div>
+                            </div>
+                            <div class="location-option" data-type="custom">
+                                <div class="location-icon">
+                                    <i class="fas fa-map-pin"></i>
+                                </div>
+                                <div class="location-name">Custom</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Drop-off Address</label>
+                        <div class="address-list" id="dropoffAddresses">
                             <div class="address-item selected" data-address="home1">
                                 <div class="address-title">
                                     Home Address
@@ -1667,18 +1774,41 @@
                             </div>
                             <div class="address-item" data-address="home2">
                                 <div class="address-title">
-                                    Parents' House
-                                    <span class="address-type">Family</span>
+                                    Office
+                                    <span class="address-type">Work</span>
                                 </div>
                                 <div class="address-details">
-                                    78 Family Road, Unguwan Gwaza<br>
-                                    Gusau, Zamfara State
+                                    45 Business Avenue, Gusau<br>
+                                    Zamfara State
                                 </div>
                             </div>
                         </div>
-                        <button class="add-address-btn" id="addAddressBtn">
+                        <button class="add-address-btn" id="addDropoffAddressBtn">
                             <i class="fas fa-plus"></i> Add New Address
                         </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Select on Map (Optional)</label>
+                        <div class="map-container">
+                            <div id="dropoffMap"></div>
+                        </div>
+                        <div class="map-controls">
+                            <button class="map-btn secondary" id="useCurrentLocationDropoff">
+                                <i class="fas fa-location-arrow"></i> Use My Location
+                            </button>
+                            <button class="map-btn" id="confirmMapLocationDropoff">
+                                <i class="fas fa-check"></i> Confirm Location
+                            </button>
+                        </div>
+                        
+                        <!-- Coordinates Display Field -->
+                        <div class="coordinates-display-container" id="dropoffCoordinatesDisplayContainer">
+                            <label class="form-label" style="margin-top: 15px;">Confirmed Map Location</label>
+                            <div class="coordinates-display empty" id="dropoffCoordinatesDisplay">
+                                No location confirmed yet. Click "Confirm Location" to set coordinates.
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -1735,31 +1865,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">Item Description</label>
-                        <textarea class="form-textarea" id="itemDescription" placeholder="Describe the item to be delivered" rows="3"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Item Photo (Optional)</label>
-                        <div class="photo-upload-area" id="itemPhotoUpload">
-                            <div class="upload-icon">
-                                <i class="fas fa-camera"></i>
-                            </div>
-                            <div class="upload-text">Add item photo</div>
-                            <div class="upload-subtext">Click to upload or drag and drop</div>
-                            <input type="file" id="itemPhotoInput" accept="image/*">
-                        </div>
-                        <div class="photo-preview" id="itemPhotoPreview" style="display: none;">
-                            <img id="previewItemImage" class="preview-image" alt="Item preview">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Delivery Note (Optional)</label>
-                        <textarea class="form-textarea" id="deliveryNote" placeholder="Any special instructions for the rider" rows="2"></textarea>
-                    </div>
                 </div>
 
                 <div class="action-buttons">
@@ -1767,13 +1872,145 @@
                         <i class="fas fa-arrow-left"></i> Back to Pickup
                     </button>
                     <button class="action-btn next-btn" id="nextToStep3">
+                        Continue to Package Info <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Package Information -->
+            <div class="step-content" id="step3">
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <h2 class="section-title">Package Details</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Package Type</label>
+                        <div class="location-options">
+                            <div class="location-option selected" data-type="document">
+                                <div class="location-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="location-name">Document</div>
+                            </div>
+                            <div class="location-option" data-type="parcel">
+                                <div class="location-icon">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                <div class="location-name">Parcel</div>
+                            </div>
+                            <div class="location-option" data-type="fragile">
+                                <div class="location-icon">
+                                    <i class="fas fa-glass-cheers"></i>
+                                </div>
+                                <div class="location-name">Fragile</div>
+                            </div>
+                            <div class="location-option" data-type="food">
+                                <div class="location-icon">
+                                    <i class="fas fa-utensils"></i>
+                                </div>
+                                <div class="location-name">Food</div>
+                            </div>
+                            <div class="location-option" data-type="electronics">
+                                <div class="location-icon">
+                                    <i class="fas fa-laptop"></i>
+                                </div>
+                                <div class="location-name">Electronics</div>
+                            </div>
+                            <div class="location-option" data-type="clothing">
+                                <div class="location-icon">
+                                    <i class="fas fa-tshirt"></i>
+                                </div>
+                                <div class="location-name">Clothing</div>
+                            </div>
+                            <div class="location-option" data-type="custom">
+                                <div class="location-icon">
+                                    <i class="fas fa-edit"></i>
+                                </div>
+                                <div class="location-name">Custom</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Package Type Input -->
+                    <div class="custom-package-input" id="customPackageInput">
+                        <div class="form-group">
+                            <label class="form-label required">Custom Package Name</label>
+                            <input type="text" class="form-input" id="customPackageName" placeholder="Enter custom package type (e.g., Medical supplies, Furniture)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Package Description (Optional)</label>
+                        <textarea class="form-textarea" id="packageDescription" placeholder="Describe the package contents, size, or any important details" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Package Photo (Optional)</label>
+                        <div class="file-upload-container">
+                            <div class="file-upload-area" id="packagePhotoUpload">
+                                <div class="upload-icon">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                                <div class="upload-text">Add package photo</div>
+                                <div class="upload-subtext">Click to upload or drag and drop</div>
+                                <div class="file-input-wrapper">
+                                    <button class="custom-file-input">
+                                        <i class="fas fa-upload"></i> Choose File
+                                    </button>
+                                    <input type="file" id="packagePhotoInput" accept="image/*">
+                                </div>
+                            </div>
+                            <div class="photo-preview" id="packagePhotoPreview" style="display: none;">
+                                <img id="previewPackageImage" class="preview-image" alt="Package preview">
+                                <div class="preview-info" id="previewInfo"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Delivery Instructions (Optional)</label>
+                        <textarea class="form-textarea" id="deliveryInstructions" placeholder="Any special instructions for the rider" rows="3"></textarea>
+                    </div>
+
+                    <div class="checkout-summary">
+                        <h3 class="summary-title">Route Summary</h3>
+                        <div class="summary-details">
+                            <div class="summary-row">
+                                <span class="summary-label">Pickup Location</span>
+                                <span id="routePickup">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Drop-off Location</span>
+                                <span id="routeDropoff">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Estimated Distance</span>
+                                <span id="estimatedDistance">7.5 km</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Estimated Time</span>
+                                <span id="estimatedTime">35-45 mins</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn prev-btn" id="backToStep2">
+                        <i class="fas fa-arrow-left"></i> Back to Drop-off
+                    </button>
+                    <button class="action-btn next-btn" id="nextToStep4">
                         Continue to Select Rider <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Step 3: Select Rider -->
-            <div class="step-content" id="step3">
+            <!-- Step 4: Select Rider -->
+            <div class="step-content" id="step4">
                 <div class="form-section">
                     <div class="section-header">
                         <div class="section-icon">
@@ -1784,7 +2021,7 @@
 
                     <div class="riders-list" id="ridersList">
                         <!-- Rider 1 -->
-                        <div class="rider-item selected" data-rider="1">
+                        <div class="rider-item selected" data-rider="1" data-base-price="800" data-per-km="50">
                             <div class="rider-online-status">
                                 <span class="online-dot"></span>
                                 <span>Online</span>
@@ -1811,12 +2048,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="rider-price">₦850</div>
+                                <div class="rider-price" id="riderPrice1">₦1,200</div>
+                            </div>
+                            <div style="font-size: 12px; color: var(--text-light); margin-top: 10px;">
+                                <i class="fas fa-info-circle"></i> Base: ₦800 + ₦50/km
                             </div>
                         </div>
 
                         <!-- Rider 2 -->
-                        <div class="rider-item" data-rider="2">
+                        <div class="rider-item" data-rider="2" data-base-price="1000" data-per-km="70">
                             <div class="rider-online-status">
                                 <span class="online-dot"></span>
                                 <span>Online</span>
@@ -1843,12 +2083,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="rider-price">₦950</div>
+                                <div class="rider-price" id="riderPrice2">₦1,500</div>
+                            </div>
+                            <div style="font-size: 12px; color: var(--text-light); margin-top: 10px;">
+                                <i class="fas fa-info-circle"></i> Base: ₦1,000 + ₦70/km
                             </div>
                         </div>
 
                         <!-- Rider 3 -->
-                        <div class="rider-item" data-rider="3">
+                        <div class="rider-item" data-rider="3" data-base-price="1200" data-per-km="100">
                             <div class="rider-online-status">
                                 <span class="online-dot"></span>
                                 <span>Online</span>
@@ -1862,7 +2105,7 @@
                                         <div class="rider-name">Ibrahim Yusuf</div>
                                         <div class="rider-details">
                                             <span class="rider-vehicle">
-                                                <i class="fas fa-bicycle"></i> Bicycle
+                                                <i class="fas fa-truck-pickup"></i> Pickup
                                             </span>
                                             <span class="rider-rating">
                                                 <i class="fas fa-star"></i>
@@ -1874,12 +2117,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="rider-price">₦650</div>
+                                <div class="rider-price" id="riderPrice3">₦2,000</div>
+                            </div>
+                            <div style="font-size: 12px; color: var(--text-light); margin-top: 10px;">
+                                <i class="fas fa-info-circle"></i> Base: ₦1,200 + ₦100/km
                             </div>
                         </div>
 
                         <!-- Rider 4 -->
-                        <div class="rider-item" data-rider="4">
+                        <div class="rider-item" data-rider="4" data-base-price="700" data-per-km="45">
                             <div class="rider-online-status">
                                 <span class="online-dot"></span>
                                 <span>Online</span>
@@ -1893,7 +2139,7 @@
                                         <div class="rider-name">Suleiman Bello</div>
                                         <div class="rider-details">
                                             <span class="rider-vehicle">
-                                                <i class="fas fa-truck-pickup"></i> Pickup
+                                                <i class="fas fa-motorcycle"></i> Motorcycle
                                             </span>
                                             <span class="rider-rating">
                                                 <i class="fas fa-star"></i>
@@ -1906,7 +2152,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="rider-price">₦750</div>
+                                <div class="rider-price" id="riderPrice4">₦1,100</div>
+                            </div>
+                            <div style="font-size: 12px; color: var(--text-light); margin-top: 10px;">
+                                <i class="fas fa-info-circle"></i> Base: ₦700 + ₦45/km
                             </div>
                         </div>
                     </div>
@@ -1916,36 +2165,44 @@
                         <div class="summary-details">
                             <div class="summary-row">
                                 <span class="summary-label">Delivery Distance</span>
-                                <span>5.2 km</span>
+                                <span id="summaryDistance">7.5 km</span>
                             </div>
                             <div class="summary-row">
                                 <span class="summary-label">Estimated Time</span>
-                                <span>25-35 mins</span>
+                                <span id="summaryTime">35-45 mins</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Package Type</span>
+                                <span id="summaryPackageType">Document</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Rider Fee</span>
+                                <span id="summaryRiderFee">₦1,200</span>
                             </div>
                             <div class="summary-row">
                                 <span class="summary-label">Service Fee</span>
-                                <span>₦150</span>
+                                <span id="summaryServiceFee">₦200</span>
                             </div>
                         </div>
                         <div class="summary-total">
                             <span>Total Amount</span>
-                            <span id="totalAmount">₦850</span>
+                            <span id="totalAmount">₦1,400</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="action-buttons">
-                    <button class="action-btn prev-btn" id="backToStep2">
-                        <i class="fas fa-arrow-left"></i> Back to Delivery
+                    <button class="action-btn prev-btn" id="backToStep3">
+                        <i class="fas fa-arrow-left"></i> Back to Package Info
                     </button>
-                    <button class="action-btn next-btn" id="nextToStep4">
+                    <button class="action-btn next-btn" id="nextToStep5">
                         Proceed to Checkout <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Step 4: Checkout -->
-            <div class="step-content" id="step4">
+            <!-- Step 5: Checkout -->
+            <div class="step-content" id="step5">
                 <div class="form-section">
                     <div class="section-header">
                         <div class="section-icon">
@@ -1962,25 +2219,41 @@
                                 <span id="summaryPickup">-</span>
                             </div>
                             <div class="summary-row">
-                                <span class="summary-label">Delivery Location</span>
-                                <span id="summaryDelivery">-</span>
+                                <span class="summary-label">Pickup Contact</span>
+                                <span id="summaryPickupContact">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Drop-off Location</span>
+                                <span id="summaryDropoff">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Receiver</span>
+                                <span id="summaryReceiver">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Package Type</span>
+                                <span id="summaryPackageTypeFinal">-</span>
                             </div>
                             <div class="summary-row">
                                 <span class="summary-label">Selected Rider</span>
                                 <span id="summaryRider">-</span>
                             </div>
                             <div class="summary-row">
+                                <span class="summary-label">Distance</span>
+                                <span id="summaryDistanceFinal">-</span>
+                            </div>
+                            <div class="summary-row">
                                 <span class="summary-label">Rider Fee</span>
-                                <span id="summaryRiderFee">₦850</span>
+                                <span id="summaryRiderFeeFinal">₦1,200</span>
                             </div>
                             <div class="summary-row">
                                 <span class="summary-label">Service Fee</span>
-                                <span>₦150</span>
+                                <span id="summaryServiceFeeFinal">₦200</span>
                             </div>
                         </div>
                         <div class="summary-total">
                             <span>Total Amount</span>
-                            <span id="summaryTotal">₦1,000</span>
+                            <span id="summaryTotal">₦1,400</span>
                         </div>
                     </div>
 
@@ -2005,12 +2278,18 @@
                                 </div>
                                 <div class="location-name">Bank Transfer</div>
                             </div>
+                            <div class="location-option" data-payment="cash">
+                                <div class="location-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <div class="location-name">Cash on Delivery</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="action-buttons">
-                    <button class="action-btn prev-btn" id="backToStep3">
+                    <button class="action-btn prev-btn" id="backToStep4">
                         <i class="fas fa-arrow-left"></i> Back to Riders
                     </button>
                     <button class="action-btn payment-btn" id="proceedPayment" disabled>
@@ -2077,7 +2356,7 @@
                 <form id="addressForm">
                     <div class="form-group">
                         <label class="form-label required">Address Title</label>
-                        <input type="text" class="form-input" id="newAddressTitle" placeholder="e.g., Home, Office, Parents' House" required>
+                        <input type="text" class="form-input" id="newAddressTitle" placeholder="e.g., Home, Office, Shop" required>
                     </div>
                     
                     <div class="form-group">
@@ -2090,7 +2369,7 @@
                         <select class="form-select" id="newAddressType" required>
                             <option value="Home">Home</option>
                             <option value="Office">Office</option>
-                            <option value="Family">Family</option>
+                            <option value="Shop">Shop</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
@@ -2099,7 +2378,7 @@
                         <label class="form-label">Set as Primary Address</label>
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <input type="checkbox" id="setAsPrimary" style="width: 20px; height: 20px;">
-                            <label for="setAsPrimary" style="font-size: 14px; color: var(--text-dark);">Make this your primary delivery address</label>
+                            <label for="setAsPrimary" style="font-size: 14px; color: var(--text-dark);">Make this your primary address</label>
                         </div>
                     </div>
                     
@@ -2127,7 +2406,7 @@
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
                     <h3>Is this the exact location?</h3>
-                    <p id="confirmationAddressText">Address will appear here</p>
+                    <p id="confirmationAddressText">Coordinates will appear here</p>
                     <div class="confirmation-actions">
                         <button class="confirmation-btn confirm-no-btn" id="confirmNoBtn">No, Cancel</button>
                         <button class="confirmation-btn confirm-yes-btn" id="confirmYesBtn">Yes, Confirm</button>
@@ -2150,7 +2429,7 @@
                 <div style="text-align: center; padding: 20px 0;">
                     <div class="loader-spinner" style="margin: 0 auto 20px;"></div>
                     <h3 style="margin-bottom: 10px; color: var(--text-dark);">Processing Payment</h3>
-                    <p style="color: var(--text-light); margin-bottom: 30px;">Please wait while we process your payment of <strong id="paymentAmount">₦1,000</strong></p>
+                    <p style="color: var(--text-light); margin-bottom: 30px;">Please wait while we process your payment of <strong id="paymentAmount">₦1,400</strong></p>
                 </div>
             </div>
         </div>
@@ -2160,7 +2439,7 @@
     <div class="modal" id="orderConfirmedModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Order Confirmed!</h2>
+                <h2 class="modal-title">Package Delivery Confirmed!</h2>
                 <button class="close-modal-btn" id="closeOrderModal">
                     <i class="fas fa-times"></i>
                 </button>
@@ -2170,9 +2449,9 @@
                     <div style="width: 80px; height: 80px; background: var(--primary-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
                         <i class="fas fa-check" style="color: white; font-size: 36px;"></i>
                     </div>
-                    <h3 style="margin-bottom: 10px; color: var(--text-dark);">Your order has been confirmed!</h3>
+                    <h3 style="margin-bottom: 10px; color: var(--text-dark);">Your package delivery has been confirmed!</h3>
                     <p style="color: var(--text-light); margin-bottom: 20px;">Rider <strong id="confirmedRiderName">Abdul Sani</strong> has accepted your delivery request.</p>
-                    <p style="color: var(--text-light); margin-bottom: 30px;">Estimated delivery time: <strong>25-35 minutes</strong></p>
+                    <p style="color: var(--text-light); margin-bottom: 30px;">Estimated delivery time: <strong>35-45 minutes</strong></p>
                     
                     <div class="action-buttons">
                         <button class="action-btn prev-btn" id="viewOrderDetails">View Order Details</button>
@@ -2223,42 +2502,59 @@
         let currentStep = 1;
         
         // Step 1 Elements
-        const locationOptions = document.querySelectorAll('.location-option[data-type]');
+        const locationOptions = document.querySelectorAll('.step-content#step1 .location-option[data-type]');
         const nextToStep2Btn = document.getElementById('nextToStep2');
         
         // Step 2 Elements
+        const dropoffLocationOptions = document.querySelectorAll('.step-content#step2 .location-option[data-type]');
         const addressItems = document.querySelectorAll('.address-item');
-        const addAddressBtn = document.getElementById('addAddressBtn');
+        const addDropoffAddressBtn = document.getElementById('addDropoffAddressBtn');
         const receiverSelf = document.getElementById('receiverSelf');
         const receiverOther = document.getElementById('receiverOther');
         const selfReceiverInfo = document.getElementById('selfReceiverInfo');
         const otherReceiverForm = document.getElementById('otherReceiverForm');
         const addReceiverPhone = document.getElementById('addReceiverPhone');
         const receiverPhoneInputs = document.getElementById('receiverPhoneInputs');
-        const itemPhotoUpload = document.getElementById('itemPhotoUpload');
-        const itemPhotoInput = document.getElementById('itemPhotoInput');
-        const itemPhotoPreview = document.getElementById('itemPhotoPreview');
-        const previewItemImage = document.getElementById('previewItemImage');
+        const addPickupPhone = document.getElementById('addPickupPhone');
+        const pickupPhoneInputs = document.getElementById('pickupPhoneInputs');
         const backToStep1Btn = document.getElementById('backToStep1');
         const nextToStep3Btn = document.getElementById('nextToStep3');
         
         // Step 3 Elements
-        const riderItems = document.querySelectorAll('.rider-item');
-        const totalAmount = document.getElementById('totalAmount');
+        const packageTypeOptions = document.querySelectorAll('.step-content#step3 .location-option[data-type]');
+        const customPackageInput = document.getElementById('customPackageInput');
+        const customPackageName = document.getElementById('customPackageName');
+        const packagePhotoUpload = document.getElementById('packagePhotoUpload');
+        const packagePhotoInput = document.getElementById('packagePhotoInput');
+        const customFileInputBtn = document.querySelector('.custom-file-input');
+        const packagePhotoPreview = document.getElementById('packagePhotoPreview');
+        const previewPackageImage = document.getElementById('previewPackageImage');
+        const previewInfo = document.getElementById('previewInfo');
         const backToStep2Btn = document.getElementById('backToStep2');
         const nextToStep4Btn = document.getElementById('nextToStep4');
         
         // Step 4 Elements
+        const riderItems = document.querySelectorAll('.rider-item');
+        const totalAmount = document.getElementById('totalAmount');
+        const backToStep3Btn = document.getElementById('backToStep3');
+        const nextToStep5Btn = document.getElementById('nextToStep5');
+        
+        // Step 5 Elements
         const summaryPickup = document.getElementById('summaryPickup');
-        const summaryDelivery = document.getElementById('summaryDelivery');
+        const summaryPickupContact = document.getElementById('summaryPickupContact');
+        const summaryDropoff = document.getElementById('summaryDropoff');
+        const summaryReceiver = document.getElementById('summaryReceiver');
+        const summaryPackageTypeFinal = document.getElementById('summaryPackageTypeFinal');
         const summaryRider = document.getElementById('summaryRider');
-        const summaryRiderFee = document.getElementById('summaryRiderFee');
+        const summaryDistanceFinal = document.getElementById('summaryDistanceFinal');
+        const summaryRiderFeeFinal = document.getElementById('summaryRiderFeeFinal');
+        const summaryServiceFeeFinal = document.getElementById('summaryServiceFeeFinal');
         const summaryTotal = document.getElementById('summaryTotal');
         const countdownTimer = document.getElementById('countdownTimer');
         const timerMessage = document.getElementById('timerMessage');
-        const paymentOptions = document.querySelectorAll('.location-option[data-payment]');
+        const paymentOptions = document.querySelectorAll('.step-content#step5 .location-option[data-payment]');
         const proceedPaymentBtn = document.getElementById('proceedPayment');
-        const backToStep3Btn = document.getElementById('backToStep3');
+        const backToStep4Btn = document.getElementById('backToStep4');
         
         // Modal Elements
         const addAddressModal = document.getElementById('addAddressModal');
@@ -2287,19 +2583,20 @@
         
         // Selected options
         let selectedRider = 1;
-        let selectedRiderPrice = 850;
+        let selectedRiderPrice = 1200;
         let selectedPayment = 'card';
+        let selectedPackageType = 'document';
+        let customPackageTypeName = '';
+        
+        // Delivery calculation variables
+        let estimatedDistance = 7.5; // in km
+        let estimatedTime = "35-45 mins";
+        let serviceFee = 200;
         
         // Map variables
-        let map;
-        let marker;
-        let userLocation = [11.9814, 6.7714]; // Gusau, Zamfara coordinates
-        let selectedCoordinates = null;
-        let selectedAddress = '';
-        let currentMapLayer = 'satellite'; // Default to satellite
-        
-        // Tile layers
-        let satelliteLayer, streetLayer;
+        let pickupMap, dropoffMap;
+        let pickupMarker, dropoffMarker;
+        let pickupSelectedCoordinates = null, dropoffSelectedCoordinates = null;
         
         // User data (simulated - in real app, this would come from profile)
         const userData = {
@@ -2311,56 +2608,79 @@
         window.addEventListener('load', () => {
             setTimeout(() => {
                 pageLoader.classList.remove('active');
-                initializeMap();
+                initializeMaps();
+                calculateRiderPrices();
             }, 800);
         });
         
-        // Initialize Leaflet Map
-        function initializeMap() {
-            // Initialize map with attribution control disabled
-            map = L.map('pickupMap', {
-                attributionControl: false // This completely disables the attribution control
-            }).setView(userLocation, 13);
+        // Initialize Leaflet Maps
+        function initializeMaps() {
+            // Initialize pickup map
+            pickupMap = L.map('pickupMap', {
+                attributionControl: false
+            }).setView([11.9814, 6.7714], 13);
+            
+            // Initialize dropoff map
+            dropoffMap = L.map('dropoffMap', {
+                attributionControl: false
+            }).setView([11.9814, 6.7714], 13);
             
             // Create tile layers with empty attribution
-            satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-                attribution: '', // Empty string to remove attribution
+            const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: '',
                 maxZoom: 19
             });
             
-            streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '', // Empty string to remove attribution
+            const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '',
                 maxZoom: 19
             });
             
-            // Add satellite layer by default
-            satelliteLayer.addTo(map);
+            // Add satellite layer to both maps
+            satelliteLayer.addTo(pickupMap);
+            satelliteLayer.addTo(dropoffMap);
             
-            // Create map type selector
-            createMapTypeSelector();
+            // Create map type selectors
+            createMapTypeSelector(pickupMap, 'pickupMap');
+            createMapTypeSelector(dropoffMap, 'dropoffMap');
             
-            // Add initial marker
-            marker = L.marker(userLocation, {
+            // Add initial markers
+            pickupMarker = L.marker([11.9814, 6.7714], {
                 draggable: true,
                 title: "Drag to set pickup location"
-            }).addTo(map);
+            }).addTo(pickupMap);
             
-            // Add marker drag event
-            marker.on('dragend', function(e) {
-                const position = marker.getLatLng();
-                updateCoordinates(position.lat, position.lng);
+            dropoffMarker = L.marker([11.9814, 6.7714], {
+                draggable: true,
+                title: "Drag to set drop-off location"
+            }).addTo(dropoffMap);
+            
+            // Add marker drag events
+            pickupMarker.on('dragend', function(e) {
+                const position = pickupMarker.getLatLng();
+                updateCoordinates(position.lat, position.lng, 'pickup');
             });
             
-            // Add click event to map to move marker
-            map.on('click', function(e) {
-                marker.setLatLng(e.latlng);
-                updateCoordinates(e.latlng.lat, e.latlng.lng);
+            dropoffMarker.on('dragend', function(e) {
+                const position = dropoffMarker.getLatLng();
+                updateCoordinates(position.lat, position.lng, 'dropoff');
+            });
+            
+            // Add click events to maps to move markers
+            pickupMap.on('click', function(e) {
+                pickupMarker.setLatLng(e.latlng);
+                updateCoordinates(e.latlng.lat, e.latlng.lng, 'pickup');
+            });
+            
+            dropoffMap.on('click', function(e) {
+                dropoffMarker.setLatLng(e.latlng);
+                updateCoordinates(e.latlng.lat, e.latlng.lng, 'dropoff');
             });
         }
         
         // Create map type selector
-        function createMapTypeSelector() {
-            const mapContainer = document.querySelector('.map-container');
+        function createMapTypeSelector(mapInstance, mapId) {
+            const mapContainer = document.querySelector(`#${mapId}`).parentElement;
             
             const selectorDiv = document.createElement('div');
             selectorDiv.className = 'map-type-selector';
@@ -2382,80 +2702,137 @@
                     this.classList.add('active');
                     
                     // Switch map layer
+                    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                        attribution: '',
+                        maxZoom: 19
+                    });
+                    
+                    const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '',
+                        maxZoom: 19
+                    });
+                    
                     if (type === 'satellite') {
-                        map.removeLayer(streetLayer);
-                        satelliteLayer.addTo(map);
-                        currentMapLayer = 'satellite';
+                        mapInstance.eachLayer(layer => {
+                            if (layer._url && layer._url.includes('openstreetmap')) {
+                                mapInstance.removeLayer(layer);
+                            }
+                        });
+                        satelliteLayer.addTo(mapInstance);
                     } else {
-                        map.removeLayer(satelliteLayer);
-                        streetLayer.addTo(map);
-                        currentMapLayer = 'street';
+                        mapInstance.eachLayer(layer => {
+                            if (layer._url && layer._url.includes('arcgisonline')) {
+                                mapInstance.removeLayer(layer);
+                            }
+                        });
+                        streetLayer.addTo(mapInstance);
                     }
                 });
             });
         }
         
         // Update coordinates when marker is moved
-        function updateCoordinates(lat, lng) {
-            selectedCoordinates = { lat, lng };
-            
-            // In a real app, you would call a reverse geocoding API here
-            // For demo, we'll simulate an address lookup
-            simulateReverseGeocoding(lat, lng);
+        function updateCoordinates(lat, lng, type) {
+            if (type === 'pickup') {
+                pickupSelectedCoordinates = { lat, lng };
+                updateConfirmationModal(lat, lng);
+            } else {
+                dropoffSelectedCoordinates = { lat, lng };
+                updateConfirmationModal(lat, lng);
+            }
         }
         
-        // Simulate reverse geocoding (in real app, use a service like Nominatim)
-        function simulateReverseGeocoding(lat, lng) {
-            // This is a simulation - in a real app, you would use:
-            // fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
-            
-            const addresses = [
-                "123 Main Street, Tudun Wada, Gusau",
-                "Market Square, Gusau Central Market",
-                "Zamfara State University Road",
-                "Unguwan Gwaza Residential Area",
-                "Gusau City Center"
-            ];
-            
-            // Pick a pseudo-random address based on coordinates
-            const index = Math.abs(Math.round((lat + lng) * 1000) % addresses.length);
-            selectedAddress = addresses[index];
-            
-            // Update confirmation modal text
+        // Update confirmation modal
+        function updateConfirmationModal(lat, lng) {
             confirmationAddressText.textContent = 
-                `${selectedAddress}\n\nCoordinates: ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                `Coordinates: ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
         }
         
-        // Show the confirmation modal
-        function showConfirmationModal() {
-            if (!selectedCoordinates) {
-                showNotification('Please select a location on the map first', 'error');
+        // Calculate rider prices based on distance and package type
+        function calculateRiderPrices() {
+            const riders = document.querySelectorAll('.rider-item');
+            
+            riders.forEach(rider => {
+                const basePrice = parseFloat(rider.getAttribute('data-base-price'));
+                const perKm = parseFloat(rider.getAttribute('data-per-km'));
+                const riderId = rider.getAttribute('data-rider');
+                
+                // Calculate price based on distance
+                let calculatedPrice = basePrice + (perKm * estimatedDistance);
+                
+                // Adjust price based on package type
+                let packageMultiplier = 1.0;
+                if (selectedPackageType === 'fragile') {
+                    packageMultiplier = 1.3; // 30% extra for fragile items
+                } else if (selectedPackageType === 'electronics') {
+                    packageMultiplier = 1.2; // 20% extra for electronics
+                } else if (selectedPackageType === 'food') {
+                    packageMultiplier = 1.1; // 10% extra for food (requires temperature control)
+                }
+                
+                calculatedPrice *= packageMultiplier;
+                
+                // Round to nearest 10
+                calculatedPrice = Math.round(calculatedPrice / 10) * 10;
+                
+                // Update rider price display
+                const priceElement = document.getElementById(`riderPrice${riderId}`);
+                if (priceElement) {
+                    priceElement.textContent = `₦${calculatedPrice.toLocaleString()}`;
+                }
+                
+                // If this is the selected rider, update the selected price
+                if (parseInt(riderId) === selectedRider) {
+                    selectedRiderPrice = calculatedPrice;
+                    updateTotalAmount();
+                }
+            });
+        }
+        
+        // Show the confirmation modal for pickup or dropoff
+        function showConfirmationModal(type) {
+            if (type === 'pickup' && !pickupSelectedCoordinates) {
+                showNotification('Please select a pickup location on the map first', 'error');
                 return;
             }
             
+            if (type === 'dropoff' && !dropoffSelectedCoordinates) {
+                showNotification('Please select a drop-off location on the map first', 'error');
+                return;
+            }
+            
+            // Store which map we're confirming
+            locationConfirmationModal.setAttribute('data-confirm-type', type);
             locationConfirmationModal.classList.add('active');
         }
         
         // Handle location confirmation
-        function confirmLocation() {
-            if (selectedCoordinates && selectedAddress) {
+        function confirmLocation(type) {
+            if (type === 'pickup' && pickupSelectedCoordinates) {
                 // Show the coordinates display container
-                const container = document.getElementById('coordinatesDisplayContainer');
-                const display = document.getElementById('coordinatesDisplay');
+                const container = document.getElementById('pickupCoordinatesDisplayContainer');
+                const display = document.getElementById('pickupCoordinatesDisplay');
                 
                 container.style.display = 'block';
-                display.textContent = `${selectedAddress}\n\nCoordinates: ${selectedCoordinates.lat.toFixed(6)}, ${selectedCoordinates.lng.toFixed(6)}`;
+                display.textContent = `Coordinates: ${pickupSelectedCoordinates.lat.toFixed(6)}, ${pickupSelectedCoordinates.lng.toFixed(6)}`;
                 display.classList.remove('empty');
                 
-                // Note: We DON'T update the pickupAddress textarea
-                // That stays for manual entry only
+                showNotification('Pickup location confirmed successfully!', 'success');
+            } else if (type === 'dropoff' && dropoffSelectedCoordinates) {
+                // Show the coordinates display container
+                const container = document.getElementById('dropoffCoordinatesDisplayContainer');
+                const display = document.getElementById('dropoffCoordinatesDisplay');
                 
-                showNotification('Location confirmed successfully!', 'success');
+                container.style.display = 'block';
+                display.textContent = `Coordinates: ${dropoffSelectedCoordinates.lat.toFixed(6)}, ${dropoffSelectedCoordinates.lng.toFixed(6)}`;
+                display.classList.remove('empty');
+                
+                showNotification('Drop-off location confirmed successfully!', 'success');
             }
         }
         
-        // Use current location button
-        document.getElementById('useCurrentLocation').addEventListener('click', function() {
+        // Use current location for pickup
+        document.getElementById('useCurrentLocationPickup').addEventListener('click', function() {
             if (navigator.geolocation) {
                 pageLoader.classList.add('active');
                 navigator.geolocation.getCurrentPosition(
@@ -2463,15 +2840,15 @@
                         const lat = position.coords.latitude;
                         const lng = position.coords.longitude;
                         
-                        // Update map view
-                        map.setView([lat, lng], 15);
-                        marker.setLatLng([lat, lng]);
+                        // Update pickup map view
+                        pickupMap.setView([lat, lng], 15);
+                        pickupMarker.setLatLng([lat, lng]);
                         
                         // Update coordinates
-                        updateCoordinates(lat, lng);
+                        updateCoordinates(lat, lng, 'pickup');
                         
                         pageLoader.classList.remove('active');
-                        showNotification('Location updated successfully!', 'success');
+                        showNotification('Pickup location updated successfully!', 'success');
                     },
                     function(error) {
                         pageLoader.classList.remove('active');
@@ -2483,9 +2860,43 @@
             }
         });
         
-        // Confirm map location button - now shows confirmation modal
-        document.getElementById('confirmMapLocation').addEventListener('click', function() {
-            showConfirmationModal();
+        // Use current location for dropoff
+        document.getElementById('useCurrentLocationDropoff').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                pageLoader.classList.add('active');
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        
+                        // Update dropoff map view
+                        dropoffMap.setView([lat, lng], 15);
+                        dropoffMarker.setLatLng([lat, lng]);
+                        
+                        // Update coordinates
+                        updateCoordinates(lat, lng, 'dropoff');
+                        
+                        pageLoader.classList.remove('active');
+                        showNotification('Drop-off location updated successfully!', 'success');
+                    },
+                    function(error) {
+                        pageLoader.classList.remove('active');
+                        showNotification('Unable to get your location. Please enable location services.', 'error');
+                    }
+                );
+            } else {
+                showNotification('Geolocation is not supported by your browser', 'error');
+            }
+        });
+        
+        // Confirm pickup map location button
+        document.getElementById('confirmMapLocationPickup').addEventListener('click', function() {
+            showConfirmationModal('pickup');
+        });
+        
+        // Confirm dropoff map location button
+        document.getElementById('confirmMapLocationDropoff').addEventListener('click', function() {
+            showConfirmationModal('dropoff');
         });
         
         // Close location modal
@@ -2499,8 +2910,9 @@
         });
         
         confirmYesBtn.addEventListener('click', () => {
+            const type = locationConfirmationModal.getAttribute('data-confirm-type');
             locationConfirmationModal.classList.remove('active');
-            confirmLocation();
+            confirmLocation(type);
         });
         
         // Back button handler
@@ -2584,16 +2996,24 @@
         
         // Step 1: Next button
         nextToStep2Btn.addEventListener('click', () => {
-            // Check if map was used but not confirmed
-            const coordsDisplay = document.getElementById('coordinatesDisplay');
+            // Check if pickup map was used but not confirmed
+            const pickupCoordsDisplay = document.getElementById('pickupCoordinatesDisplay');
             const pickupAddress = document.getElementById('pickupAddress').value;
             
-            if (selectedCoordinates && coordsDisplay.classList.contains('empty')) {
-                showNotification('Please confirm the map location before proceeding', 'error');
+            if (pickupSelectedCoordinates && pickupCoordsDisplay.classList.contains('empty')) {
+                showNotification('Please confirm the pickup map location before proceeding', 'error');
                 return;
             }
             
             goToStep(2);
+        });
+        
+        // Step 2: Dropoff Location Options
+        dropoffLocationOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                dropoffLocationOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+            });
         });
         
         // Step 2: Address Selection
@@ -2604,9 +3024,38 @@
             });
         });
         
-        // Step 2: Add Address button
-        addAddressBtn.addEventListener('click', () => {
+        // Step 2: Add Dropoff Address button
+        addDropoffAddressBtn.addEventListener('click', () => {
             addAddressModal.classList.add('active');
+        });
+        
+        // Step 2: Add Pickup Phone Number
+        addPickupPhone.addEventListener('click', () => {
+            const phoneInputs = document.querySelectorAll('#pickupPhoneInputs .phone-input-group');
+            
+            if (phoneInputs.length < 2) { // Max 2 phone numbers
+                const phoneDiv = document.createElement('div');
+                phoneDiv.className = 'phone-input-group';
+                phoneDiv.innerHTML = `
+                    <input type="tel" class="form-input" placeholder="Additional phone number">
+                    <button type="button" class="remove-phone-btn">
+                        <i class="fas fa-minus"></i> Remove
+                    </button>
+                `;
+                pickupPhoneInputs.appendChild(phoneDiv);
+                
+                // Add event listener to new remove button
+                phoneDiv.querySelector('.remove-phone-btn').addEventListener('click', () => {
+                    phoneDiv.remove();
+                });
+                
+                // Show remove button on first input
+                if (phoneInputs.length === 1) {
+                    phoneInputs[0].querySelector('.remove-phone-btn').style.display = 'block';
+                }
+            } else {
+                showNotification('Maximum 2 phone numbers allowed', 'error');
+            }
         });
         
         // Step 2: Receiver Information Toggle
@@ -2657,27 +3106,6 @@
             }
         });
         
-        // Step 2: Item Photo Upload
-        itemPhotoUpload.addEventListener('click', () => {
-            itemPhotoInput.click();
-        });
-        
-        itemPhotoInput.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
-                const file = e.target.files[0];
-                if (file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        previewItemImage.src = e.target.result;
-                        itemPhotoPreview.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    showNotification('Please select an image file', 'error');
-                }
-            }
-        });
-        
         // Step 2: Back button
         backToStep1Btn.addEventListener('click', () => {
             goToStep(1);
@@ -2685,58 +3113,75 @@
         
         // Step 2: Next button
         nextToStep3Btn.addEventListener('click', () => {
-            // Update summary with pickup and delivery locations
+            // Update route summary
             const pickupAddress = document.getElementById('pickupAddress').value;
             const selectedAddress = document.querySelector('.address-item.selected .address-details').textContent;
             
-            summaryPickup.textContent = pickupAddress || '-';
-            summaryDelivery.textContent = selectedAddress.replace(/\n/g, ', ');
+            document.getElementById('routePickup').textContent = pickupAddress || '-';
+            document.getElementById('routeDropoff').textContent = selectedAddress.replace(/\n/g, ', ');
             
             goToStep(3);
         });
         
-        // Step 3: Rider Selection
-        riderItems.forEach(rider => {
-            rider.addEventListener('click', () => {
-                riderItems.forEach(r => r.classList.remove('selected'));
-                rider.classList.add('selected');
+        // Step 3: Package Type Selection
+        packageTypeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                packageTypeOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                selectedPackageType = option.getAttribute('data-type');
                 
-                selectedRider = parseInt(rider.getAttribute('data-rider'));
+                // Show/hide custom package input
+                if (selectedPackageType === 'custom') {
+                    customPackageInput.classList.add('active');
+                    customPackageName.focus();
+                } else {
+                    customPackageInput.classList.remove('active');
+                    customPackageTypeName = '';
+                }
                 
-                // Get rider price from the displayed price
-                const priceText = rider.querySelector('.rider-price').textContent;
-                selectedRiderPrice = parseInt(priceText.replace('₦', ''));
-                
-                // Update total amount
-                updateTotalAmount();
-                
-                // Update summary in step 4
-                updateOrderSummary();
+                // Recalculate rider prices when package type changes
+                calculateRiderPrices();
             });
         });
         
-        // Update total amount function
-        function updateTotalAmount() {
-            const serviceFee = 150;
-            const total = selectedRiderPrice + serviceFee;
-            totalAmount.textContent = `₦${total}`;
-        }
+        // Custom package name input
+        customPackageName.addEventListener('input', function() {
+            customPackageTypeName = this.value;
+        });
         
-        // Update order summary for step 4
-        function updateOrderSummary() {
-            const selectedRiderElement = document.querySelector('.rider-item.selected');
-            const riderName = selectedRiderElement.querySelector('.rider-name').textContent;
-            const riderVehicle = selectedRiderElement.querySelector('.rider-vehicle').textContent;
-            
-            summaryRider.textContent = `${riderName} (${riderVehicle})`;
-            summaryRiderFee.textContent = `₦${selectedRiderPrice}`;
-            
-            const serviceFee = 150;
-            const total = selectedRiderPrice + serviceFee;
-            summaryTotal.textContent = `₦${total}`;
-            paymentAmount.textContent = `₦${total}`;
-            confirmedRiderName.textContent = riderName;
-        }
+        // Step 3: Package Photo Upload
+        packagePhotoUpload.addEventListener('click', () => {
+            packagePhotoInput.click();
+        });
+        
+        customFileInputBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            packagePhotoInput.click();
+        });
+        
+        packagePhotoInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        previewPackageImage.src = e.target.result;
+                        packagePhotoPreview.style.display = 'block';
+                        
+                        // Show file info
+                        const fileSize = (file.size / 1024).toFixed(2); // Convert to KB
+                        const fileName = file.name.length > 30 ? file.name.substring(0, 30) + '...' : file.name;
+                        previewInfo.innerHTML = `
+                            <div><strong>${fileName}</strong></div>
+                            <div>Size: ${fileSize} KB</div>
+                        `;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    showNotification('Please select an image file (JPG, PNG, GIF)', 'error');
+                }
+            }
+        });
         
         // Step 3: Back button
         backToStep2Btn.addEventListener('click', () => {
@@ -2745,12 +3190,112 @@
         
         // Step 3: Next button
         nextToStep4Btn.addEventListener('click', () => {
-            updateOrderSummary();
+            // Update package type in step 4 summary
+            let packageTypeText;
+            if (selectedPackageType === 'custom' && customPackageTypeName) {
+                packageTypeText = `Custom: ${customPackageTypeName}`;
+            } else {
+                packageTypeText = document.querySelector('.step-content#step3 .location-option.selected .location-name').textContent;
+            }
+            
+            document.getElementById('summaryPackageType').textContent = packageTypeText;
+            
             goToStep(4);
+        });
+        
+        // Step 4: Rider Selection
+        riderItems.forEach(rider => {
+            rider.addEventListener('click', () => {
+                riderItems.forEach(r => r.classList.remove('selected'));
+                rider.classList.add('selected');
+                
+                selectedRider = parseInt(rider.getAttribute('data-rider'));
+                
+                // Get rider price from the displayed price
+                const priceElement = document.getElementById(`riderPrice${selectedRider}`);
+                const priceText = priceElement.textContent;
+                selectedRiderPrice = parseInt(priceText.replace(/[₦,]/g, ''));
+                
+                // Update total amount
+                updateTotalAmount();
+                
+                // Update summary in step 5
+                updateOrderSummary();
+            });
+        });
+        
+        // Update total amount function
+        function updateTotalAmount() {
+            const total = selectedRiderPrice + serviceFee;
+            totalAmount.textContent = `₦${total.toLocaleString()}`;
+            
+            // Update summary in step 4
+            document.getElementById('summaryRiderFee').textContent = `₦${selectedRiderPrice.toLocaleString()}`;
+            document.getElementById('summaryServiceFee').textContent = `₦${serviceFee.toLocaleString()}`;
+        }
+        
+        // Update order summary for step 5
+        function updateOrderSummary() {
+            // Get pickup details
+            const pickupAddress = document.getElementById('pickupAddress').value || '-';
+            const pickupContact = document.getElementById('pickupContactName').value || '-';
+            
+            // Get dropoff details
+            const selectedAddress = document.querySelector('.address-item.selected .address-details').textContent;
+            const dropoffAddress = selectedAddress.replace(/\n/g, ', ') || '-';
+            
+            // Get receiver info
+            let receiverInfo;
+            if (receiverSelf.classList.contains('selected')) {
+                receiverInfo = 'Self (Usman Abdullahi)';
+            } else {
+                const receiverName = document.getElementById('receiverName').value || '-';
+                receiverInfo = receiverName;
+            }
+            
+            // Get package type
+            let packageTypeText;
+            if (selectedPackageType === 'custom' && customPackageTypeName) {
+                packageTypeText = `Custom: ${customPackageTypeName}`;
+            } else {
+                packageTypeText = document.querySelector('.step-content#step3 .location-option.selected .location-name').textContent;
+            }
+            
+            // Get rider info
+            const selectedRiderElement = document.querySelector('.rider-item.selected');
+            const riderName = selectedRiderElement.querySelector('.rider-name').textContent;
+            const riderVehicle = selectedRiderElement.querySelector('.rider-vehicle').textContent;
+            
+            // Update summary elements
+            summaryPickup.textContent = pickupAddress;
+            summaryPickupContact.textContent = pickupContact;
+            summaryDropoff.textContent = dropoffAddress;
+            summaryReceiver.textContent = receiverInfo;
+            summaryPackageTypeFinal.textContent = packageTypeText;
+            summaryRider.textContent = `${riderName} (${riderVehicle})`;
+            summaryDistanceFinal.textContent = `${estimatedDistance} km`;
+            summaryRiderFeeFinal.textContent = `₦${selectedRiderPrice.toLocaleString()}`;
+            summaryServiceFeeFinal.textContent = `₦${serviceFee.toLocaleString()}`;
+            
+            const total = selectedRiderPrice + serviceFee;
+            summaryTotal.textContent = `₦${total.toLocaleString()}`;
+            paymentAmount.textContent = `₦${total.toLocaleString()}`;
+            confirmedRiderName.textContent = riderName;
+        }
+        
+        // Step 4: Back button
+        backToStep3Btn.addEventListener('click', () => {
+            goToStep(3);
+        });
+        
+        // Step 4: Next button
+        nextToStep5Btn.addEventListener('click', () => {
+            updateOrderSummary();
+            goToStep(5);
             startTimer();
         });
         
-        // Step 4: Timer Function
+        // Step 5: Timer Function
         function startTimer() {
             timeLeft = 120; // Reset to 2 minutes
             updateTimerDisplay();
@@ -2813,7 +3358,7 @@
             }
         }
         
-        // Step 4: Payment Options
+        // Step 5: Payment Options
         paymentOptions.forEach(option => {
             option.addEventListener('click', () => {
                 paymentOptions.forEach(opt => opt.classList.remove('selected'));
@@ -2822,15 +3367,15 @@
             });
         });
         
-        // Step 4: Back button
-        backToStep3Btn.addEventListener('click', () => {
-            goToStep(3);
+        // Step 5: Back button
+        backToStep4Btn.addEventListener('click', () => {
+            goToStep(4);
             if (timerInterval) {
                 clearInterval(timerInterval);
             }
         });
         
-        // Step 4: Proceed to Payment button
+        // Step 5: Proceed to Payment button
         proceedPaymentBtn.addEventListener('click', () => {
             paymentModal.classList.add('active');
             
@@ -2859,7 +3404,7 @@
             const isPrimary = document.getElementById('setAsPrimary').checked;
             
             // Create new address item
-            const addressList = document.getElementById('homeAddresses');
+            const addressList = document.getElementById('dropoffAddresses');
             const newAddress = document.createElement('div');
             newAddress.className = 'address-item';
             newAddress.setAttribute('data-address', `new${Date.now()}`);
@@ -3005,9 +3550,9 @@
                     // Create text fallback for logo
                     const parent = this.parentElement;
                     parent.innerHTML = '<span style="color:white; font-weight:bold; font-size:20px;">ErrandX</span>';
-                } else if (this.id === 'previewItemImage') {
-                    // Handle item preview error
-                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150"><rect width="200" height="150" fill="%23f0f0f0"/><text x="100" y="80" text-anchor="middle" fill="%23999" font-size="16" font-family="Arial">Image Preview</text></svg>';
+                } else if (this.id === 'previewPackageImage') {
+                    // Handle package preview error
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150"><rect width="200" height="150" fill="%23f0f0f0"/><text x="100" y="80" text-anchor="middle" fill="%23999" font-size="16" font-family="Arial">Package Preview</text></svg>';
                 }
             });
         });
@@ -3036,6 +3581,17 @@
         // Set default receiver info on page load
         document.getElementById('userNameDisplay').textContent = userData.name;
         document.getElementById('userPhoneDisplay').textContent = userData.phones.join(', ');
+        
+        // Set initial summary
+        setTimeout(() => {
+            updateOrderSummary();
+        }, 500);
+        
+        // Initialize distance and time displays
+        document.getElementById('estimatedDistance').textContent = `${estimatedDistance} km`;
+        document.getElementById('estimatedTime').textContent = estimatedTime;
+        document.getElementById('summaryDistance').textContent = `${estimatedDistance} km`;
+        document.getElementById('summaryTime').textContent = estimatedTime;
     </script>
 </body>
 </html>

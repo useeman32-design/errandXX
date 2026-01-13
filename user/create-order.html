@@ -646,7 +646,7 @@
         <section class="services-section">
             <div class="services-grid">
                 <!-- Home Delivery -->
-                <div class="service-card" data-service="home-delivery">
+                <a href="home-delivery.html" class="service-card" data-service="home-delivery">
                     <div class="service-image">
                         <img src="img/1.png" alt="Home Delivery">
                     </div>
@@ -658,10 +658,10 @@
                             <div class="price-note">Based on distance</div>
                         </div>
                     </div>
-                </div>
+                </a>
                 
                 <!-- Package (A - B) -->
-                <div class="service-card" data-service="package">
+                <a href="package.html" class="service-card" data-service="package">
                     <div class="service-image">
                         <img src="img/2.png" alt="Package Delivery">
                     </div>
@@ -673,10 +673,10 @@
                             <div class="price-note">Based on weight & distance</div>
                         </div>
                     </div>
-                </div>
+                </a>
                 
                 <!-- Gas Refill -->
-                <div class="service-card" data-service="gas-refill">
+                <a href="gas-refill.html" class="service-card" data-service="gas-refill">
                     <div class="service-image">
                         <img src="img/3.png" alt="Gas Refill">
                     </div>
@@ -688,10 +688,10 @@
                             <div class="price-note">Includes delivery & safety check</div>
                         </div>
                     </div>
-                </div>
+                </a>
                 
                 <!-- Buy For Me -->
-                <div class="service-card" data-service="buy-for-me">
+                <a href="personal-shopper.html" class="service-card" data-service="buy-for-me">
                     <div class="service-image">
                         <img src="img/4.png" alt="Buy For Me">
                     </div>
@@ -703,10 +703,10 @@
                             <div class="price-note">+ cost of items</div>
                         </div>
                     </div>
-                </div>
+                </a>
                 
                 <!-- Laundry Delivery -->
-                <div class="service-card" data-service="laundry">
+                <a href="laundry.html" class="service-card" data-service="laundry">
                     <div class="service-image">
                         <img src="img/5.png" alt="Laundry Delivery">
                     </div>
@@ -718,10 +718,10 @@
                             <div class="price-note">+ laundry service cost</div>
                         </div>
                     </div>
-                </div>
+                </a>
                 
                 <!-- Repairs & Services -->
-                <div class="service-card" data-service="repair-services">
+                <a href="technitian.html" class="service-card" data-service="repair-services">
                     <div class="service-image">
                         <img src="img/6.png" alt="Repairs & Services">
                     </div>
@@ -733,10 +733,10 @@
                             <div class="price-note">Based on service type</div>
                         </div>
                     </div>
-                </div>
+                </a>
                 
                 <!-- Bulk Errand -->
-                <div class="service-card bulk-card" data-service="bulk">
+                <a href="bulk-errand.html" class="service-card bulk-card" data-service="bulk">
                     <div class="bulk-badge">
                         <i class="fas fa-bolt"></i> SAVE
                     </div>
@@ -751,7 +751,7 @@
                             <div class="price-note">Save with multiple errands</div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
     </main>
@@ -873,65 +873,23 @@
             });
         });
         
-        // Service card click handler
+        // Service card click handler - Updated for actual navigation
         serviceCards.forEach(card => {
-            card.addEventListener('click', () => {
+            card.addEventListener('click', (e) => {
                 const service = card.getAttribute('data-service');
                 
                 // Show loader
                 pageLoader.classList.add('active');
                 
+                // Get the href from the anchor tag
+                const href = card.getAttribute('href');
+                
                 // Simulate loading service page
                 setTimeout(() => {
-                    pageLoader.classList.remove('active');
-                    
-                    // Based on service type, navigate to appropriate page
-                    let servicePage = '';
-                    let serviceName = '';
-                    
-                    switch(service) {
-                        case 'home-delivery':
-                            servicePage = 'home-delivery.html';
-                            serviceName = 'Home Delivery';
-                            break;
-                        case 'package':
-                            servicePage = 'package.html';
-                            serviceName = 'Package Delivery';
-                            break;
-                        case 'gas-refill':
-                            servicePage = 'gas-refill.html';
-                            serviceName = 'Gas Refill';
-                            break;
-                        case 'buy-for-me':
-                            servicePage = 'buy-for-me.html';
-                            serviceName = 'Buy For Me';
-                            break;
-                        case 'laundry':
-                            servicePage = 'laundry.html';
-                            serviceName = 'Laundry Delivery';
-                            break;
-                        case 'repair-services':
-                            servicePage = 'repair-services.html';
-                            serviceName = 'Repairs & Services';
-                            break;
-                        case 'bulk':
-                            servicePage = 'bulk-errand.html';
-                            serviceName = 'Bulk Errand';
-                            break;
+                    if (href) {
+                        window.location.href = href;
                     }
-                    
-                    if (servicePage) {
-                        // In a real app, this would navigate to the service page
-                        // For demo, show an alert
-                        const priceElement = card.querySelector('.price-amount');
-                        const price = priceElement ? priceElement.textContent : '';
-                        
-                        alert(`Creating ${serviceName} errand...\n\n${price}\n\nYou would be redirected to the order form to complete your request.`);
-                        
-                        // Uncomment this line for actual navigation:
-                        // window.location.href = servicePage;
-                    }
-                }, 1200);
+                }, 800);
             });
         });
         

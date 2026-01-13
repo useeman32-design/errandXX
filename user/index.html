@@ -1804,11 +1804,12 @@
             }, 800);
         });
         
-        // Navigation click handler - FIXED LIKE PROFILE PAGE
+        // Navigation click handler - FIXED (Match profile page logic)
         navItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 // Don't prevent default for active page (Home page in this case)
                 if (!item.classList.contains('active')) {
+                    // Don't prevent default - let the link navigate normally
                     // Show themed loader
                     pageLoader.classList.add('active');
                     
@@ -1819,29 +1820,34 @@
                     // Get href from anchor tag
                     const href = item.getAttribute('href');
                     
-                    // Simulate page navigation
-                    setTimeout(() => {
-                        if (href && href !== '#') {
-                            // Navigate to the page
-                            window.location.href = href;
-                        } else {
-                            // If it's the home link, just remove loader
+                    // Only prevent default and simulate if it's a non-navigation link
+                    if (href === '#') {
+                        e.preventDefault();
+                        
+                        // Simulate page navigation for demo
+                        setTimeout(() => {
                             pageLoader.classList.remove('active');
-                        }
-                    }, 800); // Match profile page timing
+                        }, 800);
+                    }
+                    // For actual navigation links (with proper href), let them work normally
+                    // The loader will show briefly until the page loads
+                } else {
+                    // If it's the home link (active), prevent default to stay on same page
+                    e.preventDefault();
                 }
             });
         });
         
-        // Service card click handler
+        // Service card click handler - FIXED
         serviceCards.forEach(card => {
             card.addEventListener('click', (e) => {
+                // Don't prevent default - let the href navigation work
                 // Show loader briefly before navigation
                 pageLoader.classList.add('active');
                 
-                // Navigation will happen naturally via href
-                // Remove loader after 0.8 seconds as fallback (matching profile page)
+                // The page will navigate via href, but add a timeout as fallback
                 setTimeout(() => {
+                    // This will only run if navigation hasn't happened
                     pageLoader.classList.remove('active');
                 }, 800);
             });
@@ -1850,7 +1856,8 @@
         // Errand item click handler - only opens modal, no page navigation
         errandItems.forEach(item => {
             item.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent any default behavior
+                // Prevent default behavior for errand items
+                e.preventDefault(); 
                 
                 // Only trigger if not clicking on the track button
                 if (!e.target.closest('.track-btn')) {
@@ -1981,21 +1988,22 @@
             }
         }
         
-        // Create button handler
-        createButton.addEventListener('click', () => {
+        // Create button handler - FIXED to navigate to create-order.html
+        createButton.addEventListener('click', (e) => {
+            e.preventDefault();
             // Show themed loader
             pageLoader.classList.add('active');
             
-            // Simulate creating new errand
+            // Navigate to create-order.html after showing loader briefly
             setTimeout(() => {
-                pageLoader.classList.remove('active');
-                alert('Creating new errand...');
+                window.location.href = 'create-order.html';
             }, 800);
         });
         
         // Change address button
         const changeAddressBtn = document.querySelector('.change-address-btn');
-        changeAddressBtn.addEventListener('click', () => {
+        changeAddressBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             // Show themed loader
             pageLoader.classList.add('active');
             
@@ -2025,7 +2033,8 @@
         
         // Promo button
         const promoButton = document.querySelector('.promo-button');
-        promoButton.addEventListener('click', () => {
+        promoButton.addEventListener('click', (e) => {
+            e.preventDefault();
             // Show themed loader
             pageLoader.classList.add('active');
             
@@ -2067,10 +2076,12 @@
         
         // Handle promo image error
         const promoImage = document.querySelector('.promo-image');
-        promoImage.addEventListener('error', function() {
-            this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-            this.innerHTML = '<i class="fas fa-box-open" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:48px;color:white;opacity:0.5;"></i>';
-        });
+        if (promoImage) {
+            promoImage.addEventListener('error', function() {
+                this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                this.innerHTML = '<i class="fas fa-box-open" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:48px;color:white;opacity:0.5;"></i>';
+            });
+        }
         
         // Scroll to right slightly on frequently used section
         window.addEventListener('load', () => {
@@ -2081,6 +2092,69 @@
                 }, 1500);
             });
         });
+        
+        // Show notification function (from profile page)
+        function showNotification(message, type = 'success') {
+            // Create notification element
+            const notification = document.createElement('div');
+            
+            // Set color based on type
+            let bgColor, textColor, icon;
+            if (type === 'success') {
+                bgColor = 'var(--primary-green)';
+                textColor = 'white';
+                icon = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                bgColor = 'var(--secondary-red)';
+                textColor = 'white';
+                icon = 'fas fa-exclamation-circle';
+            } else {
+                bgColor = 'var(--secondary-blue)';
+                textColor = 'white';
+                icon = 'fas fa-info-circle';
+            }
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${bgColor};
+                color: ${textColor};
+                padding: 15px 25px;
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow-lg);
+                z-index: 4000;
+                font-weight: 500;
+                transform: translateX(150%);
+                transition: transform 0.3s ease-out;
+                max-width: 300px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            `;
+            
+            notification.innerHTML = `
+                <i class="${icon}" style="font-size: 18px;"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(150%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
         
         // Simulate network status for loader
         window.addEventListener('online', () => {

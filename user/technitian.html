@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Delivery - ErrandX</title>
+    <title>Small Repairs & Home Services - ErrandX</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -274,6 +274,12 @@
             color: var(--text-dark);
         }
 
+        .page-subtitle {
+            font-size: 16px;
+            color: var(--text-light);
+            margin-top: 8px;
+        }
+
         /* Delivery Steps */
         .delivery-steps {
             margin-bottom: 30px;
@@ -437,46 +443,139 @@
             resize: vertical;
         }
 
-        /* Location Options */
-        .location-options {
+        /* Service Options Grid */
+        .service-options {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 12px;
             margin-bottom: 15px;
         }
 
-        .location-option {
+        .service-option {
             border: 2px solid var(--border-color);
             border-radius: var(--border-radius-sm);
-            padding: 15px;
+            padding: 20px 15px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
             background: var(--primary-light);
         }
 
-        .location-option:hover {
+        .service-option:hover {
             border-color: var(--primary-green);
             transform: translateY(-2px);
             box-shadow: var(--shadow-sm);
         }
 
-        .location-option.selected {
+        .service-option.selected {
             border-color: var(--primary-green);
             background: rgba(92, 196, 126, 0.1);
             transform: translateY(-2px);
         }
 
-        .location-icon {
-            font-size: 24px;
+        .service-icon {
+            font-size: 28px;
             color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .service-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* File Upload Styling */
+        .file-upload-container {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 15px;
+        }
+
+        .file-upload-container:hover {
+            border-color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.05);
+        }
+
+        .file-upload-icon {
+            font-size: 40px;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .file-upload-text {
+            font-size: 16px;
+            color: var(--text-dark);
             margin-bottom: 8px;
         }
 
-        .location-name {
+        .file-upload-subtext {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .file-preview-container {
+            margin-top: 15px;
+        }
+
+        .file-preview {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            margin-bottom: 10px;
+            background: var(--primary-light);
+        }
+
+        .file-preview-icon {
+            font-size: 24px;
+            color: var(--primary-green);
+        }
+
+        .file-preview-info {
+            flex: 1;
+        }
+
+        .file-preview-name {
             font-size: 14px;
             font-weight: 500;
             color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .file-preview-size {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .file-remove-btn {
+            background: var(--secondary-red);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 12px;
+        }
+
+        .file-remove-btn:hover {
+            background: #d32f2f;
+            transform: scale(1.1);
         }
 
         /* Real Map */
@@ -490,7 +589,7 @@
             position: relative;
         }
 
-        #pickupMap {
+        #serviceAddressMap {
             width: 100%;
             height: 100%;
         }
@@ -556,78 +655,7 @@
             color: var(--text-light);
             font-style: italic;
         }
-        
-        /* Confirmation popup styles */
-        .confirmation-popup {
-            text-align: center;
-            padding: 20px 0;
-        }
-        
-        .confirmation-popup .popup-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--primary-green);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-        }
-        
-        .confirmation-popup .popup-icon i {
-            color: white;
-            font-size: 36px;
-        }
-        
-        .confirmation-popup h3 {
-            margin-bottom: 10px;
-            color: var(--text-dark);
-        }
-        
-        .confirmation-popup p {
-            color: var(--text-light);
-            margin-bottom: 30px;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-        
-        .confirmation-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-        
-        .confirmation-btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            min-width: 120px;
-        }
-        
-        .confirm-yes-btn {
-            background: var(--primary-green);
-            color: white;
-        }
-        
-        .confirm-yes-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-        
-        .confirm-no-btn {
-            background: var(--secondary-gray);
-            color: white;
-        }
-        
-        .confirm-no-btn:hover {
-            background: #757575;
-            transform: translateY(-2px);
-        }
-        
+
         /* Map type selector */
         .map-type-selector {
             position: absolute;
@@ -672,7 +700,7 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .address-item {
@@ -737,6 +765,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            margin-bottom: 20px;
         }
 
         .add-address-btn:hover {
@@ -746,311 +775,17 @@
             transform: translateY(-2px);
         }
 
-        /* Receiver Information */
-        .receiver-options {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .receiver-option {
-            flex: 1;
-            border: 2px solid var(--border-color);
-            border-radius: var(--border-radius-sm);
-            padding: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-            background: var(--primary-light);
-            text-align: center;
-        }
-
-        .receiver-option:hover {
-            border-color: var(--primary-green);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .receiver-option.selected {
-            border-color: var(--primary-green);
-            background: rgba(92, 196, 126, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .receiver-icon {
-            font-size: 24px;
-            color: var(--primary-green);
-            margin-bottom: 10px;
-        }
-
-        .receiver-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 5px;
-        }
-
-        .receiver-desc {
-            font-size: 12px;
-            color: var(--text-light);
-        }
-
-        .receiver-info-display {
-            background: var(--primary-light);
-            border-radius: var(--border-radius-sm);
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .info-label {
-            color: var(--text-light);
-            font-weight: 500;
-        }
-
-        .info-value {
-            color: var(--text-dark);
-            font-weight: 600;
-        }
-
-        .receiver-form {
-            background: var(--primary-light);
-            border-radius: var(--border-radius-sm);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        /* Phone Number Inputs */
-        .phone-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            align-items: center;
-        }
-
-        .phone-input-group .form-input {
-            flex: 1;
-        }
-
-        .add-phone-btn, .remove-phone-btn {
-            background: var(--primary-green);
-            color: white;
-            border: none;
-            min-width: 48px;
-            height: 48px;
-            border-radius: var(--border-radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            padding: 0 15px;
-            font-size: 14px;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-
-        .add-phone-btn i, .remove-phone-btn i {
-            margin-right: 5px;
-        }
-
-        .remove-phone-btn {
-            background: var(--secondary-red);
-        }
-
-        .add-phone-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        .remove-phone-btn:hover {
-            background: #d32f2f;
-            transform: translateY(-2px);
-        }
-
-        /* Photo Upload */
-        .photo-upload-area {
-            border: 2px dashed var(--border-color);
-            border-radius: var(--border-radius-sm);
-            padding: 30px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-bottom: 15px;
-        }
-
-        .photo-upload-area:hover {
-            border-color: var(--primary-green);
-            background: rgba(92, 196, 126, 0.05);
-            transform: translateY(-2px);
-        }
-
-        .upload-icon {
-            font-size: 36px;
-            color: var(--primary-green);
-            margin-bottom: 10px;
-        }
-
-        .upload-text {
-            font-size: 14px;
-            color: var(--text-dark);
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        .upload-subtext {
-            font-size: 12px;
-            color: var(--text-light);
-        }
-
-        #itemPhotoInput {
-            display: none;
-        }
-
-        .photo-preview {
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .preview-image {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: var(--border-radius-sm);
-            border: 1px solid var(--border-color);
-        }
-
-        /* Rider Selection */
-        .riders-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .rider-item {
-            border: 2px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .rider-item:hover {
-            border-color: var(--primary-green);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .rider-item.selected {
-            border-color: var(--primary-green);
-            background: rgba(92, 196, 126, 0.05);
-            transform: translateY(-2px);
-        }
-
-        .rider-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-
-        .rider-info {
-            display: flex;
-            align-items: center;
+        /* Date Time Picker */
+        .datetime-picker {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
 
-        .rider-image {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid var(--primary-green);
-        }
-
-        .rider-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .rider-name {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 5px;
-        }
-
-        .rider-details {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .rider-vehicle {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: rgba(92, 196, 126, 0.1);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--primary-green);
-        }
-
-        .rider-rating {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            font-size: 14px;
-        }
-
-        .rider-rating i {
-            color: #FFC107;
-            font-size: 12px;
-        }
-
-        .rider-price {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-green);
-        }
-
-        .rider-price span {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-light);
-        }
-
-        .rider-online-status {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .online-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--secondary-green);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        @media (max-width: 480px) {
+            .datetime-picker {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Checkout Section */
@@ -1096,6 +831,61 @@
             border-top: 2px solid var(--border-color);
         }
 
+        /* Pending Status Styles */
+        .pending-container {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(255, 138, 0, 0.1);
+            border-radius: var(--border-radius);
+            border: 2px solid var(--secondary-orange);
+        }
+
+        .pending-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--secondary-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .pending-icon i {
+            color: white;
+            font-size: 36px;
+        }
+
+        .pending-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--secondary-orange);
+            margin-bottom: 15px;
+        }
+
+        .pending-message {
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .pending-note {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .pending-timer {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--secondary-orange);
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 15px;
+        }
+
         /* Timer */
         .timer-container {
             text-align: center;
@@ -1130,6 +920,170 @@
             font-size: 14px;
             color: var(--text-light);
             margin-top: 10px;
+        }
+
+        /* Technician Selection */
+        .technicians-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .technician-item {
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .technician-item:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .technician-item.selected {
+            border-color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .technician-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .technician-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .technician-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--primary-green);
+        }
+
+        .technician-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .technician-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .technician-details {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .technician-specialty {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(92, 196, 126, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--primary-green);
+        }
+
+        .technician-rating {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 14px;
+        }
+
+        .technician-rating i {
+            color: #FFC107;
+            font-size: 12px;
+        }
+
+        .technician-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .technician-price span {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .technician-online-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--secondary-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Info Note Styling */
+        .info-note {
+            background: rgba(92, 196, 126, 0.1);
+            border-left: 4px solid var(--primary-green);
+            border-radius: var(--border-radius-sm);
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .info-note-icon {
+            color: var(--primary-green);
+            font-size: 18px;
+            margin-top: 2px;
+        }
+
+        .info-note-content {
+            flex: 1;
+        }
+
+        .info-note-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .info-note-text {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.5;
         }
 
         /* Action Buttons */
@@ -1182,6 +1136,30 @@
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
+        }
+
+        /* New Pending Action Button */
+        .pending-action-btn {
+            background: var(--secondary-orange);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 18px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .pending-action-btn:hover {
+            background: #e67a00;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         /* Modal Styles */
@@ -1270,6 +1248,77 @@
 
         .modal-body {
             padding: 20px;
+        }
+
+        /* Confirmation popup styles */
+        .confirmation-popup {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .confirmation-popup .popup-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .confirmation-popup .popup-icon i {
+            color: white;
+            font-size: 36px;
+        }
+        
+        .confirmation-popup h3 {
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+        
+        .confirmation-popup p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        
+        .confirmation-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .confirmation-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 120px;
+        }
+        
+        .confirm-yes-btn {
+            background: var(--primary-green);
+            color: white;
+        }
+        
+        .confirm-yes-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .confirm-no-btn {
+            background: var(--secondary-gray);
+            color: white;
+        }
+        
+        .confirm-no-btn:hover {
+            background: #757575;
+            transform: translateY(-2px);
         }
 
         /* Professional Bottom Navigation */
@@ -1456,31 +1505,22 @@
                 font-size: 10px;
             }
             
-            .location-options {
-                grid-template-columns: 1fr;
+            .service-options {
+                grid-template-columns: 1fr 1fr;
             }
             
-            .receiver-options {
-                flex-direction: column;
-            }
-            
-            .rider-header {
+            .technician-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 15px;
             }
             
-            .rider-price {
+            .technician-price {
                 align-self: flex-end;
             }
             
             .action-buttons {
                 flex-direction: column;
-            }
-            
-            .add-phone-btn, .remove-phone-btn {
-                padding: 0 10px;
-                font-size: 12px;
             }
             
             .map-type-selector {
@@ -1536,125 +1576,119 @@
     <main class="dashboard-content container">
         <!-- Page Header -->
         <section class="page-header">
-            <h1 class="page-title">Home Delivery</h1>
+            <h1 class="page-title">Small Repairs & Home Services</h1>
+            <p class="page-subtitle">Get professional help for your home repairs and maintenance</p>
         </section>
 
-        <!-- Delivery Steps Indicator -->
+        <!-- Service Steps Indicator -->
         <section class="delivery-steps">
             <div class="steps-indicator">
                 <div class="step active" data-step="1">
                     <div class="step-icon">1</div>
-                    <div class="step-title">Pickup Details</div>
+                    <div class="step-title">Service Details</div>
                 </div>
                 <div class="step" data-step="2">
                     <div class="step-icon">2</div>
-                    <div class="step-title">Delivery Details</div>
+                    <div class="step-title">Location & Time</div>
                 </div>
                 <div class="step" data-step="3">
                     <div class="step-icon">3</div>
-                    <div class="step-title">Select Rider</div>
+                    <div class="step-title">Select Technician</div>
                 </div>
                 <div class="step" data-step="4">
                     <div class="step-icon">4</div>
-                    <div class="step-title">Checkout</div>
+                    <div class="step-title">Pending</div>
                 </div>
             </div>
 
-            <!-- Step 1: Pickup Details -->
+            <!-- Step 1: Service Details -->
             <div class="step-content active" id="step1">
                 <div class="form-section">
                     <div class="section-header">
                         <div class="section-icon">
-                            <i class="fas fa-map-marker-alt"></i>
+                            <i class="fas fa-tools"></i>
                         </div>
-                        <h2 class="section-title">Pickup Location</h2>
+                        <h2 class="section-title">Service Details</h2>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label required">Pickup Location Type</label>
-                        <div class="location-options">
-                            <div class="location-option selected" data-type="shop">
-                                <div class="location-icon">
-                                    <i class="fas fa-store"></i>
+                        <label class="form-label required">Select Service Type</label>
+                        <div class="service-options">
+                            <div class="service-option selected" data-service="electrician">
+                                <div class="service-icon">
+                                    <i class="fas fa-bolt"></i>
                                 </div>
-                                <div class="location-name">Shop</div>
+                                <div class="service-name">Electrician</div>
                             </div>
-                            <div class="location-option" data-type="home">
-                                <div class="location-icon">
-                                    <i class="fas fa-home"></i>
+                            <div class="service-option" data-service="plumber">
+                                <div class="service-icon">
+                                    <i class="fas fa-faucet"></i>
                                 </div>
-                                <div class="location-name">Home</div>
+                                <div class="service-name">Plumber</div>
                             </div>
-                            <div class="location-option" data-type="custom">
-                                <div class="location-icon">
-                                    <i class="fas fa-map-pin"></i>
+                            <div class="service-option" data-service="generator">
+                                <div class="service-icon">
+                                    <i class="fas fa-cogs"></i>
                                 </div>
-                                <div class="location-name">Custom</div>
+                                <div class="service-name">Generator Repair</div>
+                            </div>
+                            <div class="service-option" data-service="carpenter">
+                                <div class="service-icon">
+                                    <i class="fas fa-hammer"></i>
+                                </div>
+                                <div class="service-name">Carpenter</div>
+                            </div>
+                            <div class="service-option" data-service="welder">
+                                <div class="service-icon">
+                                    <i class="fas fa-fire"></i>
+                                </div>
+                                <div class="service-name">Welder</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label required">Pickup Address</label>
-                        <textarea class="form-textarea" id="pickupAddress" placeholder="Enter detailed pickup address (for manual review if map fails)" rows="3"></textarea>
+                        <label class="form-label required">Problem Description</label>
+                        <textarea class="form-textarea" id="problemDescription" placeholder="Please describe the problem in detail. Be as specific as possible so the technician can come prepared with the right tools and materials." rows="4"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Select on Map (Optional)</label>
-                        <div class="map-container">
-                            <div id="pickupMap"></div>
-                        </div>
-                        <div class="map-controls">
-                            <button class="map-btn secondary" id="useCurrentLocation">
-                                <i class="fas fa-location-arrow"></i> Use My Location
-                            </button>
-                            <button class="map-btn" id="confirmMapLocation">
-                                <i class="fas fa-check"></i> Confirm Location
-                            </button>
+                        <label class="form-label">Upload Photos (Optional)</label>
+                        <div class="file-upload-container" id="fileUploadContainer">
+                            <div class="file-upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="file-upload-text">Click to upload photos</div>
+                            <div class="file-upload-subtext">JPEG, PNG up to 5MB each</div>
+                            <input type="file" id="fileInput" accept="image/*" multiple>
                         </div>
                         
-                        <!-- New Coordinates Display Field -->
-                        <div class="coordinates-display-container" id="coordinatesDisplayContainer">
-                            <label class="form-label" style="margin-top: 15px;">Confirmed Map Location</label>
-                            <div class="coordinates-display empty" id="coordinatesDisplay">
-                                No location confirmed yet. Click "Confirm Location" to set coordinates.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">Pickup Contact Person</label>
-                        <input type="text" class="form-input" id="pickupContactName" placeholder="Enter contact person name">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">Pickup Contact Phone</label>
-                        <div class="phone-input-group">
-                            <input type="tel" class="form-input" id="pickupContactPhone" placeholder="Enter phone number">
+                        <div class="file-preview-container" id="filePreviewContainer">
+                            <!-- File previews will be added here -->
                         </div>
                     </div>
                 </div>
 
                 <div class="action-buttons">
                     <button class="action-btn next-btn" id="nextToStep2">
-                        Continue to Delivery Details <i class="fas fa-arrow-right"></i>
+                        Continue to Location & Time <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Step 2: Delivery Details -->
+            <!-- Step 2: Location & Time -->
             <div class="step-content" id="step2">
                 <div class="form-section">
                     <div class="section-header">
                         <div class="section-icon">
-                            <i class="fas fa-home"></i>
+                            <i class="fas fa-map-marker-alt"></i>
                         </div>
-                        <h2 class="section-title">Delivery Location</h2>
+                        <h2 class="section-title">Location & Time</h2>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label required">Select Home Address</label>
-                        <div class="address-list" id="homeAddresses">
+                        <label class="form-label required">Service Address</label>
+                        <div class="address-list" id="serviceAddresses">
                             <div class="address-item selected" data-address="home1">
                                 <div class="address-title">
                                     Home Address
@@ -1667,140 +1701,124 @@
                             </div>
                             <div class="address-item" data-address="home2">
                                 <div class="address-title">
-                                    Parents' House
-                                    <span class="address-type">Family</span>
+                                    Office Address
+                                    <span class="address-type">Office</span>
                                 </div>
                                 <div class="address-details">
-                                    78 Family Road, Unguwan Gwaza<br>
-                                    Gusau, Zamfara State
+                                    45 Business Avenue, Gusau Central<br>
+                                    Zamfara State
                                 </div>
                             </div>
                         </div>
+                        
                         <button class="add-address-btn" id="addAddressBtn">
                             <i class="fas fa-plus"></i> Add New Address
                         </button>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">Receiver Information</label>
-                        <div class="receiver-options">
-                            <div class="receiver-option selected" id="receiverSelf">
-                                <div class="receiver-icon">
-                                    <i class="fas fa-user-check"></i>
-                                </div>
-                                <div class="receiver-title">It's me</div>
-                                <div class="receiver-desc">Receiver is yourself</div>
-                            </div>
-                            <div class="receiver-option" id="receiverOther">
-                                <div class="receiver-icon">
-                                    <i class="fas fa-user-plus"></i>
-                                </div>
-                                <div class="receiver-title">Someone else</div>
-                                <div class="receiver-desc">Different receiver</div>
-                            </div>
-                        </div>
                         
-                        <!-- Display user info when "It's me" is selected -->
-                        <div class="receiver-info-display" id="selfReceiverInfo">
-                            <div class="info-row">
-                                <span class="info-label">Name:</span>
-                                <span class="info-value" id="userNameDisplay">Usman Abdullahi</span>
+                        <div class="form-group">
+                            <label class="form-label">Select on Map (Optional)</label>
+                            <div class="map-container">
+                                <div id="serviceAddressMap"></div>
                             </div>
-                            <div class="info-row">
-                                <span class="info-label">Phone Numbers:</span>
-                                <span class="info-value" id="userPhoneDisplay">+234 801 234 5678, +234 812 345 6789</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Form for "Someone else" -->
-                        <div class="receiver-form" id="otherReceiverForm" style="display: none;">
-                            <div class="form-group">
-                                <label class="form-label required">Receiver Name</label>
-                                <input type="text" class="form-input" id="receiverName" placeholder="Enter receiver full name">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label required">Receiver Phone Numbers</label>
-                                <div id="receiverPhoneInputs">
-                                    <div class="phone-input-group">
-                                        <input type="tel" class="form-input" placeholder="Primary phone number">
-                                        <button type="button" class="remove-phone-btn" style="display: none;">
-                                            <i class="fas fa-minus"></i> Remove
-                                        </button>
-                                    </div>
-                                </div>
-                                <button type="button" class="add-phone-btn" id="addReceiverPhone">
-                                    <i class="fas fa-plus"></i> Add Another Number
+                            <div class="map-controls">
+                                <button class="map-btn secondary" id="useCurrentLocationService">
+                                    <i class="fas fa-location-arrow"></i> Use My Location
+                                </button>
+                                <button class="map-btn" id="confirmMapLocationService">
+                                    <i class="fas fa-check"></i> Confirm Location
                                 </button>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">Item Description</label>
-                        <textarea class="form-textarea" id="itemDescription" placeholder="Describe the item to be delivered" rows="3"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Item Photo (Optional)</label>
-                        <div class="photo-upload-area" id="itemPhotoUpload">
-                            <div class="upload-icon">
-                                <i class="fas fa-camera"></i>
+                            
+                            <!-- Coordinates Display Field -->
+                            <div class="coordinates-display-container" id="coordinatesDisplayContainerService">
+                                <label class="form-label" style="margin-top: 15px;">Confirmed Map Location</label>
+                                <div class="coordinates-display empty" id="coordinatesDisplayService">
+                                    No location confirmed yet. Click "Confirm Location" to set coordinates.
+                                </div>
                             </div>
-                            <div class="upload-text">Add item photo</div>
-                            <div class="upload-subtext">Click to upload or drag and drop</div>
-                            <input type="file" id="itemPhotoInput" accept="image/*">
-                        </div>
-                        <div class="photo-preview" id="itemPhotoPreview" style="display: none;">
-                            <img id="previewItemImage" class="preview-image" alt="Item preview">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Delivery Note (Optional)</label>
-                        <textarea class="form-textarea" id="deliveryNote" placeholder="Any special instructions for the rider" rows="2"></textarea>
+                        <label class="form-label required">Preferred Date & Time</label>
+                        <div class="datetime-picker">
+                            <div class="form-group">
+                                <label class="form-label required">Date</label>
+                                <input type="date" class="form-input" id="serviceDate" min="">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required">Time</label>
+                                <select class="form-select" id="serviceTime">
+                                    <option value="">Select time</option>
+                                    <option value="08:00">08:00 AM</option>
+                                    <option value="09:00">09:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="12:00">12:00 PM</option>
+                                    <option value="13:00">01:00 PM</option>
+                                    <option value="14:00">02:00 PM</option>
+                                    <option value="15:00">03:00 PM</option>
+                                    <option value="16:00">04:00 PM</option>
+                                    <option value="17:00">05:00 PM</option>
+                                    <option value="18:00">06:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="action-buttons">
                     <button class="action-btn prev-btn" id="backToStep1">
-                        <i class="fas fa-arrow-left"></i> Back to Pickup
+                        <i class="fas fa-arrow-left"></i> Back to Service Details
                     </button>
                     <button class="action-btn next-btn" id="nextToStep3">
-                        Continue to Select Rider <i class="fas fa-arrow-right"></i>
+                        Continue to Select Technician <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Step 3: Select Rider -->
+            <!-- Step 3: Select Technician -->
             <div class="step-content" id="step3">
                 <div class="form-section">
                     <div class="section-header">
                         <div class="section-icon">
-                            <i class="fas fa-motorcycle"></i>
+                            <i class="fas fa-user-cog"></i>
                         </div>
-                        <h2 class="section-title">Select a Rider</h2>
+                        <h2 class="section-title">Select a Technician</h2>
                     </div>
 
-                    <div class="riders-list" id="ridersList">
-                        <!-- Rider 1 -->
-                        <div class="rider-item selected" data-rider="1">
-                            <div class="rider-online-status">
+                    <!-- Information Note -->
+                    <div class="info-note">
+                        <div class="info-note-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="info-note-content">
+                            <div class="info-note-title">Important Note</div>
+                            <div class="info-note-text">
+                                Your service request will be sent to the technician. They have 2 hours to accept. You can leave this page and you'll be notified when they respond. Payment will be made only after technician accepts.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="technicians-list" id="techniciansList">
+                        <!-- Technician 1 - Electrician -->
+                        <div class="technician-item selected" data-technician="1">
+                            <div class="technician-online-status">
                                 <span class="online-dot"></span>
                                 <span>Online</span>
                             </div>
-                            <div class="rider-header">
-                                <div class="rider-info">
-                                    <div class="rider-image">
-                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Abdul Sani">
+                            <div class="technician-header">
+                                <div class="technician-info">
+                                    <div class="technician-image">
+                                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Hassan Ali">
                                     </div>
                                     <div>
-                                        <div class="rider-name">Abdul Sani</div>
-                                        <div class="rider-details">
-                                            <span class="rider-vehicle">
-                                                <i class="fas fa-motorcycle"></i> Motorcycle
+                                        <div class="technician-name">Hassan Ali</div>
+                                        <div class="technician-details">
+                                            <span class="technician-specialty">
+                                                <i class="fas fa-bolt"></i> Electrician
                                             </span>
-                                            <span class="rider-rating">
+                                            <span class="technician-rating">
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
@@ -1811,28 +1829,28 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="rider-price">₦850</div>
+                                <div class="technician-price">₦3,500</div>
                             </div>
                         </div>
 
-                        <!-- Rider 2 -->
-                        <div class="rider-item" data-rider="2">
-                            <div class="rider-online-status">
+                        <!-- Technician 2 - Plumber -->
+                        <div class="technician-item" data-technician="2">
+                            <div class="technician-online-status">
                                 <span class="online-dot"></span>
                                 <span>Online</span>
                             </div>
-                            <div class="rider-header">
-                                <div class="rider-info">
-                                    <div class="rider-image">
-                                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Musa Ahmed">
+                            <div class="technician-header">
+                                <div class="technician-info">
+                                    <div class="technician-image">
+                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Musa Ibrahim">
                                     </div>
                                     <div>
-                                        <div class="rider-name">Musa Ahmed</div>
-                                        <div class="rider-details">
-                                            <span class="rider-vehicle">
-                                                <i class="fas fa-car"></i> Car
+                                        <div class="technician-name">Musa Ibrahim</div>
+                                        <div class="technician-details">
+                                            <span class="technician-specialty">
+                                                <i class="fas fa-faucet"></i> Plumber
                                             </span>
-                                            <span class="rider-rating">
+                                            <span class="technician-rating">
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
@@ -1843,28 +1861,28 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="rider-price">₦950</div>
+                                <div class="technician-price">₦4,200</div>
                             </div>
                         </div>
 
-                        <!-- Rider 3 -->
-                        <div class="rider-item" data-rider="3">
-                            <div class="rider-online-status">
+                        <!-- Technician 3 - Generator Repair -->
+                        <div class="technician-item" data-technician="3">
+                            <div class="technician-online-status">
                                 <span class="online-dot"></span>
                                 <span>Online</span>
                             </div>
-                            <div class="rider-header">
-                                <div class="rider-info">
-                                    <div class="rider-image">
-                                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Ibrahim Yusuf">
+                            <div class="technician-header">
+                                <div class="technician-info">
+                                    <div class="technician-image">
+                                        <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Abdullahi Bello">
                                     </div>
                                     <div>
-                                        <div class="rider-name">Ibrahim Yusuf</div>
-                                        <div class="rider-details">
-                                            <span class="rider-vehicle">
-                                                <i class="fas fa-bicycle"></i> Bicycle
+                                        <div class="technician-name">Abdullahi Bello</div>
+                                        <div class="technician-details">
+                                            <span class="technician-specialty">
+                                                <i class="fas fa-cogs"></i> Generator Specialist
                                             </span>
-                                            <span class="rider-rating">
+                                            <span class="technician-rating">
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
@@ -1874,148 +1892,120 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="rider-price">₦650</div>
-                            </div>
-                        </div>
-
-                        <!-- Rider 4 -->
-                        <div class="rider-item" data-rider="4">
-                            <div class="rider-online-status">
-                                <span class="online-dot"></span>
-                                <span>Online</span>
-                            </div>
-                            <div class="rider-header">
-                                <div class="rider-info">
-                                    <div class="rider-image">
-                                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Suleiman Bello">
-                                    </div>
-                                    <div>
-                                        <div class="rider-name">Suleiman Bello</div>
-                                        <div class="rider-details">
-                                            <span class="rider-vehicle">
-                                                <i class="fas fa-truck-pickup"></i> Pickup
-                                            </span>
-                                            <span class="rider-rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
-                                                <span>4.7</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="rider-price">₦750</div>
+                                <div class="technician-price">₦5,000</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="checkout-summary">
-                        <h3 class="summary-title">Order Summary</h3>
+                        <h3 class="summary-title">Service Summary</h3>
                         <div class="summary-details">
                             <div class="summary-row">
-                                <span class="summary-label">Delivery Distance</span>
-                                <span>5.2 km</span>
+                                <span class="summary-label">Service Type</span>
+                                <span id="summaryServiceType">Electrician</span>
                             </div>
                             <div class="summary-row">
-                                <span class="summary-label">Estimated Time</span>
-                                <span>25-35 mins</span>
+                                <span class="summary-label">Service Location</span>
+                                <span id="summaryServiceLocation">-</span>
                             </div>
                             <div class="summary-row">
-                                <span class="summary-label">Service Fee</span>
-                                <span>₦150</span>
+                                <span class="summary-label">Scheduled Time</span>
+                                <span id="summaryServiceTime">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Inspection/Service Fee</span>
+                                <span id="summaryServiceFee">₦3,500</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Platform Fee</span>
+                                <span>₦200</span>
                             </div>
                         </div>
                         <div class="summary-total">
                             <span>Total Amount</span>
-                            <span id="totalAmount">₦850</span>
+                            <span id="totalAmount">₦3,700</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="action-buttons">
                     <button class="action-btn prev-btn" id="backToStep2">
-                        <i class="fas fa-arrow-left"></i> Back to Delivery
+                        <i class="fas fa-arrow-left"></i> Back to Location & Time
                     </button>
                     <button class="action-btn next-btn" id="nextToStep4">
-                        Proceed to Checkout <i class="fas fa-arrow-right"></i>
+                        Send Request to Technician <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Step 4: Checkout -->
+            <!-- Step 4: Pending Status -->
             <div class="step-content" id="step4">
                 <div class="form-section">
                     <div class="section-header">
                         <div class="section-icon">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fas fa-clock"></i>
                         </div>
-                        <h2 class="section-title">Checkout & Payment</h2>
+                        <h2 class="section-title">Request Sent</h2>
                     </div>
 
-                    <div class="checkout-summary">
-                        <h3 class="summary-title">Order Summary</h3>
-                        <div class="summary-details">
-                            <div class="summary-row">
-                                <span class="summary-label">Pickup Location</span>
-                                <span id="summaryPickup">-</span>
-                            </div>
-                            <div class="summary-row">
-                                <span class="summary-label">Delivery Location</span>
-                                <span id="summaryDelivery">-</span>
-                            </div>
-                            <div class="summary-row">
-                                <span class="summary-label">Selected Rider</span>
-                                <span id="summaryRider">-</span>
-                            </div>
-                            <div class="summary-row">
-                                <span class="summary-label">Rider Fee</span>
-                                <span id="summaryRiderFee">₦850</span>
-                            </div>
-                            <div class="summary-row">
-                                <span class="summary-label">Service Fee</span>
-                                <span>₦150</span>
-                            </div>
+                    <div class="pending-container">
+                        <div class="pending-icon">
+                            <i class="fas fa-hourglass-half"></i>
                         </div>
-                        <div class="summary-total">
-                            <span>Total Amount</span>
-                            <span id="summaryTotal">₦1,000</span>
-                        </div>
-                    </div>
-
-                    <div class="timer-container" id="timerContainer">
-                        <div class="timer-title">Waiting for rider to accept your order</div>
-                        <div class="timer" id="countdownTimer">02:00</div>
-                        <div class="timer-message" id="timerMessage">Rider has 2 minutes to accept your request</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">Select Payment Method</label>
-                        <div class="location-options">
-                            <div class="location-option selected" data-payment="card">
-                                <div class="location-icon">
-                                    <i class="fas fa-credit-card"></i>
+                        <h2 class="pending-title">Request Pending</h2>
+                        <p class="pending-message">
+                            Your service request has been sent to <strong id="pendingTechnicianName">Hassan Ali</strong>.
+                            They have <strong>2 hours</strong> to accept your request.
+                        </p>
+                        <div class="pending-timer" id="pendingTimer">02:00:00</div>
+                        <p class="pending-note">
+                            <i class="fas fa-info-circle"></i> You can safely leave this page. 
+                            You'll be notified when the technician responds.
+                        </p>
+                        
+                        <div class="checkout-summary">
+                            <h3 class="summary-title">Request Summary</h3>
+                            <div class="summary-details">
+                                <div class="summary-row">
+                                    <span class="summary-label">Service Type</span>
+                                    <span id="pendingServiceType">Electrician</span>
                                 </div>
-                                <div class="location-name">Card Payment</div>
-                            </div>
-                            <div class="location-option" data-payment="transfer">
-                                <div class="location-icon">
-                                    <i class="fas fa-university"></i>
+                                <div class="summary-row">
+                                    <span class="summary-label">Service Address</span>
+                                    <span id="pendingAddress">-</span>
                                 </div>
-                                <div class="location-name">Bank Transfer</div>
+                                <div class="summary-row">
+                                    <span class="summary-label">Scheduled Date & Time</span>
+                                    <span id="pendingDateTime">-</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-label">Selected Technician</span>
+                                    <span id="pendingTechnician">Hassan Ali</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-label">Service Fee</span>
+                                    <span id="pendingServiceFee">₦3,500</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-label">Platform Fee</span>
+                                    <span>₦200</span>
+                                </div>
+                            </div>
+                            <div class="summary-total">
+                                <span>Total Amount</span>
+                                <span id="pendingTotal">₦3,700</span>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="action-buttons">
-                    <button class="action-btn prev-btn" id="backToStep3">
-                        <i class="fas fa-arrow-left"></i> Back to Riders
-                    </button>
-                    <button class="action-btn payment-btn" id="proceedPayment" disabled>
-                        <i class="fas fa-lock"></i> Proceed to Payment
-                    </button>
+                        <div class="action-buttons" style="margin-top: 25px;">
+                            <button class="action-btn prev-btn" id="backToStep3FromPending">
+                                <i class="fas fa-arrow-left"></i> Back to Technicians
+                            </button>
+                            <button class="pending-action-btn" id="goToHomeBtn">
+                                <i class="fas fa-home"></i> Go to Home
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -2030,7 +2020,7 @@
             <span class="nav-text">Home</span>
         </a>
         
-        <a href="orders.html" class="nav-item">
+        <a href="orders.html" class="nav-item active">
             <div class="nav-icon">
                 <i class="fas fa-clipboard-list"></i>
             </div>
@@ -2137,12 +2127,102 @@
         </div>
     </div>
 
-    <!-- Payment Processing Modal -->
+    <!-- Technician Accepted Modal (This will appear when technician accepts) -->
+    <div class="modal" id="technicianAcceptedModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Technician Accepted!</h2>
+                <button class="close-modal-btn" id="closeAcceptedModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="confirmation-popup">
+                    <div class="popup-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Great News!</h3>
+                    <p><strong id="acceptedTechnicianName">Hassan Ali</strong> has accepted your service request.</p>
+                    <p>Please proceed to payment to confirm your booking.</p>
+                    <div class="confirmation-actions">
+                        <button class="confirmation-btn confirm-no-btn" id="viewRequestDetailsBtn">View Details</button>
+                        <button class="confirmation-btn confirm-yes-btn" id="proceedToPaymentBtn">Proceed to Payment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal (After technician accepts) -->
     <div class="modal" id="paymentModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Payment Processing</h2>
+                <h2 class="modal-title">Complete Payment</h2>
                 <button class="close-modal-btn" id="closePaymentModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="checkout-summary" style="margin-bottom: 25px;">
+                    <h3 class="summary-title">Payment Summary</h3>
+                    <div class="summary-details">
+                        <div class="summary-row">
+                            <span class="summary-label">Service Type</span>
+                            <span id="paymentServiceType">Electrician</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Technician</span>
+                            <span id="paymentTechnicianName">Hassan Ali</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Service Fee</span>
+                            <span id="paymentServiceFee">₦3,500</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Platform Fee</span>
+                            <span>₦200</span>
+                        </div>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total Amount</span>
+                        <span id="paymentTotalAmount">₦3,700</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label required">Select Payment Method</label>
+                    <div class="service-options">
+                        <div class="service-option selected" data-payment="card">
+                            <div class="service-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="service-name">Card Payment</div>
+                        </div>
+                        <div class="service-option" data-payment="transfer">
+                            <div class="service-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="service-name">Bank Transfer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons" style="margin-top: 25px;">
+                    <button class="action-btn prev-btn" id="cancelPaymentBtn">Cancel</button>
+                    <button class="action-btn payment-btn" id="confirmPaymentBtn">
+                        <i class="fas fa-lock"></i> Pay Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Processing Modal -->
+    <div class="modal" id="paymentProcessingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Payment Processing</h2>
+                <button class="close-modal-btn" id="closePaymentProcessingModal">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -2150,18 +2230,18 @@
                 <div style="text-align: center; padding: 20px 0;">
                     <div class="loader-spinner" style="margin: 0 auto 20px;"></div>
                     <h3 style="margin-bottom: 10px; color: var(--text-dark);">Processing Payment</h3>
-                    <p style="color: var(--text-light); margin-bottom: 30px;">Please wait while we process your payment of <strong id="paymentAmount">₦1,000</strong></p>
+                    <p style="color: var(--text-light); margin-bottom: 30px;">Please wait while we process your payment of <strong id="paymentAmountDisplay">₦3,700</strong></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Order Confirmed Modal -->
-    <div class="modal" id="orderConfirmedModal">
+    <!-- Payment Success Modal -->
+    <div class="modal" id="paymentSuccessModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Order Confirmed!</h2>
-                <button class="close-modal-btn" id="closeOrderModal">
+                <h2 class="modal-title">Payment Successful!</h2>
+                <button class="close-modal-btn" id="closeSuccessModal">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -2170,13 +2250,13 @@
                     <div style="width: 80px; height: 80px; background: var(--primary-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
                         <i class="fas fa-check" style="color: white; font-size: 36px;"></i>
                     </div>
-                    <h3 style="margin-bottom: 10px; color: var(--text-dark);">Your order has been confirmed!</h3>
-                    <p style="color: var(--text-light); margin-bottom: 20px;">Rider <strong id="confirmedRiderName">Abdul Sani</strong> has accepted your delivery request.</p>
-                    <p style="color: var(--text-light); margin-bottom: 30px;">Estimated delivery time: <strong>25-35 minutes</strong></p>
+                    <h3 style="margin-bottom: 10px; color: var(--text-dark);">Service Booking Confirmed!</h3>
+                    <p style="color: var(--text-light); margin-bottom: 20px;">Your payment was successful and your service is now confirmed.</p>
+                    <p style="color: var(--text-light); margin-bottom: 30px;"><strong id="confirmedTechName">Hassan Ali</strong> will arrive at your scheduled time.</p>
                     
                     <div class="action-buttons">
-                        <button class="action-btn prev-btn" id="viewOrderDetails">View Order Details</button>
-                        <button class="action-btn next-btn" id="goToOrders">Track Order</button>
+                        <button class="action-btn prev-btn" id="viewBookingDetailsBtn">View Booking</button>
+                        <button class="action-btn next-btn" id="goToOrdersAfterPaymentBtn">Track Service</button>
                     </div>
                 </div>
             </div>
@@ -2223,56 +2303,81 @@
         let currentStep = 1;
         
         // Step 1 Elements
-        const locationOptions = document.querySelectorAll('.location-option[data-type]');
+        const serviceOptions = document.querySelectorAll('.service-option[data-service]');
+        const problemDescription = document.getElementById('problemDescription');
+        const fileInput = document.getElementById('fileInput');
+        const fileUploadContainer = document.getElementById('fileUploadContainer');
+        const filePreviewContainer = document.getElementById('filePreviewContainer');
         const nextToStep2Btn = document.getElementById('nextToStep2');
         
         // Step 2 Elements
-        const addressItems = document.querySelectorAll('.address-item');
+        const serviceAddressItems = document.querySelectorAll('#serviceAddresses .address-item');
         const addAddressBtn = document.getElementById('addAddressBtn');
-        const receiverSelf = document.getElementById('receiverSelf');
-        const receiverOther = document.getElementById('receiverOther');
-        const selfReceiverInfo = document.getElementById('selfReceiverInfo');
-        const otherReceiverForm = document.getElementById('otherReceiverForm');
-        const addReceiverPhone = document.getElementById('addReceiverPhone');
-        const receiverPhoneInputs = document.getElementById('receiverPhoneInputs');
-        const itemPhotoUpload = document.getElementById('itemPhotoUpload');
-        const itemPhotoInput = document.getElementById('itemPhotoInput');
-        const itemPhotoPreview = document.getElementById('itemPhotoPreview');
-        const previewItemImage = document.getElementById('previewItemImage');
+        const serviceDate = document.getElementById('serviceDate');
+        const serviceTime = document.getElementById('serviceTime');
         const backToStep1Btn = document.getElementById('backToStep1');
         const nextToStep3Btn = document.getElementById('nextToStep3');
         
+        // Map variables for service address
+        let serviceMap;
+        let serviceMarker;
+        let serviceSelectedCoordinates = null;
+        let serviceCurrentMapLayer = 'satellite';
+        let serviceSatelliteLayer, serviceStreetLayer;
+        
         // Step 3 Elements
-        const riderItems = document.querySelectorAll('.rider-item');
+        const technicianItems = document.querySelectorAll('.technician-item[data-technician]');
+        const summaryServiceType = document.getElementById('summaryServiceType');
+        const summaryServiceLocation = document.getElementById('summaryServiceLocation');
+        const summaryServiceTime = document.getElementById('summaryServiceTime');
+        const summaryServiceFee = document.getElementById('summaryServiceFee');
         const totalAmount = document.getElementById('totalAmount');
         const backToStep2Btn = document.getElementById('backToStep2');
         const nextToStep4Btn = document.getElementById('nextToStep4');
         
-        // Step 4 Elements
-        const summaryPickup = document.getElementById('summaryPickup');
-        const summaryDelivery = document.getElementById('summaryDelivery');
-        const summaryRider = document.getElementById('summaryRider');
-        const summaryRiderFee = document.getElementById('summaryRiderFee');
-        const summaryTotal = document.getElementById('summaryTotal');
-        const countdownTimer = document.getElementById('countdownTimer');
-        const timerMessage = document.getElementById('timerMessage');
-        const paymentOptions = document.querySelectorAll('.location-option[data-payment]');
-        const proceedPaymentBtn = document.getElementById('proceedPayment');
-        const backToStep3Btn = document.getElementById('backToStep3');
+        // Step 4 (Pending) Elements
+        const pendingTechnicianName = document.getElementById('pendingTechnicianName');
+        const pendingServiceType = document.getElementById('pendingServiceType');
+        const pendingAddress = document.getElementById('pendingAddress');
+        const pendingDateTime = document.getElementById('pendingDateTime');
+        const pendingTechnician = document.getElementById('pendingTechnician');
+        const pendingServiceFee = document.getElementById('pendingServiceFee');
+        const pendingTotal = document.getElementById('pendingTotal');
+        const pendingTimer = document.getElementById('pendingTimer');
+        const backToStep3FromPending = document.getElementById('backToStep3FromPending');
+        const goToHomeBtn = document.getElementById('goToHomeBtn');
         
         // Modal Elements
         const addAddressModal = document.getElementById('addAddressModal');
         const closeAddressModal = document.getElementById('closeAddressModal');
         const cancelAddressBtn = document.getElementById('cancelAddressBtn');
         const addressForm = document.getElementById('addressForm');
+        
+        const technicianAcceptedModal = document.getElementById('technicianAcceptedModal');
+        const closeAcceptedModal = document.getElementById('closeAcceptedModal');
+        const viewRequestDetailsBtn = document.getElementById('viewRequestDetailsBtn');
+        const proceedToPaymentBtn = document.getElementById('proceedToPaymentBtn');
+        const acceptedTechnicianName = document.getElementById('acceptedTechnicianName');
+        
         const paymentModal = document.getElementById('paymentModal');
         const closePaymentModal = document.getElementById('closePaymentModal');
-        const paymentAmount = document.getElementById('paymentAmount');
-        const orderConfirmedModal = document.getElementById('orderConfirmedModal');
-        const closeOrderModal = document.getElementById('closeOrderModal');
-        const confirmedRiderName = document.getElementById('confirmedRiderName');
-        const viewOrderDetailsBtn = document.getElementById('viewOrderDetails');
-        const goToOrdersBtn = document.getElementById('goToOrders');
+        const paymentServiceType = document.getElementById('paymentServiceType');
+        const paymentTechnicianName = document.getElementById('paymentTechnicianName');
+        const paymentServiceFee = document.getElementById('paymentServiceFee');
+        const paymentTotalAmount = document.getElementById('paymentTotalAmount');
+        const paymentOptions = document.querySelectorAll('#paymentModal .service-option[data-payment]');
+        const cancelPaymentBtn = document.getElementById('cancelPaymentBtn');
+        const confirmPaymentBtn = document.getElementById('confirmPaymentBtn');
+        
+        const paymentProcessingModal = document.getElementById('paymentProcessingModal');
+        const closePaymentProcessingModal = document.getElementById('closePaymentProcessingModal');
+        const paymentAmountDisplay = document.getElementById('paymentAmountDisplay');
+        
+        const paymentSuccessModal = document.getElementById('paymentSuccessModal');
+        const closeSuccessModal = document.getElementById('closeSuccessModal');
+        const confirmedTechName = document.getElementById('confirmedTechName');
+        const viewBookingDetailsBtn = document.getElementById('viewBookingDetailsBtn');
+        const goToOrdersAfterPaymentBtn = document.getElementById('goToOrdersAfterPaymentBtn');
         
         // Location Confirmation Modal Elements
         const locationConfirmationModal = document.getElementById('locationConfirmationModal');
@@ -2282,85 +2387,150 @@
         const confirmationAddressText = document.getElementById('confirmationAddressText');
         
         // Timer variables
-        let timerInterval;
-        let timeLeft = 120; // 2 minutes in seconds
+        let pendingTimerInterval;
+        let pendingTimeLeft = 7200; // 2 hours in seconds
         
         // Selected options
-        let selectedRider = 1;
-        let selectedRiderPrice = 850;
+        let selectedService = 'electrician';
+        let selectedTechnician = 1;
+        let selectedTechnicianPrice = 3500;
+        let selectedTechnicianObj = null;
         let selectedPayment = 'card';
+        let uploadedFiles = [];
+        const platformFee = 200;
         
-        // Map variables
-        let map;
-        let marker;
-        let userLocation = [11.9814, 6.7714]; // Gusau, Zamfara coordinates
-        let selectedCoordinates = null;
-        let selectedAddress = '';
-        let currentMapLayer = 'satellite'; // Default to satellite
+        // Simulate technician acceptance (in real app, this would come from server push notification)
+        let simulateAcceptanceTimeout = null;
         
-        // Tile layers
-        let satelliteLayer, streetLayer;
-        
-        // User data (simulated - in real app, this would come from profile)
-        const userData = {
-            name: "Usman Abdullahi",
-            phones: ["+234 801 234 5678", "+234 812 345 6789"]
-        };
-        
-        // Simulate initial page load
-        window.addEventListener('load', () => {
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set minimum date to today
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowFormatted = tomorrow.toISOString().split('T')[0];
+            serviceDate.min = tomorrowFormatted;
+            serviceDate.value = tomorrowFormatted;
+            
+            // Set default time to 10:00 AM
+            serviceTime.value = '10:00';
+            
+            // Check if there's a pending request in localStorage (simulating coming back to app)
+            checkForPendingRequest();
+            
+            // Simulate page load
             setTimeout(() => {
                 pageLoader.classList.remove('active');
-                initializeMap();
+                initializeServiceMap();
+                setupFileUpload();
             }, 800);
         });
         
-        // Initialize Leaflet Map
-        function initializeMap() {
+        // Check for pending request when page loads
+        function checkForPendingRequest() {
+            const pendingRequest = localStorage.getItem('servicePendingRequest');
+            
+            if (pendingRequest) {
+                const request = JSON.parse(pendingRequest);
+                
+                // Check if request is still within 2 hours
+                const requestTime = new Date(request.timestamp);
+                const currentTime = new Date();
+                const timeDiff = (currentTime - requestTime) / 1000; // in seconds
+                
+                if (timeDiff < 7200) { // Less than 2 hours
+                    // Restore request data
+                    selectedService = request.serviceType;
+                    selectedTechnician = request.technicianId;
+                    selectedTechnicianPrice = request.technicianPrice;
+                    
+                    // Go directly to pending step
+                    goToStep(4);
+                    startPendingTimer(7200 - Math.floor(timeDiff));
+                    
+                    // Check if technician has accepted (in real app, this would check server)
+                    if (request.technicianAccepted) {
+                        showTechnicianAcceptedModal(request.technicianName);
+                    }
+                } else {
+                    // Request expired, remove from localStorage
+                    localStorage.removeItem('servicePendingRequest');
+                    showNotification('Your previous service request has expired. Please create a new request.', 'info');
+                }
+            }
+        }
+        
+        // Save pending request to localStorage
+        function savePendingRequest() {
+            const request = {
+                serviceType: selectedService,
+                technicianId: selectedTechnician,
+                technicianName: selectedTechnicianObj ? selectedTechnicianObj.name : 'Unknown Technician',
+                technicianPrice: selectedTechnicianPrice,
+                timestamp: new Date().toISOString(),
+                technicianAccepted: false
+            };
+            
+            localStorage.setItem('servicePendingRequest', JSON.stringify(request));
+        }
+        
+        // Update technician accepted in localStorage
+        function updateTechnicianAccepted() {
+            const pendingRequest = localStorage.getItem('servicePendingRequest');
+            
+            if (pendingRequest) {
+                const request = JSON.parse(pendingRequest);
+                request.technicianAccepted = true;
+                localStorage.setItem('servicePendingRequest', JSON.stringify(request));
+            }
+        }
+        
+        // Initialize Leaflet Map for service address
+        function initializeServiceMap() {
             // Initialize map with attribution control disabled
-            map = L.map('pickupMap', {
-                attributionControl: false // This completely disables the attribution control
-            }).setView(userLocation, 13);
+            serviceMap = L.map('serviceAddressMap', {
+                attributionControl: false
+            }).setView([11.9814, 6.7714], 13); // Gusau, Zamfara coordinates
             
             // Create tile layers with empty attribution
-            satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-                attribution: '', // Empty string to remove attribution
+            serviceSatelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: '',
                 maxZoom: 19
             });
             
-            streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '', // Empty string to remove attribution
+            serviceStreetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '',
                 maxZoom: 19
             });
             
             // Add satellite layer by default
-            satelliteLayer.addTo(map);
+            serviceSatelliteLayer.addTo(serviceMap);
             
             // Create map type selector
-            createMapTypeSelector();
+            createServiceMapTypeSelector();
             
             // Add initial marker
-            marker = L.marker(userLocation, {
+            serviceMarker = L.marker([11.9814, 6.7714], {
                 draggable: true,
-                title: "Drag to set pickup location"
-            }).addTo(map);
+                title: "Drag to set service location"
+            }).addTo(serviceMap);
             
             // Add marker drag event
-            marker.on('dragend', function(e) {
-                const position = marker.getLatLng();
-                updateCoordinates(position.lat, position.lng);
+            serviceMarker.on('dragend', function(e) {
+                const position = serviceMarker.getLatLng();
+                updateServiceCoordinates(position.lat, position.lng);
             });
             
             // Add click event to map to move marker
-            map.on('click', function(e) {
-                marker.setLatLng(e.latlng);
-                updateCoordinates(e.latlng.lat, e.latlng.lng);
+            serviceMap.on('click', function(e) {
+                serviceMarker.setLatLng(e.latlng);
+                updateServiceCoordinates(e.latlng.lat, e.latlng.lng);
             });
         }
         
-        // Create map type selector
-        function createMapTypeSelector() {
-            const mapContainer = document.querySelector('.map-container');
+        // Create map type selector for service map
+        function createServiceMapTypeSelector() {
+            const mapContainer = document.querySelector('#serviceAddressMap').parentElement;
             
             const selectorDiv = document.createElement('div');
             selectorDiv.className = 'map-type-selector';
@@ -2383,52 +2553,30 @@
                     
                     // Switch map layer
                     if (type === 'satellite') {
-                        map.removeLayer(streetLayer);
-                        satelliteLayer.addTo(map);
-                        currentMapLayer = 'satellite';
+                        serviceMap.removeLayer(serviceStreetLayer);
+                        serviceSatelliteLayer.addTo(serviceMap);
+                        serviceCurrentMapLayer = 'satellite';
                     } else {
-                        map.removeLayer(satelliteLayer);
-                        streetLayer.addTo(map);
-                        currentMapLayer = 'street';
+                        serviceMap.removeLayer(serviceSatelliteLayer);
+                        serviceStreetLayer.addTo(serviceMap);
+                        serviceCurrentMapLayer = 'street';
                     }
                 });
             });
         }
         
-        // Update coordinates when marker is moved
-        function updateCoordinates(lat, lng) {
-            selectedCoordinates = { lat, lng };
+        // Update coordinates when marker is moved for service address
+        function updateServiceCoordinates(lat, lng) {
+            serviceSelectedCoordinates = { lat, lng };
             
-            // In a real app, you would call a reverse geocoding API here
-            // For demo, we'll simulate an address lookup
-            simulateReverseGeocoding(lat, lng);
-        }
-        
-        // Simulate reverse geocoding (in real app, use a service like Nominatim)
-        function simulateReverseGeocoding(lat, lng) {
-            // This is a simulation - in a real app, you would use:
-            // fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
-            
-            const addresses = [
-                "123 Main Street, Tudun Wada, Gusau",
-                "Market Square, Gusau Central Market",
-                "Zamfara State University Road",
-                "Unguwan Gwaza Residential Area",
-                "Gusau City Center"
-            ];
-            
-            // Pick a pseudo-random address based on coordinates
-            const index = Math.abs(Math.round((lat + lng) * 1000) % addresses.length);
-            selectedAddress = addresses[index];
-            
-            // Update confirmation modal text
+            // Update confirmation modal text - ONLY COORDINATES, no street name
             confirmationAddressText.textContent = 
-                `${selectedAddress}\n\nCoordinates: ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                `Coordinates: ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
         }
         
-        // Show the confirmation modal
-        function showConfirmationModal() {
-            if (!selectedCoordinates) {
+        // Show the confirmation modal for service address
+        function showServiceConfirmationModal() {
+            if (!serviceSelectedCoordinates) {
                 showNotification('Please select a location on the map first', 'error');
                 return;
             }
@@ -2436,26 +2584,23 @@
             locationConfirmationModal.classList.add('active');
         }
         
-        // Handle location confirmation
-        function confirmLocation() {
-            if (selectedCoordinates && selectedAddress) {
+        // Handle location confirmation for service address
+        function confirmServiceLocation() {
+            if (serviceSelectedCoordinates) {
                 // Show the coordinates display container
-                const container = document.getElementById('coordinatesDisplayContainer');
-                const display = document.getElementById('coordinatesDisplay');
+                const container = document.getElementById('coordinatesDisplayContainerService');
+                const display = document.getElementById('coordinatesDisplayService');
                 
                 container.style.display = 'block';
-                display.textContent = `${selectedAddress}\n\nCoordinates: ${selectedCoordinates.lat.toFixed(6)}, ${selectedCoordinates.lng.toFixed(6)}`;
+                display.textContent = `Coordinates: ${serviceSelectedCoordinates.lat.toFixed(6)}, ${serviceSelectedCoordinates.lng.toFixed(6)}`;
                 display.classList.remove('empty');
-                
-                // Note: We DON'T update the pickupAddress textarea
-                // That stays for manual entry only
                 
                 showNotification('Location confirmed successfully!', 'success');
             }
         }
         
-        // Use current location button
-        document.getElementById('useCurrentLocation').addEventListener('click', function() {
+        // Use current location button for service address
+        document.getElementById('useCurrentLocationService').addEventListener('click', function() {
             if (navigator.geolocation) {
                 pageLoader.classList.add('active');
                 navigator.geolocation.getCurrentPosition(
@@ -2464,11 +2609,11 @@
                         const lng = position.coords.longitude;
                         
                         // Update map view
-                        map.setView([lat, lng], 15);
-                        marker.setLatLng([lat, lng]);
+                        serviceMap.setView([lat, lng], 15);
+                        serviceMarker.setLatLng([lat, lng]);
                         
                         // Update coordinates
-                        updateCoordinates(lat, lng);
+                        updateServiceCoordinates(lat, lng);
                         
                         pageLoader.classList.remove('active');
                         showNotification('Location updated successfully!', 'success');
@@ -2483,9 +2628,9 @@
             }
         });
         
-        // Confirm map location button - now shows confirmation modal
-        document.getElementById('confirmMapLocation').addEventListener('click', function() {
-            showConfirmationModal();
+        // Confirm map location button for service address - shows confirmation modal
+        document.getElementById('confirmMapLocationService').addEventListener('click', function() {
+            showServiceConfirmationModal();
         });
         
         // Close location modal
@@ -2500,8 +2645,102 @@
         
         confirmYesBtn.addEventListener('click', () => {
             locationConfirmationModal.classList.remove('active');
-            confirmLocation();
+            confirmServiceLocation();
         });
+        
+        // Setup file upload functionality
+        function setupFileUpload() {
+            // Click file upload container to trigger file input
+            fileUploadContainer.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            // Handle file selection
+            fileInput.addEventListener('change', handleFileSelect);
+        }
+        
+        // Handle file selection
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                
+                // Check file type
+                if (!file.type.match('image.*')) {
+                    showNotification('Please upload only image files (JPEG, PNG)', 'error');
+                    continue;
+                }
+                
+                // Check file size (5MB max)
+                if (file.size > 5 * 1024 * 1024) {
+                    showNotification(`File "${file.name}" is too large. Maximum size is 5MB.`, 'error');
+                    continue;
+                }
+                
+                // Add file to uploaded files array
+                uploadedFiles.push(file);
+                
+                // Create file preview
+                createFilePreview(file);
+            }
+            
+            // Reset file input
+            fileInput.value = '';
+        }
+        
+        // Create file preview
+        function createFilePreview(file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const filePreview = document.createElement('div');
+                filePreview.className = 'file-preview';
+                filePreview.dataset.fileName = file.name;
+                
+                const fileSize = formatFileSize(file.size);
+                
+                filePreview.innerHTML = `
+                    <div class="file-preview-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="file-preview-info">
+                        <div class="file-preview-name">${file.name}</div>
+                        <div class="file-preview-size">${fileSize}</div>
+                    </div>
+                    <button class="file-remove-btn" type="button">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                // Add remove button event listener
+                const removeBtn = filePreview.querySelector('.file-remove-btn');
+                removeBtn.addEventListener('click', function() {
+                    removeFile(file.name);
+                    filePreview.remove();
+                });
+                
+                filePreviewContainer.appendChild(filePreview);
+            };
+            
+            reader.readAsDataURL(file);
+        }
+        
+        // Remove file from uploaded files array
+        function removeFile(fileName) {
+            uploadedFiles = uploadedFiles.filter(file => file.name !== fileName);
+        }
+        
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
         
         // Back button handler
         backButton.addEventListener('click', () => {
@@ -2574,22 +2813,39 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
-        // Step 1: Location Options
-        locationOptions.forEach(option => {
+        // Step 1: Service Type Selection
+        serviceOptions.forEach(option => {
             option.addEventListener('click', () => {
-                locationOptions.forEach(opt => opt.classList.remove('selected'));
+                serviceOptions.forEach(opt => opt.classList.remove('selected'));
                 option.classList.add('selected');
+                
+                selectedService = option.getAttribute('data-service');
+                updateServiceSummary();
             });
         });
         
-        // Step 1: Next button
-        nextToStep2Btn.addEventListener('click', () => {
-            // Check if map was used but not confirmed
-            const coordsDisplay = document.getElementById('coordinatesDisplay');
-            const pickupAddress = document.getElementById('pickupAddress').value;
+        // Update service summary
+        function updateServiceSummary() {
+            const serviceNameMap = {
+                'electrician': 'Electrician',
+                'plumber': 'Plumber',
+                'generator': 'Generator Repair',
+                'carpenter': 'Carpenter',
+                'welder': 'Welder'
+            };
             
-            if (selectedCoordinates && coordsDisplay.classList.contains('empty')) {
-                showNotification('Please confirm the map location before proceeding', 'error');
+            const serviceName = serviceNameMap[selectedService] || selectedService;
+            summaryServiceType.textContent = serviceName;
+            pendingServiceType.textContent = serviceName;
+            paymentServiceType.textContent = serviceName;
+        }
+        
+        // Step 1: Next button validation
+        nextToStep2Btn.addEventListener('click', () => {
+            // Validate problem description
+            if (problemDescription.value.trim() === '') {
+                showNotification('Please describe the problem you need help with.', 'error');
+                problemDescription.focus();
                 return;
             }
             
@@ -2597,9 +2853,9 @@
         });
         
         // Step 2: Address Selection
-        addressItems.forEach(item => {
+        serviceAddressItems.forEach(item => {
             item.addEventListener('click', () => {
-                addressItems.forEach(addr => addr.classList.remove('selected'));
+                serviceAddressItems.forEach(addr => addr.classList.remove('selected'));
                 item.classList.add('selected');
             });
         });
@@ -2609,133 +2865,96 @@
             addAddressModal.classList.add('active');
         });
         
-        // Step 2: Receiver Information Toggle
-        receiverSelf.addEventListener('click', () => {
-            receiverSelf.classList.add('selected');
-            receiverOther.classList.remove('selected');
-            selfReceiverInfo.style.display = 'block';
-            otherReceiverForm.style.display = 'none';
-            
-            // Update user info display
-            document.getElementById('userNameDisplay').textContent = userData.name;
-            document.getElementById('userPhoneDisplay').textContent = userData.phones.join(', ');
-        });
-        
-        receiverOther.addEventListener('click', () => {
-            receiverOther.classList.add('selected');
-            receiverSelf.classList.remove('selected');
-            selfReceiverInfo.style.display = 'none';
-            otherReceiverForm.style.display = 'block';
-        });
-        
-        // Step 2: Add Receiver Phone Number
-        addReceiverPhone.addEventListener('click', () => {
-            const phoneInputs = document.querySelectorAll('#receiverPhoneInputs .phone-input-group');
-            
-            if (phoneInputs.length < 2) { // Max 2 phone numbers
-                const phoneDiv = document.createElement('div');
-                phoneDiv.className = 'phone-input-group';
-                phoneDiv.innerHTML = `
-                    <input type="tel" class="form-input" placeholder="Additional phone number">
-                    <button type="button" class="remove-phone-btn">
-                        <i class="fas fa-minus"></i> Remove
-                    </button>
-                `;
-                receiverPhoneInputs.appendChild(phoneDiv);
-                
-                // Add event listener to new remove button
-                phoneDiv.querySelector('.remove-phone-btn').addEventListener('click', () => {
-                    phoneDiv.remove();
-                });
-                
-                // Show remove button on first input
-                if (phoneInputs.length === 1) {
-                    phoneInputs[0].querySelector('.remove-phone-btn').style.display = 'block';
-                }
-            } else {
-                showNotification('Maximum 2 phone numbers allowed', 'error');
-            }
-        });
-        
-        // Step 2: Item Photo Upload
-        itemPhotoUpload.addEventListener('click', () => {
-            itemPhotoInput.click();
-        });
-        
-        itemPhotoInput.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
-                const file = e.target.files[0];
-                if (file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        previewItemImage.src = e.target.result;
-                        itemPhotoPreview.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    showNotification('Please select an image file', 'error');
-                }
-            }
-        });
-        
         // Step 2: Back button
         backToStep1Btn.addEventListener('click', () => {
             goToStep(1);
         });
         
-        // Step 2: Next button
+        // Step 2: Next button validation
         nextToStep3Btn.addEventListener('click', () => {
-            // Update summary with pickup and delivery locations
-            const pickupAddress = document.getElementById('pickupAddress').value;
-            const selectedAddress = document.querySelector('.address-item.selected .address-details').textContent;
+            // Validate date and time
+            if (serviceDate.value === '') {
+                showNotification('Please select a preferred date for the service.', 'error');
+                return;
+            }
             
-            summaryPickup.textContent = pickupAddress || '-';
-            summaryDelivery.textContent = selectedAddress.replace(/\n/g, ', ');
+            if (serviceTime.value === '') {
+                showNotification('Please select a preferred time for the service.', 'error');
+                return;
+            }
+            
+            // Update summary
+            updateLocationSummary();
             
             goToStep(3);
         });
         
-        // Step 3: Rider Selection
-        riderItems.forEach(rider => {
-            rider.addEventListener('click', () => {
-                riderItems.forEach(r => r.classList.remove('selected'));
-                rider.classList.add('selected');
+        // Update location summary
+        function updateLocationSummary() {
+            const selectedAddress = document.querySelector('#serviceAddresses .address-item.selected .address-details').textContent;
+            summaryServiceLocation.textContent = selectedAddress.replace(/\n/g, ', ');
+            pendingAddress.textContent = selectedAddress.replace(/\n/g, ', ');
+            
+            // Format date and time
+            const date = new Date(serviceDate.value);
+            const formattedDate = date.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            
+            const time = serviceTime.options[serviceTime.selectedIndex].text;
+            summaryServiceTime.textContent = `${formattedDate} at ${time}`;
+            pendingDateTime.textContent = `${formattedDate} at ${time}`;
+        }
+        
+        // Step 3: Technician Selection
+        technicianItems.forEach(technician => {
+            technician.addEventListener('click', () => {
+                technicianItems.forEach(t => t.classList.remove('selected'));
+                technician.classList.add('selected');
                 
-                selectedRider = parseInt(rider.getAttribute('data-rider'));
+                selectedTechnician = parseInt(technician.getAttribute('data-technician'));
                 
-                // Get rider price from the displayed price
-                const priceText = rider.querySelector('.rider-price').textContent;
-                selectedRiderPrice = parseInt(priceText.replace('₦', ''));
+                // Get technician details
+                const technicianName = technician.querySelector('.technician-name').textContent;
+                const technicianSpecialty = technician.querySelector('.technician-specialty').textContent;
+                const priceText = technician.querySelector('.technician-price').textContent;
+                selectedTechnicianPrice = parseInt(priceText.replace('₦', '').replace(',', ''));
+                
+                // Store technician object
+                selectedTechnicianObj = {
+                    id: selectedTechnician,
+                    name: technicianName,
+                    specialty: technicianSpecialty,
+                    price: selectedTechnicianPrice
+                };
+                
+                // Update summary
+                summaryServiceFee.textContent = `₦${selectedTechnicianPrice.toLocaleString()}`;
+                pendingServiceFee.textContent = `₦${selectedTechnicianPrice.toLocaleString()}`;
+                paymentServiceFee.textContent = `₦${selectedTechnicianPrice.toLocaleString()}`;
                 
                 // Update total amount
                 updateTotalAmount();
                 
-                // Update summary in step 4
-                updateOrderSummary();
+                // Update pending view
+                pendingTechnicianName.textContent = technicianName;
+                pendingTechnician.textContent = technicianName;
+                acceptedTechnicianName.textContent = technicianName;
+                paymentTechnicianName.textContent = technicianName;
+                confirmedTechName.textContent = technicianName;
             });
         });
         
         // Update total amount function
         function updateTotalAmount() {
-            const serviceFee = 150;
-            const total = selectedRiderPrice + serviceFee;
-            totalAmount.textContent = `₦${total}`;
-        }
-        
-        // Update order summary for step 4
-        function updateOrderSummary() {
-            const selectedRiderElement = document.querySelector('.rider-item.selected');
-            const riderName = selectedRiderElement.querySelector('.rider-name').textContent;
-            const riderVehicle = selectedRiderElement.querySelector('.rider-vehicle').textContent;
-            
-            summaryRider.textContent = `${riderName} (${riderVehicle})`;
-            summaryRiderFee.textContent = `₦${selectedRiderPrice}`;
-            
-            const serviceFee = 150;
-            const total = selectedRiderPrice + serviceFee;
-            summaryTotal.textContent = `₦${total}`;
-            paymentAmount.textContent = `₦${total}`;
-            confirmedRiderName.textContent = riderName;
+            const total = selectedTechnicianPrice + platformFee;
+            totalAmount.textContent = `₦${total.toLocaleString()}`;
+            pendingTotal.textContent = `₦${total.toLocaleString()}`;
+            paymentTotalAmount.textContent = `₦${total.toLocaleString()}`;
+            paymentAmountDisplay.textContent = `₦${total.toLocaleString()}`;
         }
         
         // Step 3: Back button
@@ -2743,77 +2962,143 @@
             goToStep(2);
         });
         
-        // Step 3: Next button
+        // Step 3: Next button - Send request to technician
         nextToStep4Btn.addEventListener('click', () => {
-            updateOrderSummary();
+            if (!selectedTechnicianObj) {
+                showNotification('Please select a technician first.', 'error');
+                return;
+            }
+            
+            // Save request to localStorage (simulating server save)
+            savePendingRequest();
+            
+            // Go to pending step
             goToStep(4);
-            startTimer();
+            startPendingTimer();
+            
+            // Simulate technician acceptance after 30 seconds (in real app, this would be push notification)
+            if (simulateAcceptanceTimeout) {
+                clearTimeout(simulateAcceptanceTimeout);
+            }
+            
+            simulateAcceptanceTimeout = setTimeout(() => {
+                showTechnicianAcceptedModal(selectedTechnicianObj.name);
+                updateTechnicianAccepted();
+            }, 30000); // 30 seconds for demo purposes
         });
         
-        // Step 4: Timer Function
-        function startTimer() {
-            timeLeft = 120; // Reset to 2 minutes
-            updateTimerDisplay();
-            
-            // Disable payment button initially
-            proceedPaymentBtn.disabled = true;
-            timerMessage.textContent = 'Rider has 2 minutes to accept your request';
+        // Start pending timer
+        function startPendingTimer(initialTime = 7200) {
+            pendingTimeLeft = initialTime;
+            updatePendingTimerDisplay();
             
             // Clear any existing timer
-            if (timerInterval) {
-                clearInterval(timerInterval);
+            if (pendingTimerInterval) {
+                clearInterval(pendingTimerInterval);
             }
             
             // Start countdown
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                updateTimerDisplay();
+            pendingTimerInterval = setInterval(() => {
+                pendingTimeLeft--;
+                updatePendingTimerDisplay();
                 
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    countdownTimer.textContent = '00:00';
-                    countdownTimer.classList.remove('timer-warning');
-                    countdownTimer.classList.add('timer-expired');
-                    timerMessage.textContent = 'Time expired. Please select another rider.';
-                    proceedPaymentBtn.disabled = true;
+                if (pendingTimeLeft <= 0) {
+                    clearInterval(pendingTimerInterval);
+                    pendingTimer.textContent = '00:00:00';
                     
-                    // Show notification
-                    showNotification('Rider acceptance time expired. Please try again.', 'error');
-                } else if (timeLeft <= 30) {
-                    countdownTimer.classList.add('timer-warning');
-                    timerMessage.textContent = 'Hurry! Time is running out';
-                }
-                
-                // Simulate rider acceptance randomly between 30-90 seconds
-                if (timeLeft === 90) { // After 30 seconds
-                    simulateRiderAcceptance();
+                    // Show expired message
+                    const pendingContainer = document.querySelector('.pending-container');
+                    const originalHTML = pendingContainer.innerHTML;
+                    
+                    pendingContainer.innerHTML = `
+                        <div class="pending-icon" style="background: var(--secondary-red);">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h2 class="pending-title" style="color: var(--secondary-red);">Request Expired</h2>
+                        <p class="pending-message">
+                            The technician did not accept your request within 2 hours.
+                        </p>
+                        <div class="action-buttons" style="margin-top: 25px;">
+                            <button class="action-btn prev-btn" id="backToStep3FromExpired">
+                                <i class="fas fa-arrow-left"></i> Select Another Technician
+                            </button>
+                            <button class="action-btn next-btn" id="goToHomeFromExpired">
+                                <i class="fas fa-home"></i> Go to Home
+                            </button>
+                        </div>
+                    `;
+                    
+                    // Add event listeners for expired buttons
+                    document.getElementById('backToStep3FromExpired').addEventListener('click', () => {
+                        goToStep(3);
+                        pendingContainer.innerHTML = originalHTML;
+                        setupPendingStepListeners();
+                    });
+                    
+                    document.getElementById('goToHomeFromExpired').addEventListener('click', () => {
+                        window.location.href = 'index.html';
+                    });
+                    
+                    // Remove from localStorage
+                    localStorage.removeItem('servicePendingRequest');
                 }
             }, 1000);
         }
         
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            countdownTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        function updatePendingTimerDisplay() {
+            const hours = Math.floor(pendingTimeLeft / 3600);
+            const minutes = Math.floor((pendingTimeLeft % 3600) / 60);
+            const seconds = pendingTimeLeft % 60;
+            pendingTimer.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
         
-        function simulateRiderAcceptance() {
-            // Randomly decide if rider accepts (80% chance)
-            if (Math.random() < 0.8) {
-                setTimeout(() => {
-                    clearInterval(timerInterval);
-                    countdownTimer.textContent = 'Accepted!';
-                    countdownTimer.classList.remove('timer-warning');
-                    countdownTimer.classList.add('completed');
-                    timerMessage.textContent = 'Rider has accepted your delivery request';
-                    proceedPaymentBtn.disabled = false;
-                    
-                    showNotification('Rider has accepted your delivery request!', 'success');
-                }, 1000); // Show acceptance after 1 second
+        // Show technician accepted modal
+        function showTechnicianAcceptedModal(technicianName) {
+            acceptedTechnicianName.textContent = technicianName;
+            technicianAcceptedModal.classList.add('active');
+            
+            // Clear pending timer
+            if (pendingTimerInterval) {
+                clearInterval(pendingTimerInterval);
             }
         }
         
-        // Step 4: Payment Options
+        // Setup pending step event listeners
+        function setupPendingStepListeners() {
+            backToStep3FromPending.addEventListener('click', () => {
+                goToStep(3);
+            });
+            
+            goToHomeBtn.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        }
+        
+        // Call this after creating pending step
+        setupPendingStepListeners();
+        
+        // Technician Accepted Modal Events
+        closeAcceptedModal.addEventListener('click', () => {
+            technicianAcceptedModal.classList.remove('active');
+        });
+        
+        viewRequestDetailsBtn.addEventListener('click', () => {
+            technicianAcceptedModal.classList.remove('active');
+            // In real app, would show request details
+            showNotification('Showing request details...', 'info');
+        });
+        
+        proceedToPaymentBtn.addEventListener('click', () => {
+            technicianAcceptedModal.classList.remove('active');
+            paymentModal.classList.add('active');
+        });
+        
+        // Payment Modal Events
+        closePaymentModal.addEventListener('click', () => {
+            paymentModal.classList.remove('active');
+        });
+        
+        // Payment options in payment modal
         paymentOptions.forEach(option => {
             option.addEventListener('click', () => {
                 paymentOptions.forEach(opt => opt.classList.remove('selected'));
@@ -2822,23 +3107,50 @@
             });
         });
         
-        // Step 4: Back button
-        backToStep3Btn.addEventListener('click', () => {
-            goToStep(3);
-            if (timerInterval) {
-                clearInterval(timerInterval);
-            }
+        cancelPaymentBtn.addEventListener('click', () => {
+            paymentModal.classList.remove('active');
+            showNotification('Payment cancelled. You can complete payment later from your orders.', 'info');
         });
         
-        // Step 4: Proceed to Payment button
-        proceedPaymentBtn.addEventListener('click', () => {
-            paymentModal.classList.add('active');
+        confirmPaymentBtn.addEventListener('click', () => {
+            paymentModal.classList.remove('active');
+            paymentProcessingModal.classList.add('active');
             
             // Simulate payment processing
             setTimeout(() => {
-                paymentModal.classList.remove('active');
-                orderConfirmedModal.classList.add('active');
+                paymentProcessingModal.classList.remove('active');
+                paymentSuccessModal.classList.add('active');
+                
+                // Remove pending request from localStorage
+                localStorage.removeItem('servicePendingRequest');
             }, 2000);
+        });
+        
+        // Payment Processing Modal
+        closePaymentProcessingModal.addEventListener('click', () => {
+            paymentProcessingModal.classList.remove('active');
+        });
+        
+        // Payment Success Modal
+        closeSuccessModal.addEventListener('click', () => {
+            paymentSuccessModal.classList.remove('active');
+        });
+        
+        viewBookingDetailsBtn.addEventListener('click', () => {
+            paymentSuccessModal.classList.remove('active');
+            // In real app, would navigate to booking details
+            showNotification('Redirecting to booking details...', 'info');
+            setTimeout(() => {
+                window.location.href = 'orders.html';
+            }, 1500);
+        });
+        
+        goToOrdersAfterPaymentBtn.addEventListener('click', () => {
+            paymentSuccessModal.classList.remove('active');
+            pageLoader.classList.add('active');
+            setTimeout(() => {
+                window.location.href = 'orders.html';
+            }, 1000);
         });
         
         // Add Address Modal
@@ -2859,7 +3171,7 @@
             const isPrimary = document.getElementById('setAsPrimary').checked;
             
             // Create new address item
-            const addressList = document.getElementById('homeAddresses');
+            const serviceAddressList = document.getElementById('serviceAddresses');
             const newAddress = document.createElement('div');
             newAddress.className = 'address-item';
             newAddress.setAttribute('data-address', `new${Date.now()}`);
@@ -2873,7 +3185,7 @@
             
             // Add click event listener
             newAddress.addEventListener('click', () => {
-                document.querySelectorAll('.address-item').forEach(addr => addr.classList.remove('selected'));
+                document.querySelectorAll('#serviceAddresses .address-item').forEach(addr => addr.classList.remove('selected'));
                 newAddress.classList.add('selected');
             });
             
@@ -2890,10 +3202,10 @@
                 newAddress.querySelector('.address-type').textContent = 'Primary';
                 
                 // Insert at the beginning and select it
-                addressList.insertBefore(newAddress, addressList.firstChild);
+                serviceAddressList.insertBefore(newAddress, serviceAddressList.firstChild);
                 newAddress.classList.add('selected');
             } else {
-                addressList.appendChild(newAddress);
+                serviceAddressList.appendChild(newAddress);
             }
             
             // Reset form
@@ -2901,33 +3213,6 @@
             addAddressModal.classList.remove('active');
             
             showNotification('New address added successfully!', 'success');
-        });
-        
-        // Payment Modal
-        closePaymentModal.addEventListener('click', () => {
-            paymentModal.classList.remove('active');
-        });
-        
-        // Order Confirmed Modal
-        closeOrderModal.addEventListener('click', () => {
-            orderConfirmedModal.classList.remove('active');
-        });
-        
-        viewOrderDetailsBtn.addEventListener('click', () => {
-            orderConfirmedModal.classList.remove('active');
-            // In a real app, this would navigate to order details
-            showNotification('Redirecting to order details...', 'info');
-            setTimeout(() => {
-                window.location.href = 'orders.html';
-            }, 1500);
-        });
-        
-        goToOrdersBtn.addEventListener('click', () => {
-            orderConfirmedModal.classList.remove('active');
-            pageLoader.classList.add('active');
-            setTimeout(() => {
-                window.location.href = 'orders.html';
-            }, 1000);
         });
         
         // Show notification function
@@ -2993,49 +3278,13 @@
             }, 3000);
         }
         
-        // Handle image errors with fallback
-        const images = document.querySelectorAll('img');
-        images.forEach(img => {
-            img.addEventListener('error', function() {
-                if (this.parentElement.classList.contains('rider-image')) {
-                    // Create fallback rider icon
-                    const parent = this.parentElement;
-                    parent.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--primary-green);color:white;font-size:24px;"><i class="fas fa-user"></i></div>';
-                } else if (this.classList.contains('logo-img')) {
-                    // Create text fallback for logo
-                    const parent = this.parentElement;
-                    parent.innerHTML = '<span style="color:white; font-weight:bold; font-size:20px;">ErrandX</span>';
-                } else if (this.id === 'previewItemImage') {
-                    // Handle item preview error
-                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150"><rect width="200" height="150" fill="%23f0f0f0"/><text x="100" y="80" text-anchor="middle" fill="%23999" font-size="16" font-family="Arial">Image Preview</text></svg>';
-                }
-            });
-        });
-        
-        // Simulate network status for loader
-        window.addEventListener('online', () => {
-            console.log('Network connection restored');
-        });
-        
-        window.addEventListener('offline', () => {
-            pageLoader.classList.add('active');
-            pageLoader.innerHTML = `
-                <div style="text-align:center;">
-                    <i class="fas fa-wifi-slash" style="font-size:48px;color:var(--text-light);margin-bottom:20px;"></i>
-                    <p class="loader-text" style="margin-bottom:20px;">No Internet Connection</p>
-                    <button onclick="location.reload()" style="background:var(--primary-green);color:white;border:none;padding:10px 20px;border-radius:20px;cursor:pointer;">
-                        Retry
-                    </button>
-                </div>
-            `;
-        });
-        
-        // Initialize total amount and set default receiver info
+        // Initialize service summary and total amount
+        updateServiceSummary();
         updateTotalAmount();
         
-        // Set default receiver info on page load
-        document.getElementById('userNameDisplay').textContent = userData.name;
-        document.getElementById('userPhoneDisplay').textContent = userData.phones.join(', ');
+        // Set orders nav as active since this is an order flow
+        navItems.forEach(item => item.classList.remove('active'));
+        document.querySelector('a[href="orders.html"]').classList.add('active');
     </script>
 </body>
 </html>
