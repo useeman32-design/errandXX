@@ -1,0 +1,4043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Dashboard - ErrandX Fleet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            /* Professional Color Palette */
+            --primary-green: #5CC47E;
+            --primary-dark: #1F4B2E;
+            --primary-light: #E8F5E9;
+            --secondary-blue: #4A90E2;
+            --secondary-orange: #FF8A00;
+            --secondary-red: #FF5252;
+            --secondary-yellow: #FFD700;
+            --background-light: #F3FFF7;
+            --card-background: #FFFFFF;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --text-white: #FFFFFF;
+            --border-color: #E5E7EB;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.16);
+            --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.20);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius-sm: 8px;
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+        }
+
+        .dark-mode {
+            --primary-green: #6DD88F;
+            --primary-dark: #1F4B2E;
+            --primary-light: #2D5A44;
+            --secondary-blue: #6AAFFF;
+            --secondary-orange: #FFA033;
+            --secondary-red: #FF6B6B;
+            --secondary-yellow: #FFEB3B;
+            --background-light: #0F2A1C;
+            --card-background: #1F4B2E;
+            --text-dark: #F0F7F2;
+            --text-light: #A3C9B4;
+            --text-white: #FFFFFF;
+            --border-color: #2D5A44;
+            --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 8px 28px rgba(0, 0, 0, 0.30);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.40);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Top Header Section - FIXED */
+        .company-header {
+            background: var(--primary-dark);
+            color: var(--text-white);
+            padding: 14px 0;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 0; /* Allow shrinking */
+            flex: 1;
+        }
+
+        .logo-img {
+            height: 34px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            flex-shrink: 0;
+        }
+
+        .company-name-header {
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .verification-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .verification-status.pending {
+            background: rgba(255, 215, 0, 0.15);
+            color: #FFD700;
+        }
+
+        .verification-status.verified {
+            background: rgba(92, 196, 126, 0.15);
+            color: var(--primary-green);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .status-dot.pending {
+            background: #FFD700;
+        }
+
+        .status-dot.verified {
+            background: var(--primary-green);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .wallet-balance {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px 12px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .wallet-balance i {
+            color: var(--primary-green);
+            font-size: 14px;
+        }
+
+        .control-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .control-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .control-icon i {
+            font-size: 14px;
+        }
+
+        .theme-toggle-header {
+            border: none;
+            color: white;
+            background: transparent;
+        }
+
+        /* Company Name Section */
+        .company-name-section {
+            text-align: center;
+            padding: 20px 0 30px;
+        }
+
+        .company-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .company-subtitle {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* Dashboard Content */
+        .dashboard-content {
+            padding: 20px 0;
+        }
+
+        /* Summary Cards Section */
+        .summary-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .summary-card {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 18px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: var(--transition);
+        }
+
+        .summary-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .card-icon.riders {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .card-icon.online {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--secondary-blue);
+        }
+
+        .card-icon.deliveries {
+            background: rgba(255, 138, 0, 0.1);
+            color: var(--secondary-orange);
+        }
+
+        .card-icon.earnings {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--secondary-yellow);
+        }
+
+        .card-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-label {
+            font-size: 13px;
+            color: var(--text-light);
+            white-space: nowrap;
+        }
+
+        /* Quick Actions Section */
+        .quick-actions-section {
+            margin-bottom: 32px;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .action-button {
+            background: var(--card-background);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+
+        .action-button:hover {
+            border-color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.05);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .action-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(92, 196, 126, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--primary-green);
+        }
+
+        .action-text {
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            white-space: nowrap;
+        }
+
+        /* Search Section */
+        .search-section {
+            margin-bottom: 24px;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background: var(--card-background);
+            color: var(--text-dark);
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(92, 196, 126, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+        /* Tabs Navigation */
+        .tabs-navigation {
+            margin-bottom: 24px;
+        }
+
+        .tabs-list {
+            display: flex;
+            gap: 4px;
+            background: var(--card-background);
+            padding: 6px;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tabs-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-button {
+            padding: 10px 18px;
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .tab-button:hover {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .tab-button.active {
+            background: var(--primary-green);
+            color: var(--text-white);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 12px 10px;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--text-light);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .data-table td {
+            padding: 14px 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-info {
+            min-width: 0;
+        }
+
+        .user-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-info p {
+            font-size: 12px;
+            color: var(--text-light);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .status-badge.online {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .status-badge.offline {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+        }
+
+        .status-badge.delivered {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .status-badge.pending {
+            background: rgba(255, 138, 0, 0.1);
+            color: var(--secondary-orange);
+        }
+
+        .status-badge.cancelled {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+        }
+
+        .vehicle-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--secondary-blue);
+            white-space: nowrap;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .action-btn.view {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .action-btn.view:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        /* MODAL STYLES */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--card-background);
+            border-radius: var(--border-radius-lg);
+            width: 90%;
+            max-width: 800px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px);
+            transition: transform 0.3s ease-out;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--card-background);
+            z-index: 10;
+            border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 20px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .modal-content {
+            padding: 24px;
+        }
+
+        /* Transactions Modal Filter */
+        .modal-filter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .filter-select {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            background: var(--card-background);
+            color: var(--text-dark);
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 140px;
+        }
+
+        .filter-select:hover {
+            border-color: var(--primary-green);
+        }
+
+        /* Modal Transactions */
+        .modal-transactions {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-bottom: 24px;
+        }
+
+        .modal-transactions::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-transactions::-webkit-scrollbar-track {
+            background: var(--border-color);
+            border-radius: 3px;
+        }
+
+        .modal-transactions::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 3px;
+        }
+
+        .modal-transaction-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .modal-transaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .modal-transaction-item:hover {
+            background: rgba(92, 196, 126, 0.05);
+            border-radius: var(--border-radius-sm);
+        }
+
+        .modal-transaction-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .modal-transaction-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .modal-transaction-icon.earning {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .modal-transaction-icon.payout {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--secondary-blue);
+        }
+
+        .modal-transaction-icon.refund {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+        }
+
+        .modal-transaction-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .modal-transaction-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .modal-transaction-meta {
+            font-size: 13px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .modal-transaction-job {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .modal-transaction-right {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .modal-transaction-amount {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            white-space: nowrap;
+        }
+
+        .modal-transaction-amount.positive {
+            color: var(--primary-green);
+        }
+
+        .modal-transaction-amount.negative {
+            color: var(--secondary-red);
+        }
+
+        .modal-transaction-status {
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .status-completed {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .status-pending {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--secondary-yellow);
+        }
+
+        .status-failed {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+        }
+
+        /* Summary Stats in Modal */
+        .modal-summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-summary-stat {
+            text-align: center;
+            padding: 16px;
+            background: rgba(92, 196, 126, 0.05);
+            border-radius: var(--border-radius);
+        }
+
+        .modal-summary-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .modal-summary-label {
+            font-size: 12px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Total Summary */
+        .modal-total {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border-color);
+            text-align: right;
+        }
+
+        .total-label {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .total-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        /* Rider Actions in Modal */
+        .rider-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .action-btn-danger {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+            border: 1px solid var(--secondary-red);
+        }
+
+        .action-btn-danger:hover {
+            background: var(--secondary-red);
+            color: white;
+        }
+
+        .action-btn-warning {
+            background: rgba(255, 138, 0, 0.1);
+            color: var(--secondary-orange);
+            border: 1px solid var(--secondary-orange);
+        }
+
+        .action-btn-warning:hover {
+            background: var(--secondary-orange);
+            color: white;
+        }
+
+        /* Order Details Modal */
+        .order-details-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .order-details-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .order-party {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(92, 196, 126, 0.05);
+            border-radius: var(--border-radius);
+        }
+
+        .order-party-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .order-party-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .order-party-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .order-party-info p {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .order-detail-group {
+            margin-bottom: 20px;
+        }
+
+        .order-detail-label {
+            font-size: 12px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .order-detail-value {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        /* Add Rider Modal Form */
+        .add-rider-form,
+        .add-vehicle-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 14px;
+        }
+
+        .required::after {
+            content: ' *';
+            color: var(--secondary-red);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            background-color: var(--card-background);
+            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(92, 196, 126, 0.1);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%231A1A1A' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .dark-mode select.form-control {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23F0F7F2' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+        }
+
+        .phone-input-group {
+            display: flex;
+            width: 100%;
+        }
+
+        .phone-prefix {
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            background-color: rgba(92, 196, 126, 0.1);
+            border: 1px solid var(--border-color);
+            border-right: none;
+            border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm);
+            color: var(--text-dark);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .phone-input .form-control {
+            border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
+        }
+
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 20px;
+            border: 2px dashed rgba(92, 196, 126, 0.3);
+            border-radius: var(--border-radius-sm);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: rgba(92, 196, 126, 0.05);
+        }
+
+        .file-upload-label:hover {
+            border-color: var(--primary-green);
+            background-color: rgba(92, 196, 126, 0.1);
+        }
+
+        .file-upload-label i {
+            font-size: 24px;
+            color: var(--primary-green);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .file-upload-label span {
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .file-preview {
+            margin-top: 16px;
+            display: none;
+        }
+
+        .file-preview.show {
+            display: block;
+        }
+
+        .file-preview-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background-color: rgba(92, 196, 126, 0.1);
+            border-radius: var(--border-radius-sm);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .file-preview-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-dark);
+        }
+
+        .remove-file {
+            background: none;
+            border: none;
+            color: var(--secondary-red);
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-green);
+            cursor: pointer;
+        }
+
+        /* Assign Vehicle Modal */
+        .assign-vehicle-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .vehicle-select-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .vehicle-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .vehicle-option:hover {
+            border-color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.05);
+        }
+
+        .vehicle-option.selected {
+            border-color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.1);
+        }
+
+        .vehicle-option-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(92, 196, 126, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--primary-green);
+            flex-shrink: 0;
+        }
+
+        .vehicle-option-info {
+            flex: 1;
+        }
+
+        .vehicle-option-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .vehicle-option-info p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .vehicle-option-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .vehicle-option.selected .vehicle-option-radio {
+            border-color: var(--primary-green);
+            background: var(--primary-green);
+        }
+
+        .vehicle-option.selected .vehicle-option-radio::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        /* Modal Buttons */
+        .modal-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .modal-btn {
+            padding: 12px 24px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-btn-primary {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .modal-btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .modal-btn-secondary {
+            background-color: var(--card-background);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-btn-secondary:hover {
+            background-color: rgba(92, 196, 126, 0.1);
+            border-color: var(--primary-green);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 20px;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            color: var(--border-color);
+            margin-bottom: 16px;
+        }
+
+        .empty-title {
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            color: var(--text-light);
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-green);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            z-index: 6000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease-out;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 300px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Vehicles Tab Content */
+        .vehicles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .vehicle-card {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .vehicle-card:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .vehicle-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .vehicle-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(92, 196, 126, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--primary-green);
+        }
+
+        .vehicle-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .vehicle-info p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .vehicle-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .vehicle-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .vehicle-label {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .vehicle-value {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .vehicle-assigned {
+            padding: 8px;
+            background: rgba(92, 196, 126, 0.05);
+            border-radius: var(--border-radius-sm);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .vehicle-unassigned {
+            padding: 8px;
+            background: rgba(255, 82, 82, 0.05);
+            border-radius: var(--border-radius-sm);
+            font-size: 13px;
+            text-align: center;
+            color: var(--secondary-red);
+        }
+
+        /* Verification Tab Content */
+        .verification-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .verification-card {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .verification-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .verification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(92, 196, 126, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--primary-green);
+        }
+
+        .verification-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .verification-info p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .verification-status {
+            margin: 16px 0;
+            padding: 12px;
+            border-radius: var(--border-radius-sm);
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .status-verified {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .status-pending {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--secondary-yellow);
+        }
+
+        .status-not-uploaded {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+        }
+
+        .upload-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+            border: 1px solid var(--primary-green);
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .upload-btn:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        /* Responsive Design - FIXED for mobile */
+        @media (max-width: 768px) {
+            /* Fixed Header */
+            .company-header {
+                padding: 10px 0;
+            }
+            
+            .header-container {
+                gap: 10px;
+            }
+            
+            .logo-img {
+                height: 30px;
+            }
+            
+            .company-name-header {
+                font-size: 14px;
+                max-width: 120px;
+            }
+            
+            .verification-status {
+                font-size: 10px;
+                padding: 3px 8px;
+            }
+            
+            .wallet-balance {
+                font-size: 12px;
+                padding: 5px 8px;
+                display: none; /* Hide on small screens to save space */
+            }
+            
+            .control-icon {
+                width: 28px;
+                height: 28px;
+            }
+            
+            .control-icon i {
+                font-size: 12px;
+            }
+            
+            /* Company Name Section */
+            .company-name-section {
+                padding: 15px 0 25px;
+            }
+            
+            .company-name {
+                font-size: 24px;
+            }
+            
+            .company-subtitle {
+                font-size: 13px;
+            }
+            
+            /* Summary Cards */
+            .summary-cards {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .summary-card {
+                padding: 14px;
+                gap: 12px;
+            }
+            
+            .card-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+            
+            .card-value {
+                font-size: 18px;
+            }
+            
+            .card-label {
+                font-size: 12px;
+            }
+            
+            /* Quick Actions */
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .action-button {
+                padding: 16px 12px;
+            }
+            
+            .action-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+            
+            .action-text {
+                font-size: 13px;
+            }
+            
+            /* Tabs */
+            .tabs-list {
+                padding: 4px;
+            }
+            
+            .tab-button {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+            
+            /* Table */
+            .data-table th,
+            .data-table td {
+                padding: 10px 8px;
+            }
+            
+            .user-cell {
+                gap: 8px;
+            }
+            
+            .user-avatar {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .user-info h4 {
+                font-size: 13px;
+            }
+            
+            .status-badge,
+            .vehicle-badge {
+                font-size: 10px;
+                padding: 3px 6px;
+            }
+            
+            .action-btn {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+            
+            /* Modal */
+            .modal {
+                width: 95%;
+                max-height: 90vh;
+            }
+            
+            .modal-header {
+                padding: 16px 20px;
+            }
+            
+            .modal-title {
+                font-size: 18px;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+            
+            /* Modal Transactions - Fixed for mobile */
+            .modal-filter {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            
+            .filter-group {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .filter-select {
+                min-width: 120px;
+                font-size: 13px;
+                padding: 6px 12px;
+            }
+            
+            .modal-transaction-item {
+                padding: 12px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .modal-transaction-left {
+                width: 100%;
+                align-items: flex-start;
+            }
+            
+            .modal-transaction-right {
+                width: 100%;
+                text-align: left;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .modal-summary-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .modal-summary-stat {
+                padding: 12px;
+            }
+            
+            .modal-summary-value {
+                font-size: 18px;
+            }
+            
+            .rider-actions {
+                flex-direction: column;
+            }
+            
+            .rider-actions .modal-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            /* Order Details */
+            .order-party {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            /* Add Rider/Vehicle Form */
+            .form-grid {
+                gap: 16px;
+            }
+            
+            .form-group {
+                margin-bottom: 16px;
+            }
+            
+            .form-control {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+            
+            .file-upload-label {
+                padding: 16px;
+            }
+            
+            .file-upload-label i {
+                font-size: 20px;
+            }
+            
+            .file-upload-label span {
+                font-size: 13px;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .modal-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            /* Vehicles Grid */
+            .vehicles-container {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            /* Verification Grid */
+            .verification-container {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .company-name-header {
+                display: none; /* Hide company name on very small screens */
+            }
+            
+            .verification-status {
+                margin-left: auto; /* Push verification to the right */
+            }
+            
+            .tab-button {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+            
+            /* Hide some table columns on mobile */
+            .data-table th:nth-child(4),
+            .data-table td:nth-child(4),
+            .data-table th:nth-child(5),
+            .data-table td:nth-child(5) {
+                display: none;
+            }
+            
+            .modal-summary-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* For very small screens */
+        @media (max-width: 360px) {
+            .header-controls {
+                gap: 6px;
+            }
+            
+            .control-icon {
+                width: 26px;
+                height: 26px;
+            }
+            
+            .verification-status {
+                font-size: 9px;
+                padding: 2px 6px;
+            }
+            
+            .summary-card {
+                padding: 12px;
+            }
+            
+            .card-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+            
+            .card-value {
+                font-size: 16px;
+            }
+        }
+
+        /* Ensure header stays in one line */
+        @media (max-width: 768px) {
+            .company-info {
+                flex-wrap: nowrap;
+                overflow: hidden;
+            }
+            
+            .header-controls {
+                flex-shrink: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Header -->
+    <header class="company-header">
+        <div class="container header-container">
+            <div class="company-info">
+                <img src="../img/logo.png" alt="ErrandX" class="logo-img">
+                <h1 class="company-name-header">ErrandX Fleet</h1>
+                <div class="verification-status verified">
+                    <span class="status-dot verified"></span>
+                    Verified
+                </div>
+            </div>
+            
+            <div class="header-controls">
+                <div class="wallet-balance">
+                    <i class="fas fa-wallet"></i>
+                    <span>₦245,000</span>
+                </div>
+                
+                <div class="control-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                
+                <button class="control-icon theme-toggle-header" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard-content container">
+        <!-- Company Name Section -->
+        <div class="company-name-section">
+            <h1 class="company-name">Gusau Express</h1>
+            <p class="company-subtitle">Premium Logistics & Delivery Services</p>
+        </div>
+
+        <!-- Summary Cards -->
+        <section class="summary-section">
+            <h2 class="section-title">Dashboard Overview</h2>
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <div class="card-icon riders">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-value">24</div>
+                        <div class="card-label">Total Riders</div>
+                    </div>
+                </div>
+                
+                <div class="summary-card">
+                    <div class="card-icon online">
+                        <i class="fas fa-signal"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-value">16</div>
+                        <div class="card-label">Active Riders</div>
+                    </div>
+                </div>
+                
+                <div class="summary-card">
+                    <div class="card-icon deliveries">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-value">112</div>
+                        <div class="card-label">Today's Deliveries</div>
+                    </div>
+                </div>
+                
+                <div class="summary-card">
+                    <div class="card-icon earnings">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-value">₦245,000</div>
+                        <div class="card-label">Weekly Earnings</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions-section">
+            <h2 class="section-title">Quick Actions</h2>
+            <div class="quick-actions">
+                <a href="#" class="action-button" id="addRiderBtn">
+                    <div class="action-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="action-text">Add New Rider</div>
+                </a>
+                
+                <a href="#" class="action-button" id="addVehicleBtn">
+                    <div class="action-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="action-text">Add Vehicle</div>
+                </a>
+                
+                <a href="#" class="action-button" id="assignVehicleBtn">
+                    <div class="action-icon">
+                        <i class="fas fa-motorcycle"></i>
+                    </div>
+                    <div class="action-text">Assign Vehicle</div>
+                </a>
+                
+                <a href="#" class="action-button" id="withdrawEarningsBtn">
+                    <div class="action-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="action-text">Withdraw Earnings</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Tabs Navigation -->
+        <section class="tabs-navigation">
+            <div class="tabs-list">
+                <button class="tab-button active" data-tab="riders">Riders</button>
+                <button class="tab-button" data-tab="orders">Orders</button>
+                <button class="tab-button" data-tab="earnings">Earnings</button>
+                <button class="tab-button" data-tab="vehicles">Vehicles</button>
+                <button class="tab-button" data-tab="verification">Verification</button>
+            </div>
+        </section>
+
+        <!-- Search Section (for Riders and Orders tabs) -->
+        <section class="search-section" id="searchSection">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" id="searchInput" placeholder="Search...">
+            </div>
+        </section>
+
+        <!-- Tab Content -->
+        <section class="tab-content">
+            <!-- Riders Tab -->
+            <div class="tab-pane active" id="ridersTab">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Rider</th>
+                            <th>Status</th>
+                            <th>Vehicle</th>
+                            <th>Today's Orders</th>
+                            <th>Earnings</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ridersTable">
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar">
+                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usman Ahmad">
+                                    </div>
+                                    <div class="user-info">
+                                        <h4>Usman Ahmad</h4>
+                                        <p>ID: RD001</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-badge online">Online</span></td>
+                            <td><span class="vehicle-badge">Bike</span></td>
+                            <td>8</td>
+                            <td>₦6,500</td>
+                            <td><button class="action-btn view" data-rider-id="1">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar">
+                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Aisha Bello">
+                                    </div>
+                                    <div class="user-info">
+                                        <h4>Aisha Bello</h4>
+                                        <p>ID: RD002</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-badge online">Online</span></td>
+                            <td><span class="vehicle-badge">Motorcycle</span></td>
+                            <td>6</td>
+                            <td>₦5,200</td>
+                            <td><button class="action-btn view" data-rider-id="2">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar">
+                                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Chinedu Okoro">
+                                    </div>
+                                    <div class="user-info">
+                                        <h4>Chinedu Okoro</h4>
+                                        <p>ID: RD003</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-badge offline">Offline</span></td>
+                            <td><span class="vehicle-badge">Car</span></td>
+                            <td>0</td>
+                            <td>₦0</td>
+                            <td><button class="action-btn view" data-rider-id="3">View</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Orders Tab -->
+            <div class="tab-pane" id="ordersTab">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Rider</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTable">
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar">
+                                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="John Doe">
+                                    </div>
+                                    <div class="user-info">
+                                        <h4>John Doe</h4>
+                                        <p>Package Delivery</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar">
+                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usman Ahmad">
+                                    </div>
+                                    <div class="user-info">
+                                        <h4>Usman Ahmad</h4>
+                                        <p>Bike - AB123CD</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>₦1,500</td>
+                            <td><span class="status-badge delivered">Delivered</span></td>
+                            <td><button class="action-btn view" data-order-id="1">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar">
+                                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Jane Smith">
+                                    </div>
+                                    <div class="user-info">
+                                        <h4>Jane Smith</h4>
+                                        <p>Gas Refill</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar">
+                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Aisha Bello">
+                                    </div>
+                                    <div class="user-info">
+                                        <h4>Aisha Bello</h4>
+                                        <p>Motorcycle - XY456YZ</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>₦1,200</td>
+                            <td><span class="status-badge pending">Pending</span></td>
+                            <td><button class="action-btn view" data-order-id="2">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar">
+                                        <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Robert Johnson">
+                                    </div>
+                                    <div class="user-info">
+                                        <h4>Robert Johnson</h4>
+                                        <p>Food Delivery</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar">
+                                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Chinedu Okoro">
+                                    </div>
+                                    <div class="user-info">
+                                        <h4>Chinedu Okoro</h4>
+                                        <p>Car - EF789GH</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>₦2,000</td>
+                            <td><span class="status-badge delivered">Delivered</span></td>
+                            <td><button class="action-btn view" data-order-id="3">View</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Earnings Tab -->
+            <div class="tab-pane" id="earningsTab">
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="empty-title">Earnings Analytics</h3>
+                    <p class="empty-text">Weekly earnings chart and analytics will be displayed here.</p>
+                </div>
+            </div>
+
+            <!-- Vehicles Tab -->
+            <div class="tab-pane" id="vehiclesTab">
+                <div class="vehicles-container">
+                    <div class="vehicle-card">
+                        <div class="vehicle-header">
+                            <div class="vehicle-icon">
+                                <i class="fas fa-motorcycle"></i>
+                            </div>
+                            <div class="vehicle-info">
+                                <h4>Honda CG125</h4>
+                                <p>Plate: AB123CD</p>
+                            </div>
+                        </div>
+                        <div class="vehicle-details">
+                            <div class="vehicle-detail">
+                                <div class="vehicle-label">Type</div>
+                                <div class="vehicle-value">Motorcycle</div>
+                            </div>
+                            <div class="vehicle-detail">
+                                <div class="vehicle-label">Year</div>
+                                <div class="vehicle-value">2022</div>
+                            </div>
+                            <div class="vehicle-detail">
+                                <div class="vehicle-label">Status</div>
+                                <div class="vehicle-value">Active</div>
+                            </div>
+                            <div class="vehicle-detail">
+                                <div class="vehicle-label">Insurance</div>
+                                <div class="vehicle-value">Valid</div>
+                            </div>
+                        </div>
+                        <div class="vehicle-assigned">
+                            <i class="fas fa-user"></i> Assigned to: Usman Ahmad
+                        </div>
+                    </div>
+
+                    <div class="vehicle-card">
+                        <div class="vehicle-header">
+                            <div class="vehicle-icon">
+                                <i class="fas fa-bicycle"></i>
+                            </div>
+                            <div class="vehicle-info">
+                                <h4>Mountain Bike Pro</h4>
+                                <p>ID: BIK-001</p>
+                            </div>
+                        </div>
+                        <div class="vehicle-details">
+                            <div class="vehicle-detail">
+                                <div class="vehicle-label">Type</div>
+                                <div class="vehicle-value">Bicycle</div>
+                            </div>
+                            <div class="vehicle-detail">
+                                <div class="vehicle-label">Year</div>
+                                <div class="vehicle-value">2023</div>
+                            </div>
+                            <div class="vehicle-detail">
+                                <div class="vehicle-label">Status</div>
+                                <div class="vehicle-value">Active</div>
+                            </div>
+                            <div class="vehicle-detail">
+                                <div class="vehicle-label">Insurance</div>
+                                <div class="vehicle-value">N/A</div>
+                            </div>
+                        </div>
+                        <div class="vehicle-assigned">
+                            <i class="fas fa-user"></i> Assigned to: Aisha Bello
+                        </div>
+                    </div>
+
+                    <div class="vehicle-card">
+                        <div class="vehicle-header">
+                            <div class="vehicle-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div class="vehicle-info">
+                                <h4>Toyota Corolla</h4>
+                                <p>Plate: EF789GH</p>
+                            </div>
+                        </div>
+                        <div class="vehicle-details">
+                            <div class="vehicle-detail">
+                                <div class="vehicle-label">Type</div>
+                                <div class="vehicle-value">Car</div>
+                            </div>
+                            <div class="vehicle-detail">
+                                <div class="vehicle-label">Year</div>
+                                <div class="vehicle-value">2021</div>
+                            </div>
+                            <div class="vehicle-detail">
+                                <div class="vehicle-label">Status</div>
+                                <div class="vehicle-value">Maintenance</div>
+                            </div>
+                            <div class="vehicle-detail">
+                                <div class="vehicle-label">Insurance</div>
+                                <div class="vehicle-value">Valid</div>
+                            </div>
+                        </div>
+                        <div class="vehicle-assigned">
+                            <i class="fas fa-user"></i> Assigned to: Chinedu Okoro
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verification Tab -->
+            <div class="tab-pane" id="verificationTab">
+                <div class="verification-container">
+                    <div class="verification-card">
+                        <div class="verification-header">
+                            <div class="verification-icon">
+                                <i class="fas fa-file-contract"></i>
+                            </div>
+                            <div class="verification-info">
+                                <h4>CAC Certificate</h4>
+                                <p>Company Registration Document</p>
+                            </div>
+                        </div>
+                        <div class="verification-status status-verified">
+                            <i class="fas fa-check-circle"></i> Verified
+                        </div>
+                        <button class="upload-btn">
+                            <i class="fas fa-upload"></i> Update Certificate
+                        </button>
+                    </div>
+                    
+                    <div class="verification-card">
+                        <div class="verification-header">
+                            <div class="verification-icon">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                            <div class="verification-info">
+                                <h4>Tax Certificate</h4>
+                                <p>Tax Identification Number (TIN)</p>
+                            </div>
+                        </div>
+                        <div class="verification-status status-verified">
+                            <i class="fas fa-check-circle"></i> Verified
+                        </div>
+                        <button class="upload-btn">
+                            <i class="fas fa-upload"></i> Update Certificate
+                        </button>
+                    </div>
+                    
+                    <div class="verification-card">
+                        <div class="verification-header">
+                            <div class="verification-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="verification-info">
+                                <h4>Insurance Policy</h4>
+                                <p>Company Insurance Coverage</p>
+                            </div>
+                        </div>
+                        <div class="verification-status status-pending">
+                            <i class="fas fa-clock"></i> Pending Review
+                        </div>
+                        <button class="upload-btn">
+                            <i class="fas fa-upload"></i> Upload Insurance
+                        </button>
+                    </div>
+                    
+                    <div class="verification-card">
+                        <div class="verification-header">
+                            <div class="verification-icon">
+                                <i class="fas fa-passport"></i>
+                            </div>
+                            <div class="verification-info">
+                                <h4>Operating License</h4>
+                                <p>Transport Authority License</p>
+                            </div>
+                        </div>
+                        <div class="verification-status status-not-uploaded">
+                            <i class="fas fa-times-circle"></i> Not Uploaded
+                        </div>
+                        <button class="upload-btn">
+                            <i class="fas fa-upload"></i> Upload License
+                        </button>
+                    </div>
+                    
+                    <div class="verification-card">
+                        <div class="verification-header">
+                            <div class="verification-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="verification-info">
+                                <h4>Office Address Proof</h4>
+                                <p>Utility Bill or Lease Agreement</p>
+                            </div>
+                        </div>
+                        <div class="verification-status status-verified">
+                            <i class="fas fa-check-circle"></i> Verified
+                        </div>
+                        <button class="upload-btn">
+                            <i class="fas fa-upload"></i> Update Document
+                        </button>
+                    </div>
+                    
+                    <div class="verification-card">
+                        <div class="verification-header">
+                            <div class="verification-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="verification-info">
+                                <h4>Partnership Agreement</h4>
+                                <p>ErrandX Partnership Contract</p>
+                            </div>
+                        </div>
+                        <div class="verification-status status-verified">
+                            <i class="fas fa-check-circle"></i> Verified
+                        </div>
+                        <button class="upload-btn">
+                            <i class="fas fa-upload"></i> View Agreement
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODALS -->
+    <!-- Rider Transactions Modal -->
+    <div class="modal-overlay" id="riderTransactionsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-history"></i>
+                    <span id="riderModalTitle">Usman Ahmad - Transactions</span>
+                </h3>
+                <button class="modal-close" id="closeTransactionsModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <!-- Summary Stats -->
+                <div class="modal-summary-stats">
+                    <div class="modal-summary-stat">
+                        <div class="modal-summary-value" id="totalDeliveries">8</div>
+                        <div class="modal-summary-label">Total Deliveries</div>
+                    </div>
+                    <div class="modal-summary-stat">
+                        <div class="modal-summary-value" id="totalEarnings">₦6,500</div>
+                        <div class="modal-summary-label">Today's Earnings</div>
+                    </div>
+                    <div class="modal-summary-stat">
+                        <div class="modal-summary-value" id="totalTransactions">6</div>
+                        <div class="modal-summary-label">Transactions</div>
+                    </div>
+                    <div class="modal-summary-stat">
+                        <div class="modal-summary-value" id="totalPayouts">₦28,400</div>
+                        <div class="modal-summary-label">Total Payouts</div>
+                    </div>
+                </div>
+
+                <!-- Filter -->
+                <div class="modal-filter">
+                    <div class="filter-group">
+                        <span class="filter-label">Filter by:</span>
+                        <select class="filter-select" id="filterMonth">
+                            <option value="all">All Months</option>
+                            <option value="march" selected>March 2024</option>
+                            <option value="february">February 2024</option>
+                            <option value="january">January 2024</option>
+                            <option value="december">December 2023</option>
+                        </select>
+                        <select class="filter-select" id="filterType">
+                            <option value="all">All Types</option>
+                            <option value="earning">Earnings</option>
+                            <option value="payout">Payouts</option>
+                            <option value="refund">Refunds</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Sort by:</span>
+                        <select class="filter-select" id="sortBy">
+                            <option value="date">Date (Newest)</option>
+                            <option value="amount">Amount (High to Low)</option>
+                            <option value="oldest">Date (Oldest)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Transactions List -->
+                <div class="modal-transactions" id="modalTransactionsList">
+                    <!-- Transactions will be loaded here -->
+                </div>
+
+                <!-- Total Summary -->
+                <div class="modal-total">
+                    <div class="total-label">Total for March 2024</div>
+                    <div class="total-amount">₦32,400</div>
+                </div>
+
+                <!-- Rider Actions -->
+                <div class="rider-actions">
+                    <button class="modal-btn action-btn-warning" id="suspendRiderBtn">
+                        <i class="fas fa-pause"></i> Suspend Rider
+                    </button>
+                    <button class="modal-btn action-btn-danger" id="deleteRiderBtn">
+                        <i class="fas fa-trash-alt"></i> Delete Rider
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal-overlay" id="orderDetailsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span id="orderModalTitle">Order Details</span>
+                </h3>
+                <button class="modal-close" id="closeOrderDetailsModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <div class="order-details-grid">
+                    <div>
+                        <div class="order-party">
+                            <div class="order-party-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="John Doe">
+                            </div>
+                            <div class="order-party-info">
+                                <h4 id="customerName">John Doe</h4>
+                                <p id="customerPhone">+234 801 234 5678</p>
+                                <p>Customer</p>
+                            </div>
+                        </div>
+                        
+                        <div class="order-detail-group">
+                            <div class="order-detail-label">Pickup Location</div>
+                            <div class="order-detail-value" id="pickupLocation">123 Lagos Island, Lagos</div>
+                        </div>
+                        
+                        <div class="order-detail-group">
+                            <div class="order-detail-label">Delivery Location</div>
+                            <div class="order-detail-value" id="deliveryLocation">456 Victoria Island, Lagos</div>
+                        </div>
+                        
+                        <div class="order-detail-group">
+                            <div class="order-detail-label">Order Type</div>
+                            <div class="order-detail-value" id="orderType">Package Delivery</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="order-party">
+                            <div class="order-party-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usman Ahmad">
+                            </div>
+                            <div class="order-party-info">
+                                <h4 id="riderName">Usman Ahmad</h4>
+                                <p id="riderPhone">+234 802 345 6789</p>
+                                <p>Assigned Rider</p>
+                            </div>
+                        </div>
+                        
+                        <div class="order-detail-group">
+                            <div class="order-detail-label">Order Status</div>
+                            <div class="order-detail-value">
+                                <span class="status-badge delivered" id="orderStatus">Delivered</span>
+                            </div>
+                        </div>
+                        
+                        <div class="order-detail-group">
+                            <div class="order-detail-label">Order Amount</div>
+                            <div class="order-detail-value" id="orderAmount">₦1,500</div>
+                        </div>
+                        
+                        <div class="order-detail-group">
+                            <div class="order-detail-label">Distance</div>
+                            <div class="order-detail-value" id="orderDistance">4.5 km</div>
+                        </div>
+                        
+                        <div class="order-detail-group">
+                            <div class="order-detail-label">Order Time</div>
+                            <div class="order-detail-value" id="orderTime">10:45 AM, March 25, 2024</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button type="button" class="modal-btn modal-btn-secondary" id="closeOrderModalBtn">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                    <button type="button" class="modal-btn modal-btn-primary" id="contactCustomerBtn">
+                        <i class="fas fa-phone"></i> Contact Customer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Rider Modal -->
+    <div class="modal-overlay" id="addRiderModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-user-plus"></i>
+                    Add New Rider
+                </h3>
+                <button class="modal-close" id="closeAddRiderModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <form class="add-rider-form" id="addRiderForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="riderFullName" class="required">Full Name</label>
+                            <input type="text" id="riderFullName" class="form-control" placeholder="Enter rider's full name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="riderEmail" class="required">Email Address</label>
+                            <input type="email" id="riderEmail" class="form-control" placeholder="Enter rider's email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="riderPhone" class="required">Phone Number</label>
+                            <div class="phone-input-group">
+                                <div class="phone-prefix">+234</div>
+                                <div class="phone-input">
+                                    <input type="tel" id="riderPhone" class="form-control" placeholder="8012345678" pattern="[0-9]{10}" required>
+                                </div>
+                            </div>
+                            <small style="display: block; margin-top: 4px; font-size: 12px; color: var(--text-light);">Format: 8012345678 (10 digits)</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="riderVehicleType" class="required">Vehicle Type</label>
+                            <select id="riderVehicleType" class="form-control" required>
+                                <option value="">Select vehicle type</option>
+                                <option value="motorcycle">Motorcycle</option>
+                                <option value="bicycle">Bicycle</option>
+                                <option value="car">Car</option>
+                                <option value="tricycle">Tricycle</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="riderState" class="required">State</label>
+                            <select id="riderState" class="form-control" required>
+                                <option value="">Select State</option>
+                                <option value="lagos">Lagos</option>
+                                <option value="abuja">Abuja</option>
+                                <option value="kaduna">Kaduna</option>
+                                <option value="kano">Kano</option>
+                                <option value="rivers">Rivers</option>
+                                <option value="oyo">Oyo</option>
+                                <option value="zamfara">Zamfara</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="riderCity" class="required">City/Town</label>
+                            <input type="text" id="riderCity" class="form-control" placeholder="Enter city/town" required>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="riderAddress" class="required">Address</label>
+                            <textarea id="riderAddress" class="form-control" rows="3" placeholder="Enter rider's address" required></textarea>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="required">Operating Areas</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="areaCentral" name="operatingAreas" value="Central District">
+                                    <label for="areaCentral">Central District</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="areaNorth" name="operatingAreas" value="North District">
+                                    <label for="areaNorth">North District</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="areaSouth" name="operatingAreas" value="South District">
+                                    <label for="areaSouth">South District</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="areaEast" name="operatingAreas" value="East District">
+                                    <label for="areaEast">East District</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="areaWest" name="operatingAreas" value="West District">
+                                    <label for="areaWest">West District</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="required">Availability</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="availabilityMorning" name="availability" value="Morning">
+                                    <label for="availabilityMorning">Morning (6am - 12pm)</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="availabilityAfternoon" name="availability" value="Afternoon">
+                                    <label for="availabilityAfternoon">Afternoon (12pm - 6pm)</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="availabilityEvening" name="availability" value="Evening">
+                                    <label for="availabilityEvening">Evening (6pm - 12am)</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="availabilityFull" name="availability" value="Full Day">
+                                    <label for="availabilityFull">Full Day (24/7)</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="riderPhoto" class="required">Rider Photo</label>
+                            <div class="file-upload">
+                                <input type="file" id="riderPhoto" class="file-upload-input" accept="image/*" required onchange="validateFileSize(this, 2)">
+                                <label for="riderPhoto" class="file-upload-label">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Upload Rider Photo</span>
+                                    <small style="display: block; margin-top: 8px; font-size: 12px; color: var(--text-light);">Clear face photo, max 2MB</small>
+                                </label>
+                            </div>
+                            <div id="photoPreview" class="file-preview"></div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="riderId">Government ID (Optional)</label>
+                            <div class="file-upload">
+                                <input type="file" id="riderId" class="file-upload-input" accept="image/*,.pdf" onchange="validateFileSize(this, 5)">
+                                <label for="riderId" class="file-upload-label">
+                                    <i class="fas fa-id-card"></i>
+                                    <span>Upload Government ID</span>
+                                    <small style="display: block; margin-top: 8px; font-size: 12px; color: var(--text-light);">NIN, Driver's License, or International Passport</small>
+                                </label>
+                            </div>
+                            <div id="idPreview" class="file-preview"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-buttons">
+                        <button type="button" class="modal-btn modal-btn-secondary" id="cancelAddRider">
+                            Cancel
+                        </button>
+                        <button type="submit" class="modal-btn modal-btn-primary">
+                            <i class="fas fa-user-plus"></i> Add Rider
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Vehicle Modal -->
+    <div class="modal-overlay" id="addVehicleModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-plus-circle"></i>
+                    Add New Vehicle
+                </h3>
+                <button class="modal-close" id="closeAddVehicleModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <form class="add-vehicle-form" id="addVehicleForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="vehicleType" class="required">Vehicle Type</label>
+                            <select id="vehicleType" class="form-control" required>
+                                <option value="">Select vehicle type</option>
+                                <option value="motorcycle">Motorcycle</option>
+                                <option value="bicycle">Bicycle</option>
+                                <option value="car">Car</option>
+                                <option value="tricycle">Tricycle</option>
+                                <option value="van">Van</option>
+                                <option value="truck">Truck</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vehicleMake" class="required">Make/Brand</label>
+                            <input type="text" id="vehicleMake" class="form-control" placeholder="e.g., Honda, Toyota" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vehicleModel" class="required">Model</label>
+                            <input type="text" id="vehicleModel" class="form-control" placeholder="e.g., CG125, Corolla" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vehicleYear" class="required">Year</label>
+                            <input type="number" id="vehicleYear" class="form-control" placeholder="e.g., 2023" min="2000" max="2024" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vehiclePlate" class="required">Plate Number</label>
+                            <input type="text" id="vehiclePlate" class="form-control" placeholder="e.g., AB123CD" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vehicleColor">Color</label>
+                            <input type="text" id="vehicleColor" class="form-control" placeholder="e.g., Red, Blue, Black">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vehicleInsurance" class="required">Insurance Status</label>
+                            <select id="vehicleInsurance" class="form-control" required>
+                                <option value="">Select insurance status</option>
+                                <option value="valid">Valid</option>
+                                <option value="expired">Expired</option>
+                                <option value="not_required">Not Required</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="insuranceExpiry">Insurance Expiry Date</label>
+                            <input type="date" id="insuranceExpiry" class="form-control">
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="vehicleStatus" class="required">Vehicle Status</label>
+                            <select id="vehicleStatus" class="form-control" required>
+                                <option value="">Select status</option>
+                                <option value="active">Active</option>
+                                <option value="maintenance">Under Maintenance</option>
+                                <option value="damaged">Damaged</option>
+                                <option value="retired">Retired</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="vehicleNotes">Additional Notes</label>
+                            <textarea id="vehicleNotes" class="form-control" rows="3" placeholder="Any additional information about the vehicle..."></textarea>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="vehiclePhotos">Vehicle Photos</label>
+                            <div class="file-upload">
+                                <input type="file" id="vehiclePhotos" class="file-upload-input" accept="image/*" multiple onchange="validateFileSize(this, 10)">
+                                <label for="vehiclePhotos" class="file-upload-label">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Upload Vehicle Photos</span>
+                                    <small style="display: block; margin-top: 8px; font-size: 12px; color: var(--text-light);">Upload clear photos of the vehicle, max 10MB per file</small>
+                                </label>
+                            </div>
+                            <div id="vehiclePhotosPreview" class="file-preview"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-buttons">
+                        <button type="button" class="modal-btn modal-btn-secondary" id="cancelAddVehicle">
+                            Cancel
+                        </button>
+                        <button type="submit" class="modal-btn modal-btn-primary">
+                            <i class="fas fa-plus-circle"></i> Add Vehicle
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assign Vehicle Modal -->
+    <div class="modal-overlay" id="assignVehicleModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-motorcycle"></i>
+                    Assign Vehicle
+                </h3>
+                <button class="modal-close" id="closeAssignVehicleModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <form class="assign-vehicle-form" id="assignVehicleForm">
+                    <div class="form-group">
+                        <label for="selectRider" class="required">Select Rider</label>
+                        <select id="selectRider" class="form-control" required>
+                            <option value="">Select a rider</option>
+                            <option value="1">Usman Ahmad (Bike - Unassigned)</option>
+                            <option value="2">Aisha Bello (Motorcycle - Unassigned)</option>
+                            <option value="3">Chinedu Okoro (Car - Unassigned)</option>
+                            <option value="4">Musa Ibrahim (Tricycle - Unassigned)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required">Select Vehicle</label>
+                        <div class="vehicle-select-grid">
+                            <div class="vehicle-option" data-vehicle-id="1">
+                                <div class="vehicle-option-icon">
+                                    <i class="fas fa-motorcycle"></i>
+                                </div>
+                                <div class="vehicle-option-info">
+                                    <h4>Honda CG125</h4>
+                                    <p>Plate: AB123CD | Motorcycle</p>
+                                </div>
+                                <div class="vehicle-option-radio"></div>
+                            </div>
+                            
+                            <div class="vehicle-option" data-vehicle-id="2">
+                                <div class="vehicle-option-icon">
+                                    <i class="fas fa-bicycle"></i>
+                                </div>
+                                <div class="vehicle-option-info">
+                                    <h4>Mountain Bike Pro</h4>
+                                    <p>ID: BIK-001 | Bicycle</p>
+                                </div>
+                                <div class="vehicle-option-radio"></div>
+                            </div>
+                            
+                            <div class="vehicle-option" data-vehicle-id="3">
+                                <div class="vehicle-option-icon">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <div class="vehicle-option-info">
+                                    <h4>Toyota Corolla</h4>
+                                    <p>Plate: EF789GH | Car</p>
+                                </div>
+                                <div class="vehicle-option-radio"></div>
+                            </div>
+                            
+                            <div class="vehicle-option" data-vehicle-id="4">
+                                <div class="vehicle-option-icon">
+                                    <i class="fas fa-truck-pickup"></i>
+                                </div>
+                                <div class="vehicle-option-info">
+                                    <h4>Keke Napep</h4>
+                                    <p>Plate: IJ012KL | Tricycle</p>
+                                </div>
+                                <div class="vehicle-option-radio"></div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="selectedVehicleId" required>
+                    </div>
+                    
+                    <div class="modal-buttons">
+                        <button type="button" class="modal-btn modal-btn-secondary" id="cancelAssignVehicle">
+                            Cancel
+                        </button>
+                        <button type="submit" class="modal-btn modal-btn-primary">
+                            <i class="fas fa-check"></i> Assign Vehicle
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdraw Earnings Modal -->
+    <div class="modal-overlay" id="withdrawEarningsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-credit-card"></i>
+                    Withdraw Earnings
+                </h3>
+                <button class="modal-close" id="closeWithdrawEarningsModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <form class="add-rider-form" id="withdrawEarningsForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="required">Available Balance</label>
+                            <div class="form-control" style="background-color: rgba(92, 196, 126, 0.1); color: var(--primary-green); font-weight: bold; text-align: center;">
+                                ₦245,000
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="withdrawAmount" class="required">Withdrawal Amount</label>
+                            <div class="phone-input-group">
+                                <div class="phone-prefix">₦</div>
+                                <div class="phone-input">
+                                    <input type="number" id="withdrawAmount" class="form-control" placeholder="Enter amount" min="1000" max="245000" required>
+                                </div>
+                            </div>
+                            <small style="display: block; margin-top: 4px; font-size: 12px; color: var(--text-light);">Minimum withdrawal: ₦1,000</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="bankName" class="required">Bank Name</label>
+                            <select id="bankName" class="form-control" required>
+                                <option value="">Select Bank</option>
+                                <option value="access">Access Bank</option>
+                                <option value="zenith">Zenith Bank</option>
+                                <option value="gtb">GTBank</option>
+                                <option value="firstbank">First Bank</option>
+                                <option value="uba">UBA</option>
+                                <option value="fidelity">Fidelity Bank</option>
+                                <option value="union">Union Bank</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="accountNumber" class="required">Account Number</label>
+                            <input type="text" id="accountNumber" class="form-control" placeholder="Enter account number" pattern="[0-9]{10}" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="accountName" class="required">Account Name</label>
+                            <input type="text" id="accountName" class="form-control" placeholder="Enter account name" required>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="withdrawalNotes">Notes (Optional)</label>
+                            <textarea id="withdrawalNotes" class="form-control" rows="2" placeholder="Any additional notes for this withdrawal..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-buttons">
+                        <button type="button" class="modal-btn modal-btn-secondary" id="cancelWithdrawEarnings">
+                            Cancel
+                        </button>
+                        <button type="submit" class="modal-btn modal-btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit Withdrawal
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Action completed successfully!</span>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const savedTheme = localStorage.getItem('theme') || 'light';
+
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIcon.className = 'fas fa-sun';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            
+            showNotification(`Theme switched to ${isDark ? 'dark' : 'light'} mode`);
+        });
+
+        // Tab Switching
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+        const searchSection = document.getElementById('searchSection');
+        const searchInput = document.getElementById('searchInput');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                
+                // Update active tab button
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Show active tab pane
+                tabPanes.forEach(pane => pane.classList.remove('active'));
+                document.getElementById(`${tabId}Tab`).classList.add('active');
+                
+                // Show/hide search based on tab
+                if (tabId === 'riders' || tabId === 'orders') {
+                    searchSection.style.display = 'block';
+                    setupSearch(tabId);
+                } else {
+                    searchSection.style.display = 'none';
+                }
+            });
+        });
+
+        // Search Functionality
+        function setupSearch(tabId) {
+            const table = document.getElementById(`${tabId}Table`);
+            const rows = table.querySelectorAll('tbody tr');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    let matches = false;
+                    
+                    cells.forEach(cell => {
+                        if (cell.textContent.toLowerCase().includes(searchTerm)) {
+                            matches = true;
+                        }
+                        
+                        // Also search within user info
+                        const userInfo = cell.querySelector('.user-info');
+                        if (userInfo) {
+                            const name = userInfo.querySelector('h4').textContent.toLowerCase();
+                            const details = userInfo.querySelector('p').textContent.toLowerCase();
+                            if (name.includes(searchTerm) || details.includes(searchTerm)) {
+                                matches = true;
+                            }
+                        }
+                    });
+                    
+                    row.style.display = matches ? '' : 'none';
+                });
+            });
+            
+            // Clear search when switching tabs
+            searchInput.value = '';
+            rows.forEach(row => row.style.display = '');
+        }
+
+        // Quick Actions
+        const addRiderBtn = document.getElementById('addRiderBtn');
+        const addVehicleBtn = document.getElementById('addVehicleBtn');
+        const assignVehicleBtn = document.getElementById('assignVehicleBtn');
+        const withdrawEarningsBtn = document.getElementById('withdrawEarningsBtn');
+
+        // Modals
+        const riderTransactionsModal = document.getElementById('riderTransactionsModal');
+        const closeTransactionsModal = document.getElementById('closeTransactionsModal');
+        const riderModalTitle = document.getElementById('riderModalTitle');
+        const modalTransactionsList = document.getElementById('modalTransactionsList');
+        const filterMonth = document.getElementById('filterMonth');
+        const filterType = document.getElementById('filterType');
+        const sortBy = document.getElementById('sortBy');
+        const suspendRiderBtn = document.getElementById('suspendRiderBtn');
+        const deleteRiderBtn = document.getElementById('deleteRiderBtn');
+
+        const orderDetailsModal = document.getElementById('orderDetailsModal');
+        const closeOrderDetailsModal = document.getElementById('closeOrderDetailsModal');
+        const closeOrderModalBtn = document.getElementById('closeOrderModalBtn');
+        const contactCustomerBtn = document.getElementById('contactCustomerBtn');
+        const orderModalTitle = document.getElementById('orderModalTitle');
+
+        const addRiderModal = document.getElementById('addRiderModal');
+        const closeAddRiderModal = document.getElementById('closeAddRiderModal');
+        const cancelAddRider = document.getElementById('cancelAddRider');
+        const addRiderForm = document.getElementById('addRiderForm');
+
+        const addVehicleModal = document.getElementById('addVehicleModal');
+        const closeAddVehicleModal = document.getElementById('closeAddVehicleModal');
+        const cancelAddVehicle = document.getElementById('cancelAddVehicle');
+        const addVehicleForm = document.getElementById('addVehicleForm');
+
+        const assignVehicleModal = document.getElementById('assignVehicleModal');
+        const closeAssignVehicleModal = document.getElementById('closeAssignVehicleModal');
+        const cancelAssignVehicle = document.getElementById('cancelAssignVehicle');
+        const assignVehicleForm = document.getElementById('assignVehicleForm');
+
+        const withdrawEarningsModal = document.getElementById('withdrawEarningsModal');
+        const closeWithdrawEarningsModal = document.getElementById('closeWithdrawEarningsModal');
+        const cancelWithdrawEarnings = document.getElementById('cancelWithdrawEarnings');
+        const withdrawEarningsForm = document.getElementById('withdrawEarningsForm');
+
+        // Notification System
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+
+        function showNotification(message) {
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Rider Data
+        const riderData = {
+            1: { 
+                name: "Usman Ahmad", 
+                totalEarnings: 32400,
+                todayDeliveries: 8,
+                todayEarnings: 6500,
+                totalPayouts: 28400
+            },
+            2: { 
+                name: "Aisha Bello", 
+                totalEarnings: 25800,
+                todayDeliveries: 6,
+                todayEarnings: 5200,
+                totalPayouts: 21200
+            },
+            3: { 
+                name: "Chinedu Okoro", 
+                totalEarnings: 19200,
+                todayDeliveries: 0,
+                todayEarnings: 0,
+                totalPayouts: 15800
+            }
+        };
+
+        // Order Data
+        const orderData = {
+            1: {
+                id: "ORD-2024-001",
+                customer: "John Doe",
+                customerPhone: "+234 801 234 5678",
+                customerAvatar: "https://randomuser.me/api/portraits/men/22.jpg",
+                pickup: "123 Lagos Island, Lagos",
+                delivery: "456 Victoria Island, Lagos",
+                rider: "Usman Ahmad",
+                riderPhone: "+234 802 345 6789",
+                riderAvatar: "https://randomuser.me/api/portraits/men/32.jpg",
+                type: "Package Delivery",
+                status: "delivered",
+                amount: "₦1,500",
+                distance: "4.5 km",
+                time: "10:45 AM, March 25, 2024"
+            },
+            2: {
+                id: "ORD-2024-002",
+                customer: "Jane Smith",
+                customerPhone: "+234 803 456 7890",
+                customerAvatar: "https://randomuser.me/api/portraits/women/33.jpg",
+                pickup: "789 Victoria Island, Lagos",
+                delivery: "321 Ikoyi, Lagos",
+                rider: "Aisha Bello",
+                riderPhone: "+234 804 567 8901",
+                riderAvatar: "https://randomuser.me/api/portraits/women/44.jpg",
+                type: "Gas Refill",
+                status: "pending",
+                amount: "₦1,200",
+                distance: "3.2 km",
+                time: "09:30 AM, March 25, 2024"
+            },
+            3: {
+                id: "ORD-2024-003",
+                customer: "Robert Johnson",
+                customerPhone: "+234 805 678 9012",
+                customerAvatar: "https://randomuser.me/api/portraits/men/55.jpg",
+                pickup: "654 Ikoyi, Lagos",
+                delivery: "987 Lekki, Lagos",
+                rider: "Chinedu Okoro",
+                riderPhone: "+234 806 789 0123",
+                riderAvatar: "https://randomuser.me/api/portraits/men/67.jpg",
+                type: "Food Delivery",
+                status: "delivered",
+                amount: "₦2,000",
+                distance: "5.8 km",
+                time: "03:15 PM, March 24, 2024"
+            }
+        };
+
+        // Transactions Data
+        const transactionsData = {
+            march: [
+                {
+                    id: 1,
+                    title: "Gas Refill Delivery",
+                    type: "earning",
+                    amount: 1200,
+                    date: "2024-03-25 10:45",
+                    status: "completed",
+                    category: "Gas Refill",
+                    jobId: "ERX-001234",
+                    icon: "fa-fire"
+                },
+                {
+                    id: 2,
+                    title: "Package Delivery",
+                    type: "earning",
+                    amount: 1500,
+                    date: "2024-03-25 09:30",
+                    status: "completed",
+                    category: "Package",
+                    jobId: "ERX-001235",
+                    icon: "fa-box"
+                },
+                {
+                    id: 3,
+                    title: "Food Delivery",
+                    type: "earning",
+                    amount: 800,
+                    date: "2024-03-24 15:20",
+                    status: "pending",
+                    category: "Food",
+                    jobId: "ERX-001233",
+                    icon: "fa-hamburger"
+                },
+                {
+                    id: 4,
+                    title: "Document Delivery",
+                    type: "earning",
+                    amount: 1000,
+                    date: "2024-03-24 11:45",
+                    status: "completed",
+                    category: "Documents",
+                    jobId: "ERX-001232",
+                    icon: "fa-file-invoice-dollar"
+                },
+                {
+                    id: 5,
+                    title: "Gift Delivery",
+                    type: "earning",
+                    amount: 900,
+                    date: "2024-03-23 14:30",
+                    status: "completed",
+                    category: "Gift",
+                    jobId: "ERX-001231",
+                    icon: "fa-gift"
+                },
+                {
+                    id: 6,
+                    title: "Weekly Payout",
+                    type: "payout",
+                    amount: -28400,
+                    date: "2024-03-22 16:00",
+                    status: "completed",
+                    category: "Payout",
+                    method: "Bank Transfer",
+                    icon: "fa-wallet"
+                }
+            ],
+            february: [
+                {
+                    id: 7,
+                    title: "Monthly Payout",
+                    type: "payout",
+                    amount: -45200,
+                    date: "2024-02-28 15:30",
+                    status: "completed",
+                    category: "Payout",
+                    method: "Bank Transfer",
+                    icon: "fa-wallet"
+                },
+                {
+                    id: 8,
+                    title: "Gas Refill Delivery",
+                    type: "earning",
+                    amount: 1200,
+                    date: "2024-02-27 14:20",
+                    status: "completed",
+                    category: "Gas Refill",
+                    jobId: "ERX-001227",
+                    icon: "fa-fire"
+                }
+            ],
+            january: [
+                {
+                    id: 9,
+                    title: "Monthly Payout",
+                    type: "payout",
+                    amount: -38200,
+                    date: "2024-01-31 16:15",
+                    status: "completed",
+                    category: "Payout",
+                    method: "Bank Transfer",
+                    icon: "fa-wallet"
+                }
+            ],
+            december: [
+                {
+                    id: 10,
+                    title: "Monthly Payout",
+                    type: "payout",
+                    amount: -29500,
+                    date: "2023-12-30 14:45",
+                    status: "completed",
+                    category: "Payout",
+                    method: "Bank Transfer",
+                    icon: "fa-wallet"
+                }
+            ]
+        };
+
+        // Format date for display
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 0) {
+                return `Today, ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+            } else if (diffDays === 1) {
+                return `Yesterday, ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+            } else if (diffDays < 7) {
+                return `${date.toLocaleDateString('en-US', {weekday: 'short'})}, ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+            } else {
+                return date.toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'});
+            }
+        }
+
+        // Format amount with currency
+        function formatAmount(amount) {
+            const sign = amount >= 0 ? '+' : '-';
+            const absAmount = Math.abs(amount);
+            return `${sign}₦${absAmount.toLocaleString()}`;
+        }
+
+        // Get status class
+        function getStatusClass(status) {
+            switch(status) {
+                case 'completed': return 'status-completed';
+                case 'pending': return 'status-pending';
+                case 'failed': return 'status-failed';
+                default: return '';
+            }
+        }
+
+        // Get type class
+        function getTypeClass(type) {
+            switch(type) {
+                case 'earning': return 'earning';
+                case 'payout': return 'payout';
+                case 'refund': return 'refund';
+                default: return '';
+            }
+        }
+
+        // Render transactions in modal
+        function renderTransactions(transactions, riderId) {
+            modalTransactionsList.innerHTML = '';
+            
+            if (transactions.length === 0) {
+                modalTransactionsList.innerHTML = `
+                    <div class="empty-state" style="margin: 0; background: transparent; box-shadow: none;">
+                        <div class="empty-icon">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                        <h3 class="empty-title">No Transactions Found</h3>
+                        <p class="empty-text">No transactions match your filter criteria</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Calculate total
+            let total = 0;
+            
+            transactions.forEach(transaction => {
+                total += transaction.amount;
+                
+                const transactionElement = document.createElement('div');
+                transactionElement.className = 'modal-transaction-item';
+                
+                const amountClass = transaction.amount >= 0 ? 'positive' : 'negative';
+                const statusClass = getStatusClass(transaction.status);
+                const typeClass = getTypeClass(transaction.type);
+                
+                transactionElement.innerHTML = `
+                    <div class="modal-transaction-left">
+                        <div class="modal-transaction-icon ${typeClass}">
+                            <i class="fas ${transaction.icon}"></i>
+                        </div>
+                        <div class="modal-transaction-details">
+                            <div class="modal-transaction-title">${transaction.title}</div>
+                            <div class="modal-transaction-meta">
+                                <span>${formatDate(transaction.date)}</span>
+                                ${transaction.jobId ? `<span class="modal-transaction-job">${transaction.jobId}</span>` : ''}
+                                ${transaction.method ? `<span>• ${transaction.method}</span>` : ''}
+                                ${transaction.reason ? `<span>• ${transaction.reason}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-transaction-right">
+                        <div class="modal-transaction-amount ${amountClass}">${formatAmount(transaction.amount)}</div>
+                        <div class="modal-transaction-status ${statusClass}">${transaction.status}</div>
+                    </div>
+                `;
+                
+                modalTransactionsList.appendChild(transactionElement);
+            });
+            
+            // Update total
+            const totalElement = document.querySelector('.total-amount');
+            if (totalElement) {
+                totalElement.textContent = `₦${riderData[riderId].totalEarnings.toLocaleString()}`;
+            }
+            
+            // Update summary stats
+            document.getElementById('totalDeliveries').textContent = riderData[riderId].todayDeliveries;
+            document.getElementById('totalEarnings').textContent = `₦${riderData[riderId].todayEarnings.toLocaleString()}`;
+            document.getElementById('totalTransactions').textContent = transactions.length;
+            document.getElementById('totalPayouts').textContent = `₦${riderData[riderId].totalPayouts.toLocaleString()}`;
+        }
+
+        // Filter and sort transactions
+        function filterAndSortTransactions(riderId) {
+            const month = filterMonth.value;
+            const type = filterType.value;
+            const sort = sortBy.value;
+            
+            let transactions = [];
+            
+            // Get transactions based on month filter
+            if (month === 'all') {
+                // Combine all months
+                Object.values(transactionsData).forEach(monthTransactions => {
+                    transactions.push(...monthTransactions);
+                });
+            } else {
+                transactions = [...transactionsData[month]];
+            }
+            
+            // Filter by type
+            if (type !== 'all') {
+                transactions = transactions.filter(t => t.type === type);
+            }
+            
+            // Sort transactions
+            switch(sort) {
+                case 'date':
+                    transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    break;
+                case 'amount':
+                    transactions.sort((a, b) => Math.abs(b.amount) - Math.abs(a.amount));
+                    break;
+                case 'oldest':
+                    transactions.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    break;
+            }
+            
+            renderTransactions(transactions, riderId);
+        }
+
+        // File size validation
+        function validateFileSize(fileInput, maxSizeMB) {
+            if (fileInput.files.length > 0) {
+                for (let i = 0; i < fileInput.files.length; i++) {
+                    const fileSize = fileInput.files[i].size;
+                    const maxSize = maxSizeMB * 1024 * 1024; // Convert MB to bytes
+                    
+                    if (fileSize > maxSize) {
+                        showNotification(`File "${fileInput.files[i].name}" exceeds ${maxSizeMB}MB. Please select smaller files.`);
+                        fileInput.value = ''; // Clear the file input
+                        
+                        // Clear preview if exists
+                        const previewId = fileInput.id + 'Preview';
+                        const previewDiv = document.getElementById(previewId);
+                        if (previewDiv) {
+                            previewDiv.innerHTML = '';
+                            previewDiv.classList.remove('show');
+                        }
+                        
+                        return false;
+                    }
+                }
+                
+                // Show preview
+                const previewId = fileInput.id + 'Preview';
+                const previewDiv = document.getElementById(previewId);
+                if (previewDiv) {
+                    previewDiv.innerHTML = '';
+                    for (let i = 0; i < fileInput.files.length; i++) {
+                        const file = fileInput.files[i];
+                        const fileElement = document.createElement('div');
+                        fileElement.className = 'file-preview-item';
+                        fileElement.innerHTML = `
+                            <div class="file-preview-name">
+                                <i class="fas fa-file"></i>
+                                <span>${file.name} (${formatFileSize(file.size)})</span>
+                            </div>
+                            <button type="button" class="remove-file" onclick="removeFile('${fileInput.id}', ${i})">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        `;
+                        previewDiv.appendChild(fileElement);
+                    }
+                    previewDiv.classList.add('show');
+                }
+            }
+            return true;
+        }
+
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Remove file from preview
+        function removeFile(inputId, index) {
+            const fileInput = document.getElementById(inputId);
+            const dt = new DataTransfer();
+            
+            // Add all files except the one to remove
+            for (let i = 0; i < fileInput.files.length; i++) {
+                if (i !== index) {
+                    dt.items.add(fileInput.files[i]);
+                }
+            }
+            
+            fileInput.files = dt.files;
+            
+            // Update preview
+            const previewId = inputId + 'Preview';
+            const previewDiv = document.getElementById(previewId);
+            if (previewDiv) {
+                if (fileInput.files.length === 0) {
+                    previewDiv.innerHTML = '';
+                    previewDiv.classList.remove('show');
+                } else {
+                    // Recreate preview
+                    previewDiv.innerHTML = '';
+                    for (let i = 0; i < fileInput.files.length; i++) {
+                        const file = fileInput.files[i];
+                        const fileElement = document.createElement('div');
+                        fileElement.className = 'file-preview-item';
+                        fileElement.innerHTML = `
+                            <div class="file-preview-name">
+                                <i class="fas fa-file"></i>
+                                <span>${file.name} (${formatFileSize(file.size)})</span>
+                            </div>
+                            <button type="button" class="remove-file" onclick="removeFile('${inputId}', ${i})">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        `;
+                        previewDiv.appendChild(fileElement);
+                    }
+                }
+            }
+        }
+
+        // Clear file input
+        function clearFileInput(inputId) {
+            const fileInput = document.getElementById(inputId);
+            fileInput.value = '';
+            
+            const previewId = inputId + 'Preview';
+            const previewDiv = document.getElementById(previewId);
+            if (previewDiv) {
+                previewDiv.innerHTML = '';
+                previewDiv.classList.remove('show');
+            }
+        }
+
+        // Vehicle Selection
+        function setupVehicleSelection() {
+            document.querySelectorAll('.vehicle-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selection from all options
+                    document.querySelectorAll('.vehicle-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Add selection to clicked option
+                    this.classList.add('selected');
+                    
+                    // Set the selected vehicle ID
+                    document.getElementById('selectedVehicleId').value = this.getAttribute('data-vehicle-id');
+                });
+            });
+        }
+
+        // Event Listeners
+        // Rider View Button
+        document.querySelectorAll('.action-btn.view[data-rider-id]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const riderId = this.getAttribute('data-rider-id');
+                const riderName = riderData[riderId].name;
+                
+                riderModalTitle.textContent = `${riderName} - Transactions & Deliveries`;
+                riderTransactionsModal.classList.add('active');
+                filterAndSortTransactions(riderId);
+            });
+        });
+
+        // Order View Button
+        document.querySelectorAll('.action-btn.view[data-order-id]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const orderId = this.getAttribute('data-order-id');
+                const order = orderData[orderId];
+                
+                orderModalTitle.textContent = `Order Details`;
+                
+                // Populate order details
+                document.getElementById('customerName').textContent = order.customer;
+                document.getElementById('customerPhone').textContent = order.customerPhone;
+                document.querySelector('#customerName').closest('.order-party-avatar img').src = order.customerAvatar;
+                
+                document.getElementById('pickupLocation').textContent = order.pickup;
+                document.getElementById('deliveryLocation').textContent = order.delivery;
+                document.getElementById('riderName').textContent = order.rider;
+                document.getElementById('riderPhone').textContent = order.riderPhone;
+                document.querySelector('#riderName').closest('.order-party-avatar img').src = order.riderAvatar;
+                
+                document.getElementById('orderType').textContent = order.type;
+                
+                const orderStatusElement = document.getElementById('orderStatus');
+                orderStatusElement.textContent = order.status.charAt(0).toUpperCase() + order.status.slice(1);
+                orderStatusElement.className = `status-badge ${order.status}`;
+                
+                document.getElementById('orderAmount').textContent = order.amount;
+                document.getElementById('orderDistance').textContent = order.distance;
+                document.getElementById('orderTime').textContent = order.time;
+                
+                orderDetailsModal.classList.add('active');
+            });
+        });
+
+        // Rider Action Buttons
+        suspendRiderBtn.addEventListener('click', () => {
+            const riderName = riderModalTitle.textContent.split(' - ')[0];
+            if (confirm(`Are you sure you want to suspend ${riderName}? This will prevent them from accepting new orders.`)) {
+                showNotification(`${riderName} has been suspended`);
+                riderTransactionsModal.classList.remove('active');
+            }
+        });
+
+        deleteRiderBtn.addEventListener('click', () => {
+            const riderName = riderModalTitle.textContent.split(' - ')[0];
+            if (confirm(`Are you sure you want to permanently delete ${riderName}? This action cannot be undone.`)) {
+                showNotification(`${riderName} has been deleted`);
+                riderTransactionsModal.classList.remove('active');
+            }
+        });
+
+        // Modal Close Events
+        closeTransactionsModal.addEventListener('click', () => {
+            riderTransactionsModal.classList.remove('active');
+        });
+
+        riderTransactionsModal.addEventListener('click', (e) => {
+            if (e.target === riderTransactionsModal) {
+                riderTransactionsModal.classList.remove('active');
+            }
+        });
+
+        closeOrderDetailsModal.addEventListener('click', () => {
+            orderDetailsModal.classList.remove('active');
+        });
+
+        closeOrderModalBtn.addEventListener('click', () => {
+            orderDetailsModal.classList.remove('active');
+        });
+
+        orderDetailsModal.addEventListener('click', (e) => {
+            if (e.target === orderDetailsModal) {
+                orderDetailsModal.classList.remove('active');
+            }
+        });
+
+        // Contact Customer Button
+        contactCustomerBtn.addEventListener('click', () => {
+            const customerName = document.getElementById('customerName').textContent;
+            showNotification(`Calling ${customerName}...`);
+        });
+
+        // Filter change events for transactions
+        filterMonth.addEventListener('change', () => {
+            const activeRiderBtn = document.querySelector('.action-btn.view[data-rider-id]');
+            if (activeRiderBtn) {
+                const riderId = activeRiderBtn.getAttribute('data-rider-id');
+                filterAndSortTransactions(riderId);
+            }
+        });
+
+        filterType.addEventListener('change', () => {
+            const activeRiderBtn = document.querySelector('.action-btn.view[data-rider-id]');
+            if (activeRiderBtn) {
+                const riderId = activeRiderBtn.getAttribute('data-rider-id');
+                filterAndSortTransactions(riderId);
+            }
+        });
+
+        sortBy.addEventListener('change', () => {
+            const activeRiderBtn = document.querySelector('.action-btn.view[data-rider-id]');
+            if (activeRiderBtn) {
+                const riderId = activeRiderBtn.getAttribute('data-rider-id');
+                filterAndSortTransactions(riderId);
+            }
+        });
+
+        // Quick Action Modals
+        addRiderBtn.addEventListener('click', () => {
+            addRiderModal.classList.add('active');
+        });
+
+        addVehicleBtn.addEventListener('click', () => {
+            addVehicleModal.classList.add('active');
+        });
+
+        assignVehicleBtn.addEventListener('click', () => {
+            assignVehicleModal.classList.add('active');
+            setupVehicleSelection();
+        });
+
+        withdrawEarningsBtn.addEventListener('click', () => {
+            withdrawEarningsModal.classList.add('active');
+        });
+
+        // Close Modal Functions
+        function setupModalClose(modal, closeBtn, cancelBtn) {
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+
+            if (cancelBtn) {
+                cancelBtn.addEventListener('click', () => {
+                    modal.classList.remove('active');
+                });
+            }
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        }
+
+        // Setup all modals
+        setupModalClose(addRiderModal, closeAddRiderModal, cancelAddRider);
+        setupModalClose(addVehicleModal, closeAddVehicleModal, cancelAddVehicle);
+        setupModalClose(assignVehicleModal, closeAssignVehicleModal, cancelAssignVehicle);
+        setupModalClose(withdrawEarningsModal, closeWithdrawEarningsModal, cancelWithdrawEarnings);
+
+        // Form Submissions
+        addRiderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                fullName: document.getElementById('riderFullName').value,
+                email: document.getElementById('riderEmail').value,
+                phone: document.getElementById('riderPhone').value,
+                vehicleType: document.getElementById('riderVehicleType').value,
+                state: document.getElementById('riderState').value,
+                city: document.getElementById('riderCity').value,
+                address: document.getElementById('riderAddress').value,
+                operatingAreas: Array.from(document.querySelectorAll('input[name="operatingAreas"]:checked')).map(cb => cb.value),
+                availability: Array.from(document.querySelectorAll('input[name="availability"]:checked')).map(cb => cb.value)
+            };
+            
+            console.log('New rider data:', formData);
+            
+            // Show success message
+            showNotification(`Rider "${formData.fullName}" added successfully!`);
+            
+            // Close modal
+            addRiderModal.classList.remove('active');
+            
+            // Reset form
+            addRiderForm.reset();
+            
+            // Clear file previews
+            document.querySelectorAll('.file-preview').forEach(preview => {
+                preview.innerHTML = '';
+                preview.classList.remove('show');
+            });
+        });
+
+        addVehicleForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                type: document.getElementById('vehicleType').value,
+                make: document.getElementById('vehicleMake').value,
+                model: document.getElementById('vehicleModel').value,
+                year: document.getElementById('vehicleYear').value,
+                plate: document.getElementById('vehiclePlate').value,
+                color: document.getElementById('vehicleColor').value,
+                insurance: document.getElementById('vehicleInsurance').value,
+                expiry: document.getElementById('insuranceExpiry').value,
+                status: document.getElementById('vehicleStatus').value,
+                notes: document.getElementById('vehicleNotes').value
+            };
+            
+            console.log('New vehicle data:', formData);
+            
+            // Show success message
+            showNotification(`Vehicle "${formData.make} ${formData.model}" added successfully!`);
+            
+            // Close modal
+            addVehicleModal.classList.remove('active');
+            
+            // Reset form
+            addVehicleForm.reset();
+            
+            // Clear file preview
+            clearFileInput('vehiclePhotos');
+        });
+
+        assignVehicleForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const riderId = document.getElementById('selectRider').value;
+            const vehicleId = document.getElementById('selectedVehicleId').value;
+            
+            if (!riderId || !vehicleId) {
+                showNotification('Please select both a rider and a vehicle');
+                return;
+            }
+            
+            // Get rider and vehicle names
+            const riderName = document.getElementById('selectRider').options[document.getElementById('selectRider').selectedIndex].text.split(' (')[0];
+            const vehicleOption = document.querySelector(`.vehicle-option[data-vehicle-id="${vehicleId}"]`);
+            const vehicleName = vehicleOption.querySelector('h4').textContent;
+            const vehiclePlate = vehicleOption.querySelector('p').textContent.split(' | ')[0];
+            
+            // Show success message
+            showNotification(`Vehicle ${vehicleName} assigned to ${riderName} successfully!`);
+            
+            // Close modal
+            assignVehicleModal.classList.remove('active');
+            
+            // Reset form
+            assignVehicleForm.reset();
+            document.querySelectorAll('.vehicle-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            document.getElementById('selectedVehicleId').value = '';
+        });
+
+        withdrawEarningsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const amount = document.getElementById('withdrawAmount').value;
+            const bank = document.getElementById('bankName').value;
+            const accountNumber = document.getElementById('accountNumber').value;
+            const accountName = document.getElementById('accountName').value;
+            
+            // Show success message
+            showNotification(`Withdrawal request of ₦${amount} submitted successfully!`);
+            
+            // Close modal
+            withdrawEarningsModal.classList.remove('active');
+            
+            // Reset form
+            withdrawEarningsForm.reset();
+        });
+
+        // Verification Upload Buttons
+        document.querySelectorAll('.upload-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                showNotification('File upload dialog opened');
+            });
+        });
+
+        // Phone number formatting
+        document.querySelectorAll('input[type="tel"]').forEach(input => {
+            input.addEventListener('input', function() {
+                // Remove any non-digit characters
+                this.value = this.value.replace(/[^\d]/g, '');
+                
+                // Limit to 10 digits
+                if (this.value.length > 10) {
+                    this.value = this.value.slice(0, 10);
+                }
+            });
+        });
+
+        // Handle image errors with fallback
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            img.addEventListener('error', function() {
+                if (this.parentElement.classList.contains('user-avatar') || 
+                    this.parentElement.classList.contains('order-party-avatar')) {
+                    // Create fallback avatar
+                    const parent = this.parentElement;
+                    const text = this.alt ? this.alt.charAt(0) : 'U';
+                    parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--primary-green);color:white;font-size:14px;font-weight:bold;">${text}</div>`;
+                } else if (this.classList.contains('logo-img')) {
+                    // Create text fallback for logo
+                    const parent = this.parentElement;
+                    parent.innerHTML = '<span style="color:white; font-weight:bold; font-size:16px;">ErrandX</span>';
+                }
+            });
+        });
+
+        // Show initial notification
+        setTimeout(() => {
+            showNotification('Welcome to Gusau Express Dashboard!');
+        }, 1000);
+    </script>
+</body>
+</html>

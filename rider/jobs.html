@@ -1,0 +1,2578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs - ErrandX Rider</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Theme Loader -->
+    <script src="../theme/theme-loader.js" defer></script>
+    
+    <style>
+        :root {
+            /* Professional Color Palette */
+            --primary-green: #5CC47E;
+            --primary-dark: #1F4B2E;
+            --primary-light: #E8F5E9;
+            --secondary-blue: #4A90E2;
+            --secondary-orange: #FF8A00;
+            --secondary-red: #FF5252;
+            --secondary-yellow: #FFD700;
+            --background-light: #F3FFF7;
+            --card-background: #FFFFFF;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --text-white: #FFFFFF;
+            --border-color: #E5E7EB;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.16);
+            --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.20);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius-sm: 8px;
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+        }
+
+        .dark-mode {
+            --primary-green: #6DD88F;
+            --primary-dark: #1F4B2E;
+            --primary-light: #2D5A44;
+            --secondary-blue: #6AAFFF;
+            --secondary-orange: #FFA033;
+            --secondary-red: #FF6B6B;
+            --secondary-yellow: #FFEB3B;
+            --background-light: #0F2A1C;
+            --card-background: #1F4B2E;
+            --text-dark: #F0F7F2;
+            --text-light: #A3C9B4;
+            --text-white: #FFFFFF;
+            --border-color: #2D5A44;
+            --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 8px 28px rgba(0, 0, 0, 0.30);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.40);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            transition: var(--transition);
+            padding-bottom: 85px;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Animated Background Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(92, 196, 126, 0.15) 0%,
+                rgba(92, 196, 126, 0.22) 25%,
+                rgba(92, 196, 126, 0.15) 50%,
+                rgba(92, 196, 126, 0.22) 75%,
+                rgba(92, 196, 126, 0.15) 100%
+            );
+            background-size: 400% 100%;
+            animation: slideBackground 25s ease-in-out infinite;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .dark-mode body::before {
+            background: linear-gradient(
+                90deg,
+                rgba(109, 216, 143, 0.22) 0%,
+                rgba(109, 216, 143, 0.12) 25%,
+                rgba(109, 216, 143, 0.22) 50%,
+                rgba(109, 216, 143, 0.12) 75%,
+                rgba(109, 216, 143, 0.22) 100%
+            );
+            opacity: 0.4;
+        }
+
+        @keyframes slideBackground {
+            0% { background-position: 400% 0; }
+            100% { background-position: -400% 0; }
+        }
+
+        /* Enhanced floating elements */
+        .bg-float {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 30s ease-in-out infinite;
+        }
+
+        .bg-float:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: 10%;
+            right: -150px;
+            animation-delay: 0s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.18) 0%, rgba(92, 196, 126, 0.08) 70%, transparent 100%);
+        }
+
+        .bg-float:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            bottom: 20%;
+            left: -120px;
+            animation-delay: 7s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.15) 0%, rgba(92, 196, 126, 0.05) 70%, transparent 100%);
+        }
+
+        .bg-float:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            top: 60%;
+            right: -100px;
+            animation-delay: 14s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.12) 0%, rgba(92, 196, 126, 0.03) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(1) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.25) 0%, rgba(109, 216, 143, 0.08) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(2) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.20) 0%, rgba(109, 216, 143, 0.05) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(3) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.18) 0%, rgba(109, 216, 143, 0.03) 70%, transparent 100%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            33% { transform: translateY(-40px) rotate(8deg) scale(1.05); }
+            66% { transform: translateY(30px) rotate(-8deg) scale(0.95); }
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+        }
+
+        /* Header */
+        .dashboard-header {
+            background: var(--primary-dark);
+            color: var(--text-white);
+            padding: 14px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .header-container {
+                padding: 0 24px;
+            }
+        }
+
+        .logo-img {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle-header {
+            position: relative;
+            background: rgba(255, 255, 255, 0.15);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            color: white;
+        }
+
+        .theme-toggle-header:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 25px 0 20px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* Job Tabs - FIXED RESPONSIVE */
+        .jobs-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            background: var(--card-background);
+            padding: 8px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .jobs-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: 110px;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-green);
+            color: white;
+            font-weight: 600;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .tab-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .tab-btn.active .tab-badge {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Jobs Container - ADDED SPACING */
+        .jobs-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .empty-state {
+                margin: 0 24px;
+            }
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            color: var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .empty-title {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            color: var(--text-light);
+            max-width: 300px;
+            margin: 0 auto 20px;
+        }
+
+        /* Job Cards - UPDATED WITH IMAGES LIKE HOMEPAGE */
+        .job-card {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 18px;
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--secondary-blue);
+            transition: var(--transition);
+            margin: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .job-card {
+                margin: 0 24px;
+            }
+        }
+
+        .job-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .job-card.available {
+            border-left-color: var(--secondary-blue);
+            animation: pulseBorder 2s infinite;
+        }
+
+        @keyframes pulseBorder {
+            0%, 100% { border-left-color: var(--secondary-blue); }
+            50% { border-left-color: var(--primary-green); }
+        }
+
+        .job-card.active {
+            border-left-color: var(--secondary-yellow);
+        }
+
+        .job-card.completed {
+            border-left-color: var(--primary-green);
+        }
+
+        .job-card.cancelled {
+            border-left-color: var(--secondary-red);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .job-title-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* Job Image like homepage */
+        .job-image {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--border-radius-sm);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .job-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .job-title-text {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .job-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+
+        .job-category {
+            font-size: 12px;
+            color: var(--text-light);
+            background: rgba(92, 196, 126, 0.1);
+            padding: 2px 8px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .job-status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .status-available {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--secondary-blue);
+        }
+
+        .status-active {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--secondary-yellow);
+        }
+
+        .status-completed {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .status-cancelled {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+        }
+
+        /* Job Timer like homepage */
+        .job-timer-container {
+            flex-shrink: 0;
+        }
+
+        .job-timer {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Poppins', monospace;
+            white-space: nowrap;
+            display: inline-block;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        /* Job Details Grid - FIXED RESPONSIVE */
+        .job-details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        @media (min-width: 768px) {
+            .job-details-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .job-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .job-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(92, 196, 126, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-green);
+            flex-shrink: 0;
+        }
+
+        .job-detail-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .job-detail-label {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .job-detail-value {
+            font-size: 13px;
+            color: var(--text-dark);
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Job Actions - FIXED RESPONSIVE */
+        .job-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .job-actions {
+                flex-wrap: wrap;
+            }
+        }
+
+        .job-action-btn {
+            flex: 1;
+            padding: 11px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-width: 110px;
+        }
+
+        @media (max-width: 480px) {
+            .job-action-btn {
+                min-width: calc(50% - 5px);
+            }
+        }
+
+        .view-btn {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+            border: 1.5px solid var(--primary-green);
+        }
+
+        .view-btn:hover {
+            background: var(--primary-green);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(92, 196, 126, 0.3);
+        }
+
+        .track-btn {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--secondary-yellow);
+            border: 1.5px solid var(--secondary-yellow);
+        }
+
+        .track-btn:hover {
+            background: var(--secondary-yellow);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
+
+        .complete-btn {
+            background: var(--primary-green);
+            color: white;
+            border: 1.5px solid var(--primary-green);
+        }
+
+        .complete-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(92, 196, 126, 0.3);
+        }
+
+        .report-btn {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+            border: 1.5px solid var(--secondary-red);
+        }
+
+        .report-btn:hover {
+            background: var(--secondary-red);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 82, 82, 0.3);
+        }
+
+        .earnings-btn {
+            background: rgba(255, 138, 0, 0.1);
+            color: var(--secondary-orange);
+            border: 1.5px solid var(--secondary-orange);
+        }
+
+        .earnings-btn:hover {
+            background: var(--secondary-orange);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 138, 0, 0.3);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--card-background);
+            border-radius: var(--border-radius-lg);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px);
+            transition: transform 0.3s ease-out;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 20px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .modal-content {
+            padding: 24px;
+        }
+
+        /* Order Details in Modal */
+        .order-details-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .order-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .order-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .order-info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .order-info-label {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .order-info-value {
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        /* Timeline */
+        .order-timeline {
+            margin: 24px 0;
+            padding: 20px;
+            background: rgba(92, 196, 126, 0.05);
+            border-radius: var(--border-radius);
+        }
+
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .timeline-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .timeline-step {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .timeline-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .timeline-icon.pending {
+            background: var(--border-color);
+            color: var(--text-light);
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-step-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .timeline-step-time {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Customer Info */
+        .customer-info {
+            background: rgba(92, 196, 126, 0.05);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .customer-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .customer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .customer-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .customer-details h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: var(--text-dark);
+        }
+
+        .customer-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--secondary-yellow);
+            font-size: 12px;
+        }
+
+        .customer-contact {
+            display: flex;
+            gap: 10px;
+        }
+
+        .contact-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .call-btn {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+            border: 1.5px solid var(--primary-green);
+        }
+
+        .call-btn:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .message-btn {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--secondary-blue);
+            border: 1.5px solid var(--secondary-blue);
+        }
+
+        .message-btn:hover {
+            background: var(--secondary-blue);
+            color: white;
+        }
+
+        /* Modal Actions */
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .modal-action-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .accept-modal-btn {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .accept-modal-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .decline-modal-btn {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+            border: 1.5px solid var(--secondary-red);
+        }
+
+        .decline-modal-btn:hover {
+            background: var(--secondary-red);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--card-background);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 0 18px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: var(--transition);
+            flex: 1;
+            padding: 8px 0;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        .nav-text {
+            font-size: 12px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-item.active {
+            color: var(--primary-green);
+        }
+
+        .nav-item.active .nav-text {
+            font-weight: 600;
+        }
+
+        .nav-item:hover {
+            color: var(--primary-green);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .header-container {
+                padding: 0 16px;
+            }
+            
+            .page-header {
+                padding: 20px 0 15px;
+            }
+            
+            .page-title {
+                font-size: 20px;
+            }
+            
+            .jobs-tabs {
+                padding: 6px;
+            }
+            
+            .tab-btn {
+                padding: 10px 12px;
+                font-size: 13px;
+                min-width: 100px;
+            }
+            
+            .job-card {
+                margin: 0 16px;
+                padding: 16px;
+            }
+            
+            .job-details-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .job-actions {
+                flex-wrap: wrap;
+            }
+            
+            .job-action-btn {
+                min-width: calc(50% - 5px);
+            }
+            
+            .modal {
+                width: 95%;
+            }
+            
+            .order-info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .tab-btn {
+                min-width: 90px;
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+            
+            .job-details-grid {
+                gap: 8px;
+            }
+            
+            .job-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+            
+            .job-detail-label {
+                font-size: 10px;
+            }
+            
+            .job-detail-value {
+                font-size: 12px;
+            }
+            
+            .job-action-btn {
+                min-width: 100%;
+                margin-bottom: 8px;
+            }
+        }
+
+        /* Loader and Notification styles (from theme-loader.js compatibility) */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 0.3s, visibility 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            backdrop-filter: blur(6px);
+        }
+
+        .loader.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loader {
+            background: rgba(243, 255, 247, 0.95);
+        }
+
+        .dark-mode .loader {
+            background: rgba(15, 42, 28, 0.97);
+        }
+
+        .loader-spinner {
+            width: 70px;
+            height: 70px;
+            border: 4px solid rgba(92, 196, 126, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-green);
+            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-dark);
+            letter-spacing: 0.5px;
+        }
+
+        .dark-mode .loader-text {
+            color: var(--text-light);
+        }
+
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--primary-green);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            z-index: 4000;
+            font-weight: 500;
+            transform: translateX(150%);
+            transition: transform 0.3s ease-out;
+            max-width: 280px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background: var(--secondary-red);
+        }
+
+        .notification.warning {
+            background: var(--secondary-orange);
+        }
+
+        /* Jobs Tab Content */
+        .jobs-tab-content {
+            display: none;
+        }
+
+        .jobs-tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Floating Elements -->
+    <div class="bg-float"></div>
+    <div class="bg-float"></div>
+    <div class="bg-float"></div>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="../img/logo.png" alt="ErrandX" class="logo-img">
+            </div>
+            
+            <div class="user-info">
+                <button class="theme-toggle-header" id="themeToggleHeader">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">My Jobs</h1>
+            <p class="page-subtitle">Manage and track all your delivery jobs</p>
+        </div>
+
+        <!-- Job Tabs - FIXED RESPONSIVE -->
+        <div class="jobs-tabs">
+            <button class="tab-btn active" data-tab="available">
+                <i class="fas fa-clock"></i>
+                Available
+                <span class="tab-badge" id="availableCount">3</span>
+            </button>
+            <button class="tab-btn" data-tab="active">
+                <i class="fas fa-shipping-fast"></i>
+                Active
+                <span class="tab-badge" id="activeCount">1</span>
+            </button>
+            <button class="tab-btn" data-tab="completed">
+                <i class="fas fa-check-circle"></i>
+                Completed
+                <span class="tab-badge" id="completedCount">2</span>
+            </button>
+        </div>
+
+        <!-- Jobs Container -->
+        <div class="jobs-container">
+            <!-- Available Jobs (Initially shown) -->
+            <div class="jobs-tab-content active" id="availableJobs">
+                <!-- Job 1 -->
+                <div class="job-card available" data-job-id="1">
+                    <div class="job-header">
+                        <div class="job-title-container">
+                            <div class="job-image">
+                                <img src="../img/3.png" alt="Gas Refill">
+                            </div>
+                            <div class="job-title-text">
+                                <h3 class="job-title">Gas Refill Delivery</h3>
+                                <span class="job-category">Gas Refill</span>
+                            </div>
+                        </div>
+                        <div class="job-timer-container">
+                            <div class="job-timer" id="jobTimer1">02:00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="job-details-grid">
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Pickup</div>
+                                <div class="job-detail-value">Sabon Gari</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-location-arrow"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Delivery</div>
+                                <div class="job-detail-value">Unguwar Gwaza</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Earnings</div>
+                                <div class="job-detail-value">₦1,200</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-route"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Distance</div>
+                                <div class="job-detail-value">3.2 km</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="job-actions">
+                        <button class="job-action-btn view-btn" data-action="view" data-job-id="1">
+                            <i class="fas fa-eye"></i> View Details
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Job 2 -->
+                <div class="job-card available" data-job-id="2">
+                    <div class="job-header">
+                        <div class="job-title-container">
+                            <div class="job-image">
+                                <img src="../img/2.png" alt="Package Delivery">
+                            </div>
+                            <div class="job-title-text">
+                                <h3 class="job-title">Package Delivery</h3>
+                                <span class="job-category">Package</span>
+                            </div>
+                        </div>
+                        <div class="job-timer-container">
+                            <div class="job-timer" id="jobTimer2">01:45</div>
+                        </div>
+                    </div>
+                    
+                    <div class="job-details-grid">
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Pickup</div>
+                                <div class="job-detail-value">Main Market</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-location-arrow"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Delivery</div>
+                                <div class="job-detail-value">GRA Phase 2</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Earnings</div>
+                                <div class="job-detail-value">₦1,500</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-route"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Distance</div>
+                                <div class="job-detail-value">4.5 km</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="job-actions">
+                        <button class="job-action-btn view-btn" data-action="view" data-job-id="2">
+                            <i class="fas fa-eye"></i> View Details
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Job 3 -->
+                <div class="job-card available" data-job-id="6">
+                    <div class="job-header">
+                        <div class="job-title-container">
+                            <div class="job-image">
+                                <img src="../img/4.png" alt="Food Delivery">
+                            </div>
+                            <div class="job-title-text">
+                                <h3 class="job-title">Food Delivery</h3>
+                                <span class="job-category">Food</span>
+                            </div>
+                        </div>
+                        <div class="job-timer-container">
+                            <div class="job-timer" id="jobTimer6">03:00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="job-details-grid">
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Pickup</div>
+                                <div class="job-detail-value">Chicken Republic</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-location-arrow"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Delivery</div>
+                                <div class="job-detail-value">Federal Lowcost</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Earnings</div>
+                                <div class="job-detail-value">₦800</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-route"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Distance</div>
+                                <div class="job-detail-value">2.1 km</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="job-actions">
+                        <button class="job-action-btn view-btn" data-action="view" data-job-id="6">
+                            <i class="fas fa-eye"></i> View Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Jobs -->
+            <div class="jobs-tab-content" id="activeJobs">
+                <!-- Active Job -->
+                <div class="job-card active" data-job-id="3">
+                    <div class="job-header">
+                        <div class="job-title-container">
+                            <div class="job-image">
+                                <img src="../img/1.png" alt="Document Delivery">
+                            </div>
+                            <div class="job-title-text">
+                                <h3 class="job-title">Document Delivery</h3>
+                                <span class="job-category">Documents</span>
+                            </div>
+                        </div>
+                        <div class="job-status-badge status-active">In Progress</div>
+                    </div>
+                    
+                    <div class="job-details-grid">
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Pickup</div>
+                                <div class="job-detail-value">Law Chambers</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-location-arrow"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Delivery</div>
+                                <div class="job-detail-value">Court House</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Earnings</div>
+                                <div class="job-detail-value">₦1,000</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Started</div>
+                                <div class="job-detail-value">10:30 AM</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="job-actions">
+                        <button class="job-action-btn track-btn" data-action="track" data-job-id="3">
+                            <i class="fas fa-map-marked-alt"></i> Track Order
+                        </button>
+                        <button class="job-action-btn complete-btn" data-action="complete" data-job-id="3">
+                            <i class="fas fa-check-circle"></i> Mark Complete
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completed Jobs -->
+            <div class="jobs-tab-content" id="completedJobs">
+                <!-- Completed Job 1 -->
+                <div class="job-card completed" data-job-id="4">
+                    <div class="job-header">
+                        <div class="job-title-container">
+                            <div class="job-image">
+                                <img src="../img/5.png" alt="Gift Delivery">
+                            </div>
+                            <div class="job-title-text">
+                                <h3 class="job-title">Gift Delivery</h3>
+                                <span class="job-category">Gift</span>
+                            </div>
+                        </div>
+                        <div class="job-status-badge status-completed">Completed</div>
+                    </div>
+                    
+                    <div class="job-details-grid">
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">From</div>
+                                <div class="job-detail-value">Gift Shop</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-location-arrow"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">To</div>
+                                <div class="job-detail-value">Birthday Party</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Earned</div>
+                                <div class="job-detail-value">₦900</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Completed</div>
+                                <div class="job-detail-value">Yesterday, 3:45 PM</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="job-actions">
+                        <button class="job-action-btn view-btn" data-action="view" data-job-id="4">
+                            <i class="fas fa-eye"></i> View Details
+                        </button>
+                        <button class="job-action-btn earnings-btn" data-action="earnings" data-job-id="4">
+                            <i class="fas fa-money-bill-wave"></i> Earnings
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Completed Job 2 -->
+                <div class="job-card completed" data-job-id="5">
+                    <div class="job-header">
+                        <div class="job-title-container">
+                            <div class="job-image">
+                                <img src="../img/6.png" alt="Laundry Pickup">
+                            </div>
+                            <div class="job-title-text">
+                                <h3 class="job-title">Laundry Pickup</h3>
+                                <span class="job-category">Laundry</span>
+                            </div>
+                        </div>
+                        <div class="job-status-badge status-completed">Completed</div>
+                    </div>
+                    
+                    <div class="job-details-grid">
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">From</div>
+                                <div class="job-detail-value">Customer Home</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-location-arrow"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">To</div>
+                                <div class="job-detail-value">Laundry Shop</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Earned</div>
+                                <div class="job-detail-value">₦750</div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-detail-item">
+                            <div class="job-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <div class="job-detail-label">Completed</div>
+                                <div class="job-detail-value">2 days ago</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="job-actions">
+                        <button class="job-action-btn view-btn" data-action="view" data-job-id="5">
+                            <i class="fas fa-eye"></i> View Details
+                        </button>
+                        <button class="job-action-btn report-btn" data-action="report" data-job-id="5">
+                            <i class="fas fa-flag"></i> Report Issue
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty States -->
+        <div class="empty-state" id="emptyCompleted" style="display: none;">
+            <div class="empty-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="empty-title">No Completed Jobs Yet</h3>
+            <p class="empty-text">Complete your active jobs to see them here</p>
+        </div>
+
+        <div class="empty-state" id="emptyActive" style="display: none;">
+            <div class="empty-icon">
+                <i class="fas fa-shipping-fast"></i>
+            </div>
+            <h3 class="empty-title">No Active Jobs</h3>
+            <p class="empty-text">Accept available jobs to start working</p>
+            <button class="job-action-btn view-btn" id="goToAvailableBtn" style="margin-top: 15px;">
+                <i class="fas fa-clock"></i> View Available Jobs
+            </button>
+        </div>
+    </main>
+
+    <!-- Job Details Modal -->
+    <div class="modal-overlay" id="jobModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-fire modal-job-icon"></i>
+                    <span class="modal-job-title">Gas Refill Delivery</span>
+                </h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <!-- Order Details -->
+                <div class="order-details-section">
+                    <h4 class="section-title">
+                        <i class="fas fa-info-circle"></i>
+                        Order Details
+                    </h4>
+                    
+                    <div class="order-info-grid">
+                        <div class="order-info-item">
+                            <span class="order-info-label">Order ID</span>
+                            <span class="order-info-value" id="modalOrderId">#ERX-001234</span>
+                        </div>
+                        <div class="order-info-item">
+                            <span class="order-info-label">Category</span>
+                            <span class="order-info-value" id="modalCategory">Gas Refill</span>
+                        </div>
+                        <div class="order-info-item">
+                            <span class="order-info-label">Distance</span>
+                            <span class="order-info-value" id="modalDistance">3.2 km</span>
+                        </div>
+                        <div class="order-info-item">
+                            <span class="order-info-label">Weight</span>
+                            <span class="order-info-value" id="modalWeight">12.5 kg</span>
+                        </div>
+                        <div class="order-info-item">
+                            <span class="order-info-label">Pickup Time</span>
+                            <span class="order-info-value" id="modalPickupTime">ASAP</span>
+                        </div>
+                        <div class="order-info-item">
+                            <span class="order-info-label">Delivery Time</span>
+                            <span class="order-info-value" id="modalDeliveryTime">30 mins</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div class="order-timeline">
+                    <h4 class="timeline-title">Order Timeline</h4>
+                    <div class="timeline-steps" id="timelineSteps">
+                        <!-- Timeline steps will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Customer Information -->
+                <div class="customer-info">
+                    <div class="customer-header">
+                        <div class="customer-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Customer">
+                        </div>
+                        <div class="customer-details">
+                            <h4 id="modalCustomerName">Aisha Bello</h4>
+                            <div class="customer-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.7</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-info-grid">
+                        <div class="order-info-item">
+                            <span class="order-info-label">Phone</span>
+                            <span class="order-info-value" id="modalCustomerPhone">+234 801 234 5678</span>
+                        </div>
+                        <div class="order-info-item">
+                            <span class="order-info-label">Address</span>
+                            <span class="order-info-value" id="modalCustomerAddress">House 12, Unguwar Gwaza, Gusau</span>
+                        </div>
+                    </div>
+                    
+                    <div class="customer-contact">
+                        <button class="contact-btn call-btn" id="callCustomerBtn">
+                            <i class="fas fa-phone"></i> Call Customer
+                        </button>
+                        <button class="contact-btn message-btn" id="messageCustomerBtn">
+                            <i class="fas fa-comment-alt"></i> Message
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Location Details -->
+                <div class="order-details-section">
+                    <h4 class="section-title">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Location Details
+                    </h4>
+                    
+                    <div class="order-info-grid">
+                        <div class="order-info-item">
+                            <span class="order-info-label">Pickup Address</span>
+                            <span class="order-info-value" id="modalPickupAddress">Gas Station, Sabon Gari, Gusau</span>
+                        </div>
+                        <div class="order-info-item">
+                            <span class="order-info-label">Delivery Address</span>
+                            <span class="order-info-value" id="modalDeliveryAddress">House 12, Unguwar Gwaza, Gusau</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Earnings -->
+                <div class="order-details-section">
+                    <h4 class="section-title">
+                        <i class="fas fa-money-bill-wave"></i>
+                        Earnings
+                    </h4>
+                    
+                    <div class="order-info-grid">
+                        <div class="order-info-item">
+                            <span class="order-info-label">Base Fare</span>
+                            <span class="order-info-value">₦800</span>
+                        </div>
+                        <div class="order-info-item">
+                            <span class="order-info-label">Distance Bonus</span>
+                            <span class="order-info-value">₦200</span>
+                        </div>
+                        <div class="order-info-item">
+                            <span class="order-info-label">Tips</span>
+                            <span class="order-info-value">₦200</span>
+                        </div>
+                        <div class="order-info-item">
+                            <span class="order-info-label">Total Earnings</span>
+                            <span class="order-info-value" style="color: var(--primary-green); font-weight: 700;">₦1,200</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Actions -->
+                <div class="modal-actions" id="modalActions">
+                    <!-- Actions will be inserted based on job status -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <span class="nav-text">Home</span>
+        </a>
+        
+        <a href="jobs.html" class="nav-item active">
+            <div class="nav-icon">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+            <span class="nav-text">Jobs</span>
+        </a>
+        
+        <a href="earnings.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <span class="nav-text">Earnings</span>
+        </a>
+        
+        <a href="profile.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <span class="nav-text">Profile</span>
+        </a>
+    </nav>
+
+    <!-- Loader and Notification (injected by theme-loader.js) -->
+    <div class="loader" id="pageLoader">
+        <div class="loader-spinner"></div>
+        <p class="loader-text">Loading...</p>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Notification message here</span>
+    </div>
+
+    <script>
+        // Job data with timers for countdown
+        const jobsData = {
+            available: [
+                {
+                    id: 1,
+                    title: "Gas Refill Delivery",
+                    category: "Gas Refill",
+                    image: "../img/3.png",
+                    status: "available",
+                    pickup: "Sabon Gari",
+                    delivery: "Unguwar Gwaza",
+                    earnings: "₦1,200",
+                    timer: 120, // 2 minutes in seconds
+                    orderId: "#ERX-001234",
+                    distance: "3.2 km",
+                    weight: "12.5 kg",
+                    pickupTime: "ASAP",
+                    deliveryTime: "30 mins",
+                    customerName: "Aisha Bello",
+                    customerPhone: "+234 801 234 5678",
+                    customerAddress: "House 12, Unguwar Gwaza, Gusau",
+                    pickupAddress: "Gas Station, Sabon Gari, Gusau",
+                    deliveryAddress: "House 12, Unguwar Gwaza, Gusau",
+                    timeline: [
+                        { title: "Order Placed", time: "10:15 AM", completed: true },
+                        { title: "Rider Assigned", time: "10:20 AM", completed: false },
+                        { title: "Pickup", time: "Pending", completed: false },
+                        { title: "Delivery", time: "Pending", completed: false }
+                    ]
+                },
+                {
+                    id: 2,
+                    title: "Package Delivery",
+                    category: "Package",
+                    image: "../img/2.png",
+                    status: "available",
+                    pickup: "Main Market",
+                    delivery: "GRA Phase 2",
+                    earnings: "₦1,500",
+                    timer: 105, // 1:45 in seconds
+                    orderId: "#ERX-001235",
+                    distance: "4.5 km",
+                    weight: "5.2 kg",
+                    pickupTime: "Within 1 hour",
+                    deliveryTime: "45 mins",
+                    customerName: "Musa Ibrahim",
+                    customerPhone: "+234 802 345 6789",
+                    customerAddress: "Plot 45, GRA Phase 2, Gusau",
+                    pickupAddress: "Main Market, Gusau",
+                    deliveryAddress: "Plot 45, GRA Phase 2, Gusau",
+                    timeline: [
+                        { title: "Order Placed", time: "09:30 AM", completed: true },
+                        { title: "Rider Assigned", time: "Pending", completed: false },
+                        { title: "Pickup", time: "Pending", completed: false },
+                        { title: "Delivery", time: "Pending", completed: false }
+                    ]
+                },
+                {
+                    id: 6,
+                    title: "Food Delivery",
+                    category: "Food",
+                    image: "../img/4.png",
+                    status: "available",
+                    pickup: "Chicken Republic",
+                    delivery: "Federal Lowcost",
+                    earnings: "₦800",
+                    timer: 180, // 3 minutes in seconds
+                    orderId: "#ERX-001236",
+                    distance: "2.1 km",
+                    weight: "1.8 kg",
+                    pickupTime: "ASAP",
+                    deliveryTime: "25 mins",
+                    customerName: "Fatima Ahmed",
+                    customerPhone: "+234 803 456 7890",
+                    customerAddress: "Block 7, Federal Lowcost, Gusau",
+                    pickupAddress: "Chicken Republic, Gusau",
+                    deliveryAddress: "Block 7, Federal Lowcost, Gusau",
+                    timeline: [
+                        { title: "Order Placed", time: "11:00 AM", completed: true },
+                        { title: "Rider Assigned", time: "Pending", completed: false },
+                        { title: "Pickup", time: "Pending", completed: false },
+                        { title: "Delivery", time: "Pending", completed: false }
+                    ]
+                }
+            ],
+            active: [
+                {
+                    id: 3,
+                    title: "Document Delivery",
+                    category: "Documents",
+                    image: "../img/1.png",
+                    status: "active",
+                    pickup: "Law Chambers",
+                    delivery: "Court House",
+                    earnings: "₦1,000",
+                    started: "10:30 AM",
+                    orderId: "#ERX-001233",
+                    distance: "1.8 km",
+                    weight: "0.5 kg",
+                    pickupTime: "10:25 AM",
+                    deliveryTime: "11:00 AM",
+                    customerName: "Barrister John",
+                    customerPhone: "+234 804 567 8901",
+                    customerAddress: "Court House, Gusau",
+                    pickupAddress: "Law Chambers, Gusau",
+                    deliveryAddress: "Court House, Gusau",
+                    timeline: [
+                        { title: "Order Placed", time: "10:00 AM", completed: true },
+                        { title: "Rider Assigned", time: "10:05 AM", completed: true },
+                        { title: "Pickup", time: "10:30 AM", completed: true },
+                        { title: "Delivery", time: "In Progress", completed: false }
+                    ]
+                }
+            ],
+            completed: [
+                {
+                    id: 4,
+                    title: "Gift Delivery",
+                    category: "Gift",
+                    image: "../img/5.png",
+                    status: "completed",
+                    pickup: "Gift Shop",
+                    delivery: "Birthday Party",
+                    earnings: "₦900",
+                    completed: "Yesterday, 3:45 PM",
+                    orderId: "#ERX-001232",
+                    distance: "3.5 km",
+                    weight: "2.3 kg",
+                    pickupTime: "3:00 PM",
+                    deliveryTime: "3:45 PM",
+                    customerName: "Sarah Johnson",
+                    customerPhone: "+234 805 678 9012",
+                    customerAddress: "Venue Hall, Gusau",
+                    pickupAddress: "Gift Shop, Gusau",
+                    deliveryAddress: "Venue Hall, Gusau",
+                    timeline: [
+                        { title: "Order Placed", time: "2:30 PM", completed: true },
+                        { title: "Rider Assigned", time: "2:35 PM", completed: true },
+                        { title: "Pickup", time: "3:00 PM", completed: true },
+                        { title: "Delivery", time: "3:45 PM", completed: true }
+                    ]
+                },
+                {
+                    id: 5,
+                    title: "Laundry Pickup",
+                    category: "Laundry",
+                    image: "../img/6.png",
+                    status: "completed",
+                    pickup: "Customer Home",
+                    delivery: "Laundry Shop",
+                    earnings: "₦750",
+                    completed: "2 days ago",
+                    orderId: "#ERX-001231",
+                    distance: "2.8 km",
+                    weight: "4.5 kg",
+                    pickupTime: "11:00 AM",
+                    deliveryTime: "11:30 AM",
+                    customerName: "Mr. Adebayo",
+                    customerPhone: "+234 806 789 0123",
+                    customerAddress: "Layi Road, Gusau",
+                    pickupAddress: "House 25, Layi Road, Gusau",
+                    deliveryAddress: "Cleaners Hub, Gusau",
+                    timeline: [
+                        { title: "Order Placed", time: "10:30 AM", completed: true },
+                        { title: "Rider Assigned", time: "10:35 AM", completed: true },
+                        { title: "Pickup", time: "11:00 AM", completed: true },
+                        { title: "Delivery", time: "11:30 AM", completed: true }
+                    ]
+                }
+            ]
+        };
+
+        // DOM Elements
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.jobs-tab-content');
+        const jobModal = document.getElementById('jobModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalActions = document.getElementById('modalActions');
+        const timelineSteps = document.getElementById('timelineSteps');
+        const emptyCompleted = document.getElementById('emptyCompleted');
+        const emptyActive = document.getElementById('emptyActive');
+        const goToAvailableBtn = document.getElementById('goToAvailableBtn');
+
+        // Countdown timers
+        let timerIntervals = {};
+
+        // Update badge counts
+        function updateBadgeCounts() {
+            document.getElementById('availableCount').textContent = jobsData.available.length;
+            document.getElementById('activeCount').textContent = jobsData.active.length;
+            document.getElementById('completedCount').textContent = jobsData.completed.length;
+        }
+
+        // Format time (seconds to MM:SS)
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Start countdown for available jobs
+        function startJobTimers() {
+            jobsData.available.forEach(job => {
+                startTimer(job.id, job.timer);
+            });
+        }
+
+        // Start individual timer
+        function startTimer(jobId, initialTime) {
+            if (timerIntervals[jobId]) {
+                clearInterval(timerIntervals[jobId]);
+            }
+
+            let remainingTime = initialTime;
+            updateTimerDisplay(jobId, remainingTime);
+
+            timerIntervals[jobId] = setInterval(() => {
+                remainingTime--;
+                updateTimerDisplay(jobId, remainingTime);
+
+                if (remainingTime <= 0) {
+                    clearInterval(timerIntervals[jobId]);
+                    document.getElementById(`jobTimer${jobId}`).textContent = '00:00';
+                    
+                    // Auto-decline after time expires
+                    autoDeclineJob(jobId);
+                }
+            }, 1000);
+        }
+
+        // Update timer display
+        function updateTimerDisplay(jobId, seconds) {
+            const timerElement = document.getElementById(`jobTimer${jobId}`);
+            if (timerElement) {
+                timerElement.textContent = formatTime(seconds);
+                
+                // Change color when less than 30 seconds
+                if (seconds <= 30) {
+                    timerElement.style.background = 'rgba(92, 196, 126, 0.3)';
+                } else {
+                    timerElement.style.background = 'rgba(92, 196, 126, 0.1)';
+                }
+            }
+        }
+
+        // Stop all timers
+        function stopAllTimers() {
+            Object.keys(timerIntervals).forEach(jobId => {
+                clearInterval(timerIntervals[jobId]);
+            });
+            timerIntervals = {};
+        }
+
+        // Auto-decline job when timer expires
+        function autoDeclineJob(jobId) {
+            const jobIndex = jobsData.available.findIndex(j => j.id === jobId);
+            if (jobIndex === -1) return;
+
+            jobsData.available.splice(jobIndex, 1);
+            
+            // Update UI
+            updateBadgeCounts();
+            
+            // Show notification
+            showNotification(`Job ${jobId} auto-declined due to no response`, 'error');
+            
+            // Refresh UI
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+        }
+
+        // Tab switching
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                
+                // Update active tab
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show corresponding content
+                tabContents.forEach(content => content.classList.remove('active'));
+                document.getElementById(`${tab}Jobs`).classList.add('active');
+                
+                // Show/hide empty states
+                if (tab === 'available') {
+                    emptyCompleted.style.display = 'none';
+                    emptyActive.style.display = 'none';
+                } else if (tab === 'active') {
+                    emptyCompleted.style.display = 'none';
+                    emptyActive.style.display = jobsData.active.length === 0 ? 'block' : 'none';
+                } else if (tab === 'completed') {
+                    emptyActive.style.display = 'none';
+                    emptyCompleted.style.display = jobsData.completed.length === 0 ? 'block' : 'none';
+                }
+            });
+        });
+
+        // Go to available jobs
+        goToAvailableBtn.addEventListener('click', () => {
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            document.querySelector('[data-tab="available"]').classList.add('active');
+            document.getElementById('availableJobs').classList.add('active');
+            emptyActive.style.display = 'none';
+        });
+
+        // Show job modal
+        function showJobModal(jobId, status) {
+            let job;
+            
+            // Find the job in the data
+            if (status === 'available') {
+                job = jobsData.available.find(j => j.id === jobId);
+            } else if (status === 'active') {
+                job = jobsData.active.find(j => j.id === jobId);
+            } else if (status === 'completed') {
+                job = jobsData.completed.find(j => j.id === jobId);
+            }
+            
+            if (!job) return;
+            
+            // Update modal content
+            document.querySelector('.modal-job-icon').className = `fas ${job.icon || 'fa-box'} modal-job-icon`;
+            document.querySelector('.modal-job-title').textContent = job.title;
+            document.getElementById('modalOrderId').textContent = job.orderId;
+            document.getElementById('modalCategory').textContent = job.category;
+            document.getElementById('modalDistance').textContent = job.distance;
+            document.getElementById('modalWeight').textContent = job.weight;
+            document.getElementById('modalPickupTime').textContent = job.pickupTime;
+            document.getElementById('modalDeliveryTime').textContent = job.deliveryTime;
+            document.getElementById('modalCustomerName').textContent = job.customerName;
+            document.getElementById('modalCustomerPhone').textContent = job.customerPhone;
+            document.getElementById('modalCustomerAddress').textContent = job.customerAddress;
+            document.getElementById('modalPickupAddress').textContent = job.pickupAddress;
+            document.getElementById('modalDeliveryAddress').textContent = job.deliveryAddress;
+            
+            // Update timeline
+            timelineSteps.innerHTML = '';
+            job.timeline.forEach((step, index) => {
+                const stepElement = document.createElement('div');
+                stepElement.className = 'timeline-step';
+                stepElement.innerHTML = `
+                    <div class="timeline-icon ${step.completed ? '' : 'pending'}">
+                        <i class="fas ${step.completed ? 'fa-check' : 'fa-clock'}"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-step-title">${step.title}</div>
+                        <div class="timeline-step-time">${step.time}</div>
+                    </div>
+                `;
+                timelineSteps.appendChild(stepElement);
+            });
+            
+            // Update modal actions based on job status
+            modalActions.innerHTML = '';
+            if (job.status === 'available') {
+                modalActions.innerHTML = `
+                    <button class="modal-action-btn decline-modal-btn" id="declineJobBtn" data-job-id="${job.id}">
+                        <i class="fas fa-times"></i> Decline
+                    </button>
+                    <button class="modal-action-btn accept-modal-btn" id="acceptJobBtn" data-job-id="${job.id}">
+                        <i class="fas fa-check"></i> Accept Job
+                    </button>
+                `;
+            } else if (job.status === 'active') {
+                modalActions.innerHTML = `
+                    <button class="modal-action-btn track-btn" id="trackJobBtn" data-job-id="${job.id}">
+                        <i class="fas fa-map-marked-alt"></i> Track Order
+                    </button>
+                    <button class="modal-action-btn complete-btn" id="completeJobBtn" data-job-id="${job.id}">
+                        <i class="fas fa-check-circle"></i> Mark Complete
+                    </button>
+                `;
+            } else if (job.status === 'completed') {
+                modalActions.innerHTML = `
+                    <button class="modal-action-btn earnings-btn" id="viewEarningsBtn" data-job-id="${job.id}">
+                        <i class="fas fa-money-bill-wave"></i> View Earnings
+                    </button>
+                    <button class="modal-action-btn report-btn" id="reportJobBtn" data-job-id="${job.id}">
+                        <i class="fas fa-flag"></i> Report Issue
+                    </button>
+                `;
+            }
+            
+            // Show modal
+            jobModal.classList.add('active');
+            
+            // Add event listeners to modal buttons
+            setTimeout(() => {
+                // Accept job
+                const acceptBtn = document.getElementById('acceptJobBtn');
+                if (acceptBtn) {
+                    acceptBtn.addEventListener('click', () => acceptJob(job.id));
+                }
+                
+                // Decline job
+                const declineBtn = document.getElementById('declineJobBtn');
+                if (declineBtn) {
+                    declineBtn.addEventListener('click', () => declineJob(job.id));
+                }
+                
+                // Complete job
+                const completeBtn = document.getElementById('completeJobBtn');
+                if (completeBtn) {
+                    completeBtn.addEventListener('click', () => completeJob(job.id));
+                }
+                
+                // Track job
+                const trackBtn = document.getElementById('trackJobBtn');
+                if (trackBtn) {
+                    trackBtn.addEventListener('click', () => trackJob(job.id));
+                }
+                
+                // View earnings
+                const earningsBtn = document.getElementById('viewEarningsBtn');
+                if (earningsBtn) {
+                    earningsBtn.addEventListener('click', () => viewEarnings(job.id));
+                }
+                
+                // Report issue
+                const reportBtn = document.getElementById('reportJobBtn');
+                if (reportBtn) {
+                    reportBtn.addEventListener('click', () => reportIssue(job.id));
+                }
+            }, 100);
+        }
+
+        // View job details (from View Details buttons)
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.view-btn')) {
+                const btn = e.target.closest('.view-btn');
+                const jobId = parseInt(btn.dataset.jobId);
+                const jobCard = btn.closest('.job-card');
+                let status = 'available';
+                
+                if (jobCard.classList.contains('available')) status = 'available';
+                else if (jobCard.classList.contains('active')) status = 'active';
+                else if (jobCard.classList.contains('completed')) status = 'completed';
+                
+                showJobModal(jobId, status);
+            }
+        });
+
+        // Track job button
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.track-btn')) {
+                const btn = e.target.closest('.track-btn');
+                const jobId = parseInt(btn.dataset.jobId);
+                trackJob(jobId);
+            }
+        });
+
+        // Complete job button
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.complete-btn')) {
+                const btn = e.target.closest('.complete-btn');
+                const jobId = parseInt(btn.dataset.jobId);
+                completeJob(jobId);
+            }
+        });
+
+        // Earnings button
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.earnings-btn')) {
+                const btn = e.target.closest('.earnings-btn');
+                const jobId = parseInt(btn.dataset.jobId);
+                viewEarnings(jobId);
+            }
+        });
+
+        // Report button
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.report-btn')) {
+                const btn = e.target.closest('.report-btn');
+                const jobId = parseInt(btn.dataset.jobId);
+                reportIssue(jobId);
+            }
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            jobModal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside
+        jobModal.addEventListener('click', (e) => {
+            if (e.target === jobModal) {
+                jobModal.classList.remove('active');
+            }
+        });
+
+        // Call customer
+        document.getElementById('callCustomerBtn').addEventListener('click', () => {
+            const phoneNumber = document.getElementById('modalCustomerPhone').textContent;
+            showNotification(`Calling ${phoneNumber}...`, 'success');
+        });
+
+        // Message customer
+        document.getElementById('messageCustomerBtn').addEventListener('click', () => {
+            showNotification('Opening chat with customer...', 'success');
+        });
+
+        // Job Actions Functions
+        function acceptJob(jobId) {
+            const jobIndex = jobsData.available.findIndex(j => j.id === jobId);
+            if (jobIndex === -1) return;
+            
+            const job = jobsData.available[jobIndex];
+            job.status = 'active';
+            job.timeline[1].completed = true;
+            job.timeline[1].time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            // Stop timer for this job
+            if (timerIntervals[jobId]) {
+                clearInterval(timerIntervals[jobId]);
+            }
+            
+            // Move job from available to active
+            jobsData.active.push(job);
+            jobsData.available.splice(jobIndex, 1);
+            
+            // Update UI
+            updateBadgeCounts();
+            jobModal.classList.remove('active');
+            
+            // Show notification
+            showNotification('Job accepted successfully!', 'success');
+            
+            // Refresh job listings
+            setTimeout(() => {
+                location.reload();
+            }, 1500);
+        }
+
+        function declineJob(jobId) {
+            const jobIndex = jobsData.available.findIndex(j => j.id === jobId);
+            if (jobIndex === -1) return;
+            
+            // Stop timer for this job
+            if (timerIntervals[jobId]) {
+                clearInterval(timerIntervals[jobId]);
+            }
+            
+            jobsData.available.splice(jobIndex, 1);
+            
+            // Update UI
+            updateBadgeCounts();
+            jobModal.classList.remove('active');
+            
+            // Show notification
+            showNotification('Job declined', 'warning');
+            
+            // Refresh job listings
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+
+        function completeJob(jobId) {
+            const jobIndex = jobsData.active.findIndex(j => j.id === jobId);
+            if (jobIndex === -1) return;
+            
+            const job = jobsData.active[jobIndex];
+            job.status = 'completed';
+            job.completed = new Date().toLocaleString([], {weekday: 'short', hour: '2-digit', minute:'2-digit'});
+            job.timeline[3].completed = true;
+            job.timeline[3].time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            // Move job from active to completed
+            jobsData.completed.push(job);
+            jobsData.active.splice(jobIndex, 1);
+            
+            // Update UI
+            updateBadgeCounts();
+            jobModal.classList.remove('active');
+            
+            // Show notification
+            showNotification('Job marked as completed!', 'success');
+            
+            // Refresh job listings
+            setTimeout(() => {
+                location.reload();
+            }, 1500);
+        }
+
+        function trackJob(jobId) {
+            showNotification('Opening order tracking...', 'success');
+            jobModal.classList.remove('active');
+            setTimeout(() => {
+                if (window.loaderManager) {
+                    window.loaderManager.show('Loading tracking...');
+                    setTimeout(() => {
+                        window.loaderManager.hide();
+                    }, 1000);
+                }
+            }, 500);
+        }
+
+        function viewEarnings(jobId) {
+            showNotification('Showing earnings details...', 'success');
+            jobModal.classList.remove('active');
+        }
+
+        function reportIssue(jobId) {
+            showNotification('Opening issue report form...', 'success');
+            jobModal.classList.remove('active');
+        }
+
+        // Show notification function
+        function showNotification(message, type = 'success') {
+            if (window.notificationManager) {
+                window.notificationManager.show(message, type);
+            } else {
+                // Fallback notification
+                const notification = document.getElementById('notification');
+                const notificationText = document.getElementById('notificationText');
+                
+                notificationText.textContent = message;
+                notification.className = 'notification';
+                notification.classList.add(type);
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateBadgeCounts();
+            startJobTimers();
+            
+            // Check for empty states
+            if (jobsData.active.length === 0) {
+                emptyActive.style.display = 'block';
+            }
+            
+            if (jobsData.completed.length === 0) {
+                emptyCompleted.style.display = 'block';
+            }
+            
+            // Handle image errors
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    if (this.parentElement.classList.contains('job-image')) {
+                        const parent = this.parentElement;
+                        const jobType = this.alt || '';
+                        let iconClass = 'fas fa-box';
+                        if (jobType.includes('Gas') || jobType.includes('Refill')) iconClass = 'fas fa-fire';
+                        if (jobType.includes('Package') || jobType.includes('Delivery')) iconClass = 'fas fa-box';
+                        if (jobType.includes('Food')) iconClass = 'fas fa-hamburger';
+                        if (jobType.includes('Document')) iconClass = 'fas fa-file-invoice-dollar';
+                        if (jobType.includes('Gift')) iconClass = 'fas fa-gift';
+                        if (jobType.includes('Laundry')) iconClass = 'fas fa-tshirt';
+                        
+                        parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(92, 196, 126, 0.1);color:var(--primary-green);font-size:24px;"><i class="${iconClass}"></i></div>`;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

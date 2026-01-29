@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Jobs - ErrandX Technician</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Theme Loader -->
+    <script src="../theme/theme-loader.js" defer></script>
+    
+    <style>
+        :root {
+            /* Professional Color Palette */
+            --primary-green: #5CC47E;
+            --primary-dark: #1F4B2E;
+            --primary-light: #E8F5E9;
+            --secondary-blue: #4A90E2;
+            --secondary-orange: #FF8A00;
+            --secondary-red: #FF5252;
+            --secondary-yellow: #FFD700;
+            --background-light: #F3FFF7;
+            --card-background: #FFFFFF;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --text-white: #FFFFFF;
+            --border-color: #E5E7EB;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.16);
+            --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.20);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius-sm: 8px;
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+        }
+
+        .dark-mode {
+            --primary-green: #6DD88F;
+            --primary-dark: #1F4B2E;
+            --primary-light: #2D5A44;
+            --secondary-blue: #6AAFFF;
+            --secondary-orange: #FFA033;
+            --secondary-red: #FF6B6B;
+            --secondary-yellow: #FFEB3B;
+            --background-light: #0F2A1C;
+            --card-background: #1F4B2E;
+            --text-dark: #F0F7F2;
+            --text-light: #A3C9B4;
+            --text-white: #FFFFFF;
+            --border-color: #2D5A44;
+            --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 8px 28px rgba(0, 0, 0, 0.30);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.40);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            transition: var(--transition);
+            padding-bottom: 85px;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Animated Background Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(92, 196, 126, 0.15) 0%,
+                rgba(92, 196, 126, 0.22) 25%,
+                rgba(92, 196, 126, 0.15) 50%,
+                rgba(92, 196, 126, 0.22) 75%,
+                rgba(92, 196, 126, 0.15) 100%
+            );
+            background-size: 400% 100%;
+            animation: slideBackground 25s ease-in-out infinite;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .dark-mode body::before {
+            background: linear-gradient(
+                90deg,
+                rgba(109, 216, 143, 0.22) 0%,
+                rgba(109, 216, 143, 0.12) 25%,
+                rgba(109, 216, 143, 0.22) 50%,
+                rgba(109, 216, 143, 0.12) 75%,
+                rgba(109, 216, 143, 0.22) 100%
+            );
+            opacity: 0.4;
+        }
+
+        @keyframes slideBackground {
+            0% { background-position: 400% 0; }
+            100% { background-position: -400% 0; }
+        }
+
+        /* Enhanced floating elements */
+        .bg-float {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 30s ease-in-out infinite;
+        }
+
+        .bg-float:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: 10%;
+            right: -150px;
+            animation-delay: 0s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.18) 0%, rgba(92, 196, 126, 0.08) 70%, transparent 100%);
+        }
+
+        .bg-float:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            bottom: 20%;
+            left: -120px;
+            animation-delay: 7s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.15) 0%, rgba(92, 196, 126, 0.05) 70%, transparent 100%);
+        }
+
+        .bg-float:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            top: 60%;
+            right: -100px;
+            animation-delay: 14s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.12) 0%, rgba(92, 196, 126, 0.03) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(1) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.25) 0%, rgba(109, 216, 143, 0.08) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(2) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.20) 0%, rgba(109, 216, 143, 0.05) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(3) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.18) 0%, rgba(109, 216, 143, 0.03) 70%, transparent 100%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            33% { transform: translateY(-40px) rotate(8deg) scale(1.05); }
+            66% { transform: translateY(30px) rotate(-8deg) scale(0.95); }
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+        }
+
+        /* Header */
+        .dashboard-header {
+            background: var(--primary-dark);
+            color: var(--text-white);
+            padding: 14px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .header-container {
+                padding: 0 24px;
+            }
+        }
+
+        .logo-img {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle-header {
+            position: relative;
+            background: rgba(255, 255, 255, 0.15);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            color: white;
+        }
+
+        .theme-toggle-header:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 25px 0 20px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* Service Tabs - FIXED RESPONSIVE */
+        .service-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            background: var(--card-background);
+            padding: 8px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .service-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: 110px;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-green);
+            color: white;
+            font-weight: 600;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .tab-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .tab-btn.active .tab-badge {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Services Container - ADDED SPACING */
+        .services-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .empty-state {
+                margin: 0 24px;
+            }
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            color: var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .empty-title {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            color: var(--text-light);
+            max-width: 300px;
+            margin: 0 auto 20px;
+        }
+
+        /* Service Cards - UPDATED FOR TECHNICIAN SERVICES */
+        .service-card {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 18px;
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--secondary-blue);
+            transition: var(--transition);
+            margin: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .service-card {
+                margin: 0 24px;
+            }
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-card.available {
+            border-left-color: var(--secondary-blue);
+            animation: pulseBorder 2s infinite;
+        }
+
+        @keyframes pulseBorder {
+            0%, 100% { border-left-color: var(--secondary-blue); }
+            50% { border-left-color: var(--primary-green); }
+        }
+
+        .service-card.active {
+            border-left-color: var(--secondary-yellow);
+        }
+
+        .service-card.completed {
+            border-left-color: var(--primary-green);
+        }
+
+        .service-card.cancelled {
+            border-left-color: var(--secondary-red);
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .service-title-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* Service Icon like homepage */
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--border-radius-sm);
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--secondary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .service-title-text {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .service-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+
+        .service-category {
+            font-size: 12px;
+            color: var(--text-light);
+            background: rgba(92, 196, 126, 0.1);
+            padding: 2px 8px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .service-status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .status-available {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--secondary-blue);
+        }
+
+        .status-active {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--secondary-yellow);
+        }
+
+        .status-completed {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .status-cancelled {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+        }
+
+        /* Service Timer like homepage */
+        .service-timer-container {
+            flex-shrink: 0;
+        }
+
+        .service-timer {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Poppins', monospace;
+            white-space: nowrap;
+            display: inline-block;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        /* Service Details Grid - FIXED RESPONSIVE */
+        .service-details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        @media (min-width: 768px) {
+            .service-details-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .service-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .service-icon-small {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(92, 196, 126, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-green);
+            flex-shrink: 0;
+        }
+
+        .service-detail-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .service-detail-label {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .service-detail-value {
+            font-size: 13px;
+            color: var(--text-dark);
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Service Actions - FIXED RESPONSIVE */
+        .service-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .service-actions {
+                flex-wrap: wrap;
+            }
+        }
+
+        .service-action-btn {
+            flex: 1;
+            padding: 11px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-width: 110px;
+        }
+
+        @media (max-width: 480px) {
+            .service-action-btn {
+                min-width: calc(50% - 5px);
+            }
+        }
+
+        .view-btn {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+            border: 1.5px solid var(--primary-green);
+        }
+
+        .view-btn:hover {
+            background: var(--primary-green);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(92, 196, 126, 0.3);
+        }
+
+        .track-btn {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--secondary-yellow);
+            border: 1.5px solid var(--secondary-yellow);
+        }
+
+        .track-btn:hover {
+            background: var(--secondary-yellow);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
+
+        .start-btn {
+            background: var(--primary-green);
+            color: white;
+            border: 1.5px solid var(--primary-green);
+        }
+
+        .start-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(92, 196, 126, 0.3);
+        }
+
+        .report-btn {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+            border: 1.5px solid var(--secondary-red);
+        }
+
+        .report-btn:hover {
+            background: var(--secondary-red);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 82, 82, 0.3);
+        }
+
+        .invoice-btn {
+            background: rgba(255, 138, 0, 0.1);
+            color: var(--secondary-orange);
+            border: 1.5px solid var(--secondary-orange);
+        }
+
+        .invoice-btn:hover {
+            background: var(--secondary-orange);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 138, 0, 0.3);
+        }
+
+        .complete-btn {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+            border: 1.5px solid var(--primary-green);
+        }
+
+        .complete-btn:hover {
+            background: var(--primary-green);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(92, 196, 126, 0.3);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--card-background);
+            border-radius: var(--border-radius-lg);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px);
+            transition: transform 0.3s ease-out;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 20px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .modal-content {
+            padding: 24px;
+        }
+
+        /* Service Details in Modal */
+        .service-details-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .service-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .service-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .service-info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-info-label {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .service-info-value {
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        /* Timeline */
+        .service-timeline {
+            margin: 24px 0;
+            padding: 20px;
+            background: rgba(92, 196, 126, 0.05);
+            border-radius: var(--border-radius);
+        }
+
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .timeline-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .timeline-step {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .timeline-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .timeline-icon.pending {
+            background: var(--border-color);
+            color: var(--text-light);
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-step-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .timeline-step-time {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Customer Info */
+        .customer-info {
+            background: rgba(92, 196, 126, 0.05);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .customer-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .customer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .customer-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .customer-details h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: var(--text-dark);
+        }
+
+        .customer-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--secondary-yellow);
+            font-size: 12px;
+        }
+
+        .customer-contact {
+            display: flex;
+            gap: 10px;
+        }
+
+        .contact-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .call-btn {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+            border: 1.5px solid var(--primary-green);
+        }
+
+        .call-btn:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .message-btn {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--secondary-blue);
+            border: 1.5px solid var(--secondary-blue);
+        }
+
+        .message-btn:hover {
+            background: var(--secondary-blue);
+            color: white;
+        }
+
+        /* Service Specifications */
+        .specifications {
+            background: rgba(74, 144, 226, 0.05);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .specifications-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        /* Earnings Section */
+        .earnings-section {
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .earnings-breakdown {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        /* Modal Actions */
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .modal-action-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .accept-modal-btn {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .accept-modal-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .decline-modal-btn {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+            border: 1.5px solid var(--secondary-red);
+        }
+
+        .decline-modal-btn:hover {
+            background: var(--secondary-red);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--card-background);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 0 18px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: var(--transition);
+            flex: 1;
+            padding: 8px 0;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        .nav-text {
+            font-size: 12px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-item.active {
+            color: var(--primary-green);
+        }
+
+        .nav-item.active .nav-text {
+            font-weight: 600;
+        }
+
+        .nav-item:hover {
+            color: var(--primary-green);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .header-container {
+                padding: 0 16px;
+            }
+            
+            .page-header {
+                padding: 20px 0 15px;
+            }
+            
+            .page-title {
+                font-size: 20px;
+            }
+            
+            .service-tabs {
+                padding: 6px;
+            }
+            
+            .tab-btn {
+                padding: 10px 12px;
+                font-size: 13px;
+                min-width: 100px;
+            }
+            
+            .service-card {
+                margin: 0 16px;
+                padding: 16px;
+            }
+            
+            .service-details-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .service-actions {
+                flex-wrap: wrap;
+            }
+            
+            .service-action-btn {
+                min-width: calc(50% - 5px);
+            }
+            
+            .modal {
+                width: 95%;
+            }
+            
+            .service-info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .tab-btn {
+                min-width: 90px;
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+            
+            .service-details-grid {
+                gap: 8px;
+            }
+            
+            .service-icon-small {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+            
+            .service-detail-label {
+                font-size: 10px;
+            }
+            
+            .service-detail-value {
+                font-size: 12px;
+            }
+            
+            .service-action-btn {
+                min-width: 100%;
+                margin-bottom: 8px;
+            }
+        }
+
+        /* Loader and Notification styles (from theme-loader.js compatibility) */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 0.3s, visibility 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            backdrop-filter: blur(6px);
+        }
+
+        .loader.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loader {
+            background: rgba(243, 255, 247, 0.95);
+        }
+
+        .dark-mode .loader {
+            background: rgba(15, 42, 28, 0.97);
+        }
+
+        .loader-spinner {
+            width: 70px;
+            height: 70px;
+            border: 4px solid rgba(92, 196, 126, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-green);
+            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-dark);
+            letter-spacing: 0.5px;
+        }
+
+        .dark-mode .loader-text {
+            color: var(--text-light);
+        }
+
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--primary-green);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            z-index: 4000;
+            font-weight: 500;
+            transform: translateX(150%);
+            transition: transform 0.3s ease-out;
+            max-width: 280px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background: var(--secondary-red);
+        }
+
+        .notification.warning {
+            background: var(--secondary-orange);
+        }
+
+        /* Services Tab Content */
+        .services-tab-content {
+            display: none;
+        }
+
+        .services-tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Floating Elements -->
+    <div class="bg-float"></div>
+    <div class="bg-float"></div>
+    <div class="bg-float"></div>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="../img/logo.png" alt="ErrandX" class="logo-img">
+            </div>
+            
+            <div class="user-info">
+                <button class="theme-toggle-header" id="themeToggleHeader">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Service Jobs</h1>
+            <p class="page-subtitle">Manage and track all your technician services</p>
+        </div>
+
+        <!-- Service Tabs - FIXED RESPONSIVE -->
+        <div class="service-tabs">
+            <button class="tab-btn active" data-tab="available">
+                <i class="fas fa-clock"></i>
+                Available
+                <span class="tab-badge" id="availableCount">2</span>
+            </button>
+            <button class="tab-btn" data-tab="active">
+                <i class="fas fa-wrench"></i>
+                Active
+                <span class="tab-badge" id="activeCount">1</span>
+            </button>
+            <button class="tab-btn" data-tab="completed">
+                <i class="fas fa-check-circle"></i>
+                Completed
+                <span class="tab-badge" id="completedCount">3</span>
+            </button>
+        </div>
+
+        <!-- Services Container -->
+        <div class="services-container">
+            <!-- Available Services (Initially shown) -->
+            <div class="services-tab-content active" id="availableServices">
+                <!-- Service 1 -->
+                <div class="service-card available" data-service-id="1">
+                    <div class="service-header">
+                        <div class="service-title-container">
+                            <div class="service-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="service-title-text">
+                                <h3 class="service-title">Generator Repair</h3>
+                                <span class="service-category">Electrical Repair</span>
+                            </div>
+                        </div>
+                        <div class="service-timer-container">
+                            <div class="service-timer" id="serviceTimer1">02:00:00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-details-grid">
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Location</div>
+                                <div class="service-detail-value">Tudun Wada</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Preferred Time</div>
+                                <div class="service-detail-value">Today 4:00 PM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Inspection Fee</div>
+                                <div class="service-detail-value">₦3,000</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Service Type</div>
+                                <div class="service-detail-value">Generator</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-actions">
+                        <button class="service-action-btn view-btn" data-action="view" data-service-id="1">
+                            <i class="fas fa-eye"></i> View Details
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card available" data-service-id="2">
+                    <div class="service-header">
+                        <div class="service-title-container">
+                            <div class="service-icon">
+                                <i class="fas fa-plug"></i>
+                            </div>
+                            <div class="service-title-text">
+                                <h3 class="service-title">House Wiring Repair</h3>
+                                <span class="service-category">Electrical</span>
+                            </div>
+                        </div>
+                        <div class="service-timer-container">
+                            <div class="service-timer" id="serviceTimer2">01:30:00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-details-grid">
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Location</div>
+                                <div class="service-detail-value">GRA Phase 2</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Preferred Time</div>
+                                <div class="service-detail-value">Tomorrow 10:00 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Inspection Fee</div>
+                                <div class="service-detail-value">₦2,500</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Service Type</div>
+                                <div class="service-detail-value">House Wiring</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-actions">
+                        <button class="service-action-btn view-btn" data-action="view" data-service-id="2">
+                            <i class="fas fa-eye"></i> View Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Services -->
+            <div class="services-tab-content" id="activeServices">
+                <!-- Active Service -->
+                <div class="service-card active" data-service-id="3">
+                    <div class="service-header">
+                        <div class="service-title-container">
+                            <div class="service-icon">
+                                <i class="fas fa-fan"></i>
+                            </div>
+                            <div class="service-title-text">
+                                <h3 class="service-title">AC Installation</h3>
+                                <span class="service-category">HVAC</span>
+                            </div>
+                        </div>
+                        <div class="service-status-badge status-active">In Progress</div>
+                    </div>
+                    
+                    <div class="service-details-grid">
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Location</div>
+                                <div class="service-detail-value">Unguwar Gwaza</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Started</div>
+                                <div class="service-detail-value">9:00 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Service Fee</div>
+                                <div class="service-detail-value">₦25,000</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-hourglass-half"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Estimated Time</div>
+                                <div class="service-detail-value">4 hours</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-actions">
+                        <button class="service-action-btn track-btn" data-action="track" data-service-id="3">
+                            <i class="fas fa-map-marked-alt"></i> Track Service
+                        </button>
+                        <button class="service-action-btn complete-btn" data-action="complete" data-service-id="3">
+                            <i class="fas fa-check-circle"></i> Complete Job
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completed Services -->
+            <div class="services-tab-content" id="completedServices">
+                <!-- Completed Service 1 -->
+                <div class="service-card completed" data-service-id="4">
+                    <div class="service-header">
+                        <div class="service-title-container">
+                            <div class="service-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="service-title-text">
+                                <h3 class="service-title">Light Installation</h3>
+                                <span class="service-category">Electrical</span>
+                            </div>
+                        </div>
+                        <div class="service-status-badge status-completed">Completed</div>
+                    </div>
+                    
+                    <div class="service-details-grid">
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Location</div>
+                                <div class="service-detail-value">Sabon Gari</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Completed</div>
+                                <div class="service-detail-value">Yesterday, 5:30 PM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Earned</div>
+                                <div class="service-detail-value">₦8,500</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Rating</div>
+                                <div class="service-detail-value">5.0 ★</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-actions">
+                        <button class="service-action-btn view-btn" data-action="view" data-service-id="4">
+                            <i class="fas fa-eye"></i> View Details
+                        </button>
+                        <button class="service-action-btn invoice-btn" data-action="invoice" data-service-id="4">
+                            <i class="fas fa-receipt"></i> View Invoice
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Completed Service 2 -->
+                <div class="service-card completed" data-service-id="5">
+                    <div class="service-header">
+                        <div class="service-title-container">
+                            <div class="service-icon">
+                                <i class="fas fa-plug"></i>
+                            </div>
+                            <div class="service-title-text">
+                                <h3 class="service-title">Socket Repair</h3>
+                                <span class="service-category">Electrical</span>
+                            </div>
+                        </div>
+                        <div class="service-status-badge status-completed">Completed</div>
+                    </div>
+                    
+                    <div class="service-details-grid">
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Location</div>
+                                <div class="service-detail-value">Federal Lowcost</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Completed</div>
+                                <div class="service-detail-value">2 days ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Earned</div>
+                                <div class="service-detail-value">₦3,500</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Rating</div>
+                                <div class="service-detail-value">4.8 ★</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-actions">
+                        <button class="service-action-btn view-btn" data-action="view" data-service-id="5">
+                            <i class="fas fa-eye"></i> View Details
+                        </button>
+                        <button class="service-action-btn report-btn" data-action="report" data-service-id="5">
+                            <i class="fas fa-flag"></i> Report Issue
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Completed Service 3 -->
+                <div class="service-card completed" data-service-id="6">
+                    <div class="service-header">
+                        <div class="service-title-container">
+                            <div class="service-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="service-title-text">
+                                <h3 class="service-title">Generator Maintenance</h3>
+                                <span class="service-category">Generator</span>
+                            </div>
+                        </div>
+                        <div class="service-status-badge status-completed">Completed</div>
+                    </div>
+                    
+                    <div class="service-details-grid">
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Location</div>
+                                <div class="service-detail-value">Kofar Durbi</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Completed</div>
+                                <div class="service-detail-value">Last Week</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Earned</div>
+                                <div class="service-detail-value">₦12,000</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-item">
+                            <div class="service-icon-small">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="service-detail-content">
+                                <div class="service-detail-label">Rating</div>
+                                <div class="service-detail-value">4.5 ★</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-actions">
+                        <button class="service-action-btn view-btn" data-action="view" data-service-id="6">
+                            <i class="fas fa-eye"></i> View Details
+                        </button>
+                        <button class="service-action-btn invoice-btn" data-action="invoice" data-service-id="6">
+                            <i class="fas fa-receipt"></i> Invoice
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty States -->
+        <div class="empty-state" id="emptyCompleted" style="display: none;">
+            <div class="empty-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="empty-title">No Completed Services</h3>
+            <p class="empty-text">Complete your active services to see them here</p>
+        </div>
+
+        <div class="empty-state" id="emptyActive" style="display: none;">
+            <div class="empty-icon">
+                <i class="fas fa-wrench"></i>
+            </div>
+            <h3 class="empty-title">No Active Services</h3>
+            <p class="empty-text">Accept available services to start working</p>
+            <button class="service-action-btn view-btn" id="goToAvailableBtn" style="margin-top: 15px;">
+                <i class="fas fa-clock"></i> View Available Services
+            </button>
+        </div>
+    </main>
+
+    <!-- Service Details Modal -->
+    <div class="modal-overlay" id="serviceModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-tools modal-service-icon"></i>
+                    <span class="modal-service-title">Generator Repair</span>
+                </h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <!-- Service Details -->
+                <div class="service-details-section">
+                    <h4 class="section-title">
+                        <i class="fas fa-info-circle"></i>
+                        Service Details
+                    </h4>
+                    
+                    <div class="service-info-grid">
+                        <div class="service-info-item">
+                            <span class="service-info-label">Service ID</span>
+                            <span class="service-info-value" id="modalServiceId">#SERX-001234</span>
+                        </div>
+                        <div class="service-info-item">
+                            <span class="service-info-label">Category</span>
+                            <span class="service-info-value" id="modalCategory">Electrical Repair</span>
+                        </div>
+                        <div class="service-info-item">
+                            <span class="service-info-label">Priority</span>
+                            <span class="service-info-value" id="modalPriority">High</span>
+                        </div>
+                        <div class="service-info-item">
+                            <span class="service-info-label">Estimated Time</span>
+                            <span class="service-info-value" id="modalEstTime">2-3 hours</span>
+                        </div>
+                        <div class="service-info-item">
+                            <span class="service-info-label">Preferred Date</span>
+                            <span class="service-info-value" id="modalPrefDate">Today</span>
+                        </div>
+                        <div class="service-info-item">
+                            <span class="service-info-label">Preferred Time</span>
+                            <span class="service-info-value" id="modalPrefTime">4:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specifications -->
+                <div class="specifications">
+                    <h4 class="section-title">
+                        <i class="fas fa-clipboard-list"></i>
+                        Problem Description
+                    </h4>
+                    <p id="modalProblemDesc" style="font-size: 14px; color: var(--text-dark); line-height: 1.5;">
+                        Generator won't start. Makes clicking sound when trying to start. Suspected starter motor or battery issue.
+                    </p>
+                </div>
+
+                <!-- Timeline -->
+                <div class="service-timeline">
+                    <h4 class="timeline-title">Service Timeline</h4>
+                    <div class="timeline-steps" id="timelineSteps">
+                        <!-- Timeline steps will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Customer Information -->
+                <div class="customer-info">
+                    <div class="customer-header">
+                        <div class="customer-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Customer">
+                        </div>
+                        <div class="customer-details">
+                            <h4 id="modalCustomerName">Mallam Sani</h4>
+                            <div class="customer-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.7</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-info-grid">
+                        <div class="service-info-item">
+                            <span class="service-info-label">Phone</span>
+                            <span class="service-info-value" id="modalCustomerPhone">+234 807 123 4567</span>
+                        </div>
+                        <div class="service-info-item">
+                            <span class="service-info-label">Address</span>
+                            <span class="service-info-value" id="modalCustomerAddress">House 23, Tudun Wada, Gusau</span>
+                        </div>
+                    </div>
+                    
+                    <div class="customer-contact">
+                        <button class="contact-btn call-btn" id="callCustomerBtn">
+                            <i class="fas fa-phone"></i> Call Customer
+                        </button>
+                        <button class="contact-btn message-btn" id="messageCustomerBtn">
+                            <i class="fas fa-comment-alt"></i> Message
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Earnings -->
+                <div class="earnings-section">
+                    <h4 class="section-title">
+                        <i class="fas fa-money-bill-wave"></i>
+                        Earnings Breakdown
+                    </h4>
+                    
+                    <div class="earnings-breakdown">
+                        <div class="service-info-item">
+                            <span class="service-info-label">Inspection Fee</span>
+                            <span class="service-info-value">₦3,000</span>
+                        </div>
+                        <div class="service-info-item">
+                            <span class="service-info-label">Parts Cost</span>
+                            <span class="service-info-value">₦8,000 (Est.)</span>
+                        </div>
+                        <div class="service-info-item">
+                            <span class="service-info-label">Labor Cost</span>
+                            <span class="service-info-value">₦5,000</span>
+                        </div>
+                        <div class="service-info-item">
+                            <span class="service-info-label">Total Estimated</span>
+                            <span class="service-info-value" style="color: var(--primary-green); font-weight: 700;">₦16,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Actions -->
+                <div class="modal-actions" id="modalActions">
+                    <!-- Actions will be inserted based on service status -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <span class="nav-text">Home</span>
+        </a>
+        
+        <a href="jobs.html" class="nav-item active">
+            <div class="nav-icon">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+            <span class="nav-text">Jobs</span>
+        </a>
+        
+        <a href="earnings.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <span class="nav-text">Earnings</span>
+        </a>
+        
+        <a href="profile.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <span class="nav-text">Profile</span>
+        </a>
+    </nav>
+
+    <!-- Loader and Notification (injected by theme-loader.js) -->
+    <div class="loader" id="pageLoader">
+        <div class="loader-spinner"></div>
+        <p class="loader-text">Loading...</p>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Notification message here</span>
+    </div>
+
+    <script>
+        // Service data with timers for countdown
+        const servicesData = {
+            available: [
+                {
+                    id: 1,
+                    title: "Generator Repair",
+                    category: "Electrical Repair",
+                    icon: "fa-tools",
+                    status: "available",
+                    location: "Tudun Wada",
+                    preferredTime: "Today 4:00 PM",
+                    inspectionFee: "₦3,000",
+                    serviceType: "Generator",
+                    timer: 7200, // 2 hours in seconds
+                    serviceId: "#SERX-001234",
+                    priority: "High",
+                    estTime: "2-3 hours",
+                    prefDate: "Today",
+                    prefTime: "4:00 PM",
+                    problemDesc: "Generator won't start. Makes clicking sound when trying to start. Suspected starter motor or battery issue.",
+                    customerName: "Mallam Sani",
+                    customerPhone: "+234 807 123 4567",
+                    customerAddress: "House 23, Tudun Wada, Gusau",
+                    timeline: [
+                        { title: "Service Requested", time: "2:00 PM", completed: true },
+                        { title: "Technician Assigned", time: "Pending", completed: false },
+                        { title: "Inspection", time: "Pending", completed: false },
+                        { title: "Service Completed", time: "Pending", completed: false }
+                    ]
+                },
+                {
+                    id: 2,
+                    title: "House Wiring Repair",
+                    category: "Electrical",
+                    icon: "fa-plug",
+                    status: "available",
+                    location: "GRA Phase 2",
+                    preferredTime: "Tomorrow 10:00 AM",
+                    inspectionFee: "₦2,500",
+                    serviceType: "House Wiring",
+                    timer: 5400, // 1.5 hours in seconds
+                    serviceId: "#SERX-001235",
+                    priority: "Medium",
+                    estTime: "4-5 hours",
+                    prefDate: "Tomorrow",
+                    prefTime: "10:00 AM",
+                    problemDesc: "Complete rewiring needed for 3-bedroom apartment. Old wiring causing frequent trips.",
+                    customerName: "Dr. Ahmed",
+                    customerPhone: "+234 808 234 5678",
+                    customerAddress: "Plot 15, GRA Phase 2, Gusau",
+                    timeline: [
+                        { title: "Service Requested", time: "1:30 PM", completed: true },
+                        { title: "Technician Assigned", time: "Pending", completed: false },
+                        { title: "Inspection", time: "Pending", completed: false },
+                        { title: "Service Completed", time: "Pending", completed: false }
+                    ]
+                }
+            ],
+            active: [
+                {
+                    id: 3,
+                    title: "AC Installation",
+                    category: "HVAC",
+                    icon: "fa-fan",
+                    status: "active",
+                    location: "Unguwar Gwaza",
+                    started: "9:00 AM",
+                    serviceFee: "₦25,000",
+                    estimatedTime: "4 hours",
+                    serviceId: "#SERX-001233",
+                    priority: "Medium",
+                    estTime: "4 hours",
+                    prefDate: "Today",
+                    prefTime: "9:00 AM",
+                    problemDesc: "Install new 2.5HP split unit AC in living room. Customer has purchased unit already.",
+                    customerName: "Mrs. Fatima",
+                    customerPhone: "+234 809 345 6789",
+                    customerAddress: "Block 8, Unguwar Gwaza, Gusau",
+                    timeline: [
+                        { title: "Service Requested", time: "Yesterday 5:00 PM", completed: true },
+                        { title: "Technician Assigned", time: "Yesterday 6:30 PM", completed: true },
+                        { title: "Inspection", time: "Today 9:00 AM", completed: true },
+                        { title: "Service Completed", time: "In Progress", completed: false }
+                    ]
+                }
+            ],
+            completed: [
+                {
+                    id: 4,
+                    title: "Light Installation",
+                    category: "Electrical",
+                    icon: "fa-lightbulb",
+                    status: "completed",
+                    location: "Sabon Gari",
+                    completed: "Yesterday, 5:30 PM",
+                    earned: "₦8,500",
+                    rating: "5.0 ★",
+                    serviceId: "#SERX-001232",
+                    priority: "Low",
+                    estTime: "2 hours",
+                    prefDate: "Yesterday",
+                    prefTime: "3:00 PM",
+                    problemDesc: "Install LED lights in 4 rooms and corridor. Replace old fluorescent tubes.",
+                    customerName: "Mr. Johnson",
+                    customerPhone: "+234 810 456 7890",
+                    customerAddress: "Shop 12, Sabon Gari Market, Gusau",
+                    timeline: [
+                        { title: "Service Requested", time: "Yesterday 2:00 PM", completed: true },
+                        { title: "Technician Assigned", time: "Yesterday 2:15 PM", completed: true },
+                        { title: "Inspection", time: "Yesterday 3:00 PM", completed: true },
+                        { title: "Service Completed", time: "Yesterday 5:30 PM", completed: true }
+                    ]
+                },
+                {
+                    id: 5,
+                    title: "Socket Repair",
+                    category: "Electrical",
+                    icon: "fa-plug",
+                    status: "completed",
+                    location: "Federal Lowcost",
+                    completed: "2 days ago",
+                    earned: "₦3,500",
+                    rating: "4.8 ★",
+                    serviceId: "#SERX-001231",
+                    priority: "Medium",
+                    estTime: "1 hour",
+                    prefDate: "2 days ago",
+                    prefTime: "11:00 AM",
+                    problemDesc: "Repair 3 faulty power sockets in kitchen and bedroom. Sockets sparking when plugging appliances.",
+                    customerName: "Alhaji Bello",
+                    customerPhone: "+234 811 567 8901",
+                    customerAddress: "Flat 3, Federal Lowcost, Gusau",
+                    timeline: [
+                        { title: "Service Requested", time: "2 days ago 10:00 AM", completed: true },
+                        { title: "Technician Assigned", time: "2 days ago 10:15 AM", completed: true },
+                        { title: "Inspection", time: "2 days ago 11:00 AM", completed: true },
+                        { title: "Service Completed", time: "2 days ago 12:30 PM", completed: true }
+                    ]
+                },
+                {
+                    id: 6,
+                    title: "Generator Maintenance",
+                    category: "Generator",
+                    icon: "fa-tools",
+                    status: "completed",
+                    location: "Kofar Durbi",
+                    completed: "Last Week",
+                    earned: "₦12,000",
+                    rating: "4.5 ★",
+                    serviceId: "#SERX-001230",
+                    priority: "High",
+                    estTime: "3 hours",
+                    prefDate: "Last Week",
+                    prefTime: "9:00 AM",
+                    problemDesc: "Complete servicing of 5KVA generator. Oil change, filter replacement, and general maintenance.",
+                    customerName: "Baba Sule",
+                    customerPhone: "+234 812 678 9012",
+                    customerAddress: "House 45, Kofar Durbi, Gusau",
+                    timeline: [
+                        { title: "Service Requested", time: "Last Week 8:00 AM", completed: true },
+                        { title: "Technician Assigned", time: "Last Week 8:30 AM", completed: true },
+                        { title: "Inspection", time: "Last Week 9:00 AM", completed: true },
+                        { title: "Service Completed", time: "Last Week 12:00 PM", completed: true }
+                    ]
+                }
+            ]
+        };
+
+        // DOM Elements
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.services-tab-content');
+        const serviceModal = document.getElementById('serviceModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalActions = document.getElementById('modalActions');
+        const timelineSteps = document.getElementById('timelineSteps');
+        const emptyCompleted = document.getElementById('emptyCompleted');
+        const emptyActive = document.getElementById('emptyActive');
+        const goToAvailableBtn = document.getElementById('goToAvailableBtn');
+
+        // Countdown timers
+        let timerIntervals = {};
+
+        // Update badge counts
+        function updateBadgeCounts() {
+            document.getElementById('availableCount').textContent = servicesData.available.length;
+            document.getElementById('activeCount').textContent = servicesData.active.length;
+            document.getElementById('completedCount').textContent = servicesData.completed.length;
+        }
+
+        // Format time (seconds to HH:MM:SS)
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Start countdown for available services
+        function startServiceTimers() {
+            servicesData.available.forEach(service => {
+                startTimer(service.id, service.timer);
+            });
+        }
+
+        // Start individual timer
+        function startTimer(serviceId, initialTime) {
+            if (timerIntervals[serviceId]) {
+                clearInterval(timerIntervals[serviceId]);
+            }
+
+            let remainingTime = initialTime;
+            updateTimerDisplay(serviceId, remainingTime);
+
+            timerIntervals[serviceId] = setInterval(() => {
+                remainingTime--;
+                updateTimerDisplay(serviceId, remainingTime);
+
+                if (remainingTime <= 0) {
+                    clearInterval(timerIntervals[serviceId]);
+                    document.getElementById(`serviceTimer${serviceId}`).textContent = '00:00:00';
+                    
+                    // Auto-decline after time expires
+                    autoDeclineService(serviceId);
+                }
+            }, 1000);
+        }
+
+        // Update timer display
+        function updateTimerDisplay(serviceId, seconds) {
+            const timerElement = document.getElementById(`serviceTimer${serviceId}`);
+            if (timerElement) {
+                timerElement.textContent = formatTime(seconds);
+                
+                // Change color when less than 5 minutes
+                if (seconds <= 300) {
+                    timerElement.style.background = 'rgba(92, 196, 126, 0.3)';
+                } else {
+                    timerElement.style.background = 'rgba(92, 196, 126, 0.1)';
+                }
+            }
+        }
+
+        // Stop all timers
+        function stopAllTimers() {
+            Object.keys(timerIntervals).forEach(serviceId => {
+                clearInterval(timerIntervals[serviceId]);
+            });
+            timerIntervals = {};
+        }
+
+        // Auto-decline service when timer expires
+        function autoDeclineService(serviceId) {
+            const serviceIndex = servicesData.available.findIndex(s => s.id === serviceId);
+            if (serviceIndex === -1) return;
+
+            servicesData.available.splice(serviceIndex, 1);
+            
+            // Update UI
+            updateBadgeCounts();
+            
+            // Show notification
+            showNotification(`Service ${serviceId} auto-declined due to no response`, 'error');
+            
+            // Refresh UI
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+        }
+
+        // Tab switching
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                
+                // Update active tab
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show corresponding content
+                tabContents.forEach(content => content.classList.remove('active'));
+                document.getElementById(`${tab}Services`).classList.add('active');
+                
+                // Show/hide empty states
+                if (tab === 'available') {
+                    emptyCompleted.style.display = 'none';
+                    emptyActive.style.display = 'none';
+                } else if (tab === 'active') {
+                    emptyCompleted.style.display = 'none';
+                    emptyActive.style.display = servicesData.active.length === 0 ? 'block' : 'none';
+                } else if (tab === 'completed') {
+                    emptyActive.style.display = 'none';
+                    emptyCompleted.style.display = servicesData.completed.length === 0 ? 'block' : 'none';
+                }
+            });
+        });
+
+        // Go to available services
+        goToAvailableBtn.addEventListener('click', () => {
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            document.querySelector('[data-tab="available"]').classList.add('active');
+            document.getElementById('availableServices').classList.add('active');
+            emptyActive.style.display = 'none';
+        });
+
+        // Show service modal
+        function showServiceModal(serviceId, status) {
+            let service;
+            
+            // Find the service in the data
+            if (status === 'available') {
+                service = servicesData.available.find(s => s.id === serviceId);
+            } else if (status === 'active') {
+                service = servicesData.active.find(s => s.id === serviceId);
+            } else if (status === 'completed') {
+                service = servicesData.completed.find(s => s.id === serviceId);
+            }
+            
+            if (!service) return;
+            
+            // Update modal content
+            document.querySelector('.modal-service-icon').className = `fas ${service.icon} modal-service-icon`;
+            document.querySelector('.modal-service-title').textContent = service.title;
+            document.getElementById('modalServiceId').textContent = service.serviceId;
+            document.getElementById('modalCategory').textContent = service.category;
+            document.getElementById('modalPriority').textContent = service.priority;
+            document.getElementById('modalEstTime').textContent = service.estTime;
+            document.getElementById('modalPrefDate').textContent = service.prefDate;
+            document.getElementById('modalPrefTime').textContent = service.prefTime;
+            document.getElementById('modalProblemDesc').textContent = service.problemDesc;
+            document.getElementById('modalCustomerName').textContent = service.customerName;
+            document.getElementById('modalCustomerPhone').textContent = service.customerPhone;
+            document.getElementById('modalCustomerAddress').textContent = service.customerAddress;
+            
+            // Update timeline
+            timelineSteps.innerHTML = '';
+            service.timeline.forEach((step, index) => {
+                const stepElement = document.createElement('div');
+                stepElement.className = 'timeline-step';
+                stepElement.innerHTML = `
+                    <div class="timeline-icon ${step.completed ? '' : 'pending'}">
+                        <i class="fas ${step.completed ? 'fa-check' : 'fa-clock'}"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-step-title">${step.title}</div>
+                        <div class="timeline-step-time">${step.time}</div>
+                    </div>
+                `;
+                timelineSteps.appendChild(stepElement);
+            });
+            
+            // Update modal actions based on service status
+            modalActions.innerHTML = '';
+            if (service.status === 'available') {
+                modalActions.innerHTML = `
+                    <button class="modal-action-btn decline-modal-btn" id="declineServiceBtn" data-service-id="${service.id}">
+                        <i class="fas fa-times"></i> Decline
+                    </button>
+                    <button class="modal-action-btn accept-modal-btn" id="acceptServiceBtn" data-service-id="${service.id}">
+                        <i class="fas fa-check"></i> Accept Service
+                    </button>
+                `;
+            } else if (service.status === 'active') {
+                modalActions.innerHTML = `
+                    <button class="modal-action-btn start-btn" id="startServiceBtn" data-service-id="${service.id}">
+                        <i class="fas fa-play"></i> Start Service
+                    </button>
+                    <button class="modal-action-btn complete-btn" id="completeServiceBtn" data-service-id="${service.id}">
+                        <i class="fas fa-check-circle"></i> Complete Service
+                    </button>
+                `;
+            } else if (service.status === 'completed') {
+                modalActions.innerHTML = `
+                    <button class="modal-action-btn invoice-btn" id="viewInvoiceBtn" data-service-id="${service.id}">
+                        <i class="fas fa-receipt"></i> View Invoice
+                    </button>
+                    <button class="modal-action-btn report-btn" id="reportServiceBtn" data-service-id="${service.id}">
+                        <i class="fas fa-flag"></i> Report Issue
+                    </button>
+                `;
+            }
+            
+            // Show modal
+            serviceModal.classList.add('active');
+            
+            // Add event listeners to modal buttons
+            setTimeout(() => {
+                // Accept service
+                const acceptBtn = document.getElementById('acceptServiceBtn');
+                if (acceptBtn) {
+                    acceptBtn.addEventListener('click', () => acceptService(service.id));
+                }
+                
+                // Decline service
+                const declineBtn = document.getElementById('declineServiceBtn');
+                if (declineBtn) {
+                    declineBtn.addEventListener('click', () => declineService(service.id));
+                }
+                
+                // Start service
+                const startBtn = document.getElementById('startServiceBtn');
+                if (startBtn) {
+                    startBtn.addEventListener('click', () => startService(service.id));
+                }
+                
+                // Complete service
+                const completeBtn = document.getElementById('completeServiceBtn');
+                if (completeBtn) {
+                    completeBtn.addEventListener('click', () => completeService(service.id));
+                }
+                
+                // View invoice
+                const invoiceBtn = document.getElementById('viewInvoiceBtn');
+                if (invoiceBtn) {
+                    invoiceBtn.addEventListener('click', () => viewInvoice(service.id));
+                }
+                
+                // Report issue
+                const reportBtn = document.getElementById('reportServiceBtn');
+                if (reportBtn) {
+                    reportBtn.addEventListener('click', () => reportIssue(service.id));
+                }
+            }, 100);
+        }
+
+        // View service details (from View Details buttons)
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.view-btn')) {
+                const btn = e.target.closest('.view-btn');
+                const serviceId = parseInt(btn.dataset.serviceId);
+                const serviceCard = btn.closest('.service-card');
+                let status = 'available';
+                
+                if (serviceCard.classList.contains('available')) status = 'available';
+                else if (serviceCard.classList.contains('active')) status = 'active';
+                else if (serviceCard.classList.contains('completed')) status = 'completed';
+                
+                showServiceModal(serviceId, status);
+            }
+        });
+
+        // Track service button
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.track-btn')) {
+                const btn = e.target.closest('.track-btn');
+                const serviceId = parseInt(btn.dataset.serviceId);
+                trackService(serviceId);
+            }
+        });
+
+        // Complete service button
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.complete-btn')) {
+                const btn = e.target.closest('.complete-btn');
+                const serviceId = parseInt(btn.dataset.serviceId);
+                completeService(serviceId);
+            }
+        });
+
+        // Invoice button
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.invoice-btn')) {
+                const btn = e.target.closest('.invoice-btn');
+                const serviceId = parseInt(btn.dataset.serviceId);
+                viewInvoice(serviceId);
+            }
+        });
+
+        // Report button
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.report-btn')) {
+                const btn = e.target.closest('.report-btn');
+                const serviceId = parseInt(btn.dataset.serviceId);
+                reportIssue(serviceId);
+            }
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            serviceModal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside
+        serviceModal.addEventListener('click', (e) => {
+            if (e.target === serviceModal) {
+                serviceModal.classList.remove('active');
+            }
+        });
+
+        // Call customer
+        document.getElementById('callCustomerBtn').addEventListener('click', () => {
+            const phoneNumber = document.getElementById('modalCustomerPhone').textContent;
+            showNotification(`Calling ${phoneNumber}...`, 'success');
+        });
+
+        // Message customer
+        document.getElementById('messageCustomerBtn').addEventListener('click', () => {
+            showNotification('Opening chat with customer...', 'success');
+        });
+
+        // Service Actions Functions
+        function acceptService(serviceId) {
+            const serviceIndex = servicesData.available.findIndex(s => s.id === serviceId);
+            if (serviceIndex === -1) return;
+            
+            const service = servicesData.available[serviceIndex];
+            service.status = 'active';
+            service.timeline[1].completed = true;
+            service.timeline[1].time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            // Stop timer for this service
+            if (timerIntervals[serviceId]) {
+                clearInterval(timerIntervals[serviceId]);
+            }
+            
+            // Move service from available to active
+            servicesData.active.push(service);
+            servicesData.available.splice(serviceIndex, 1);
+            
+            // Update UI
+            updateBadgeCounts();
+            serviceModal.classList.remove('active');
+            
+            // Show notification
+            showNotification('Service accepted successfully!', 'success');
+            
+            // Refresh service listings
+            setTimeout(() => {
+                location.reload();
+            }, 1500);
+        }
+
+        function declineService(serviceId) {
+            const serviceIndex = servicesData.available.findIndex(s => s.id === serviceId);
+            if (serviceIndex === -1) return;
+            
+            // Stop timer for this service
+            if (timerIntervals[serviceId]) {
+                clearInterval(timerIntervals[serviceId]);
+            }
+            
+            servicesData.available.splice(serviceIndex, 1);
+            
+            // Update UI
+            updateBadgeCounts();
+            serviceModal.classList.remove('active');
+            
+            // Show notification
+            showNotification('Service declined', 'warning');
+            
+            // Refresh service listings
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+
+        function startService(serviceId) {
+            showNotification('Service started! You can now begin work.', 'success');
+            serviceModal.classList.remove('active');
+        }
+
+        function completeService(serviceId) {
+            const serviceIndex = servicesData.active.findIndex(s => s.id === serviceId);
+            if (serviceIndex === -1) return;
+            
+            const service = servicesData.active[serviceIndex];
+            service.status = 'completed';
+            service.completed = new Date().toLocaleString([], {weekday: 'short', hour: '2-digit', minute:'2-digit'});
+            service.timeline[3].completed = true;
+            service.timeline[3].time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            // Move service from active to completed
+            servicesData.completed.push(service);
+            servicesData.active.splice(serviceIndex, 1);
+            
+            // Update UI
+            updateBadgeCounts();
+            serviceModal.classList.remove('active');
+            
+            // Show notification
+            showNotification('Service marked as completed!', 'success');
+            
+            // Refresh service listings
+            setTimeout(() => {
+                location.reload();
+            }, 1500);
+        }
+
+        function trackService(serviceId) {
+            showNotification('Opening service tracking...', 'success');
+            serviceModal.classList.remove('active');
+        }
+
+        function viewInvoice(serviceId) {
+            showNotification('Opening invoice details...', 'success');
+            serviceModal.classList.remove('active');
+        }
+
+        function reportIssue(serviceId) {
+            showNotification('Opening issue report form...', 'success');
+            serviceModal.classList.remove('active');
+        }
+
+        // Show notification function
+        function showNotification(message, type = 'success') {
+            if (window.notificationManager) {
+                window.notificationManager.show(message, type);
+            } else {
+                // Fallback notification
+                const notification = document.getElementById('notification');
+                const notificationText = document.getElementById('notificationText');
+                
+                notificationText.textContent = message;
+                notification.className = 'notification';
+                notification.classList.add(type);
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateBadgeCounts();
+            startServiceTimers();
+            
+            // Check for empty states
+            if (servicesData.active.length === 0) {
+                emptyActive.style.display = 'block';
+            }
+            
+            if (servicesData.completed.length === 0) {
+                emptyCompleted.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

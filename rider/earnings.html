@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earnings - ErrandX Rider</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Theme Loader -->
+    <script src="../theme/theme-loader.js" defer></script>
+    
+    <style>
+        :root {
+            /* Professional Color Palette */
+            --primary-green: #5CC47E;
+            --primary-dark: #1F4B2E;
+            --primary-light: #E8F5E9;
+            --secondary-blue: #4A90E2;
+            --secondary-orange: #FF8A00;
+            --secondary-red: #FF5252;
+            --secondary-yellow: #FFD700;
+            --background-light: #F3FFF7;
+            --card-background: #FFFFFF;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --text-white: #FFFFFF;
+            --border-color: #E5E7EB;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.16);
+            --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.20);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius-sm: 8px;
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+        }
+
+        .dark-mode {
+            --primary-green: #6DD88F;
+            --primary-dark: #1F4B2E;
+            --primary-light: #2D5A44;
+            --secondary-blue: #6AAFFF;
+            --secondary-orange: #FFA033;
+            --secondary-red: #FF6B6B;
+            --secondary-yellow: #FFEB3B;
+            --background-light: #0F2A1C;
+            --card-background: #1F4B2E;
+            --text-dark: #F0F7F2;
+            --text-light: #A3C9B4;
+            --text-white: #FFFFFF;
+            --border-color: #2D5A44;
+            --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 8px 28px rgba(0, 0, 0, 0.30);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.40);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            transition: var(--transition);
+            padding-bottom: 85px;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Animated Background Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(92, 196, 126, 0.15) 0%,
+                rgba(92, 196, 126, 0.22) 25%,
+                rgba(92, 196, 126, 0.15) 50%,
+                rgba(92, 196, 126, 0.22) 75%,
+                rgba(92, 196, 126, 0.15) 100%
+            );
+            background-size: 400% 100%;
+            animation: slideBackground 25s ease-in-out infinite;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .dark-mode body::before {
+            background: linear-gradient(
+                90deg,
+                rgba(109, 216, 143, 0.22) 0%,
+                rgba(109, 216, 143, 0.12) 25%,
+                rgba(109, 216, 143, 0.22) 50%,
+                rgba(109, 216, 143, 0.12) 75%,
+                rgba(109, 216, 143, 0.22) 100%
+            );
+            opacity: 0.4;
+        }
+
+        @keyframes slideBackground {
+            0% { background-position: 400% 0; }
+            100% { background-position: -400% 0; }
+        }
+
+        /* Enhanced floating elements */
+        .bg-float {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 30s ease-in-out infinite;
+        }
+
+        .bg-float:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: 10%;
+            right: -150px;
+            animation-delay: 0s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.18) 0%, rgba(92, 196, 126, 0.08) 70%, transparent 100%);
+        }
+
+        .bg-float:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            bottom: 20%;
+            left: -120px;
+            animation-delay: 7s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.15) 0%, rgba(92, 196, 126, 0.05) 70%, transparent 100%);
+        }
+
+        .bg-float:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            top: 60%;
+            right: -100px;
+            animation-delay: 14s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.12) 0%, rgba(92, 196, 126, 0.03) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(1) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.25) 0%, rgba(109, 216, 143, 0.08) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(2) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.20) 0%, rgba(109, 216, 143, 0.05) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(3) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.18) 0%, rgba(109, 216, 143, 0.03) 70%, transparent 100%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            33% { transform: translateY(-40px) rotate(8deg) scale(1.05); }
+            66% { transform: translateY(30px) rotate(-8deg) scale(0.95); }
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+        }
+
+        /* Header */
+        .dashboard-header {
+            background: var(--primary-dark);
+            color: var(--text-white);
+            padding: 14px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .header-container {
+                padding: 0 24px;
+            }
+        }
+
+        .logo-img {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle-header {
+            position: relative;
+            background: rgba(255, 255, 255, 0.15);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            color: white;
+        }
+
+        .theme-toggle-header:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 25px 0 20px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* Combined Earnings Summary Card */
+        .combined-summary-card {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 25px;
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-green);
+        }
+
+        .combined-summary-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .combined-summary-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .combined-summary-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .combined-summary-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .combined-summary-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .combined-summary-content {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        .summary-column {
+            text-align: center;
+            padding: 15px;
+            border-radius: var(--border-radius-sm);
+            background: rgba(92, 196, 126, 0.05);
+            transition: var(--transition);
+        }
+
+        .summary-column:hover {
+            background: rgba(92, 196, 126, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .summary-column.today {
+            border-left: 3px solid var(--primary-green);
+        }
+
+        .summary-column.week {
+            border-left: 3px solid var(--secondary-blue);
+        }
+
+        .summary-column.pending {
+            border-left: 3px solid var(--secondary-yellow);
+        }
+
+        .column-title {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .column-amount {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .column-subtitle {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* Keep buttons in the same line even on mobile */
+        @media (max-width: 480px) {
+            .action-buttons {
+                flex-direction: row; /* Changed from column to row */
+                gap: 12px;
+            }
+            
+            .action-btn {
+                flex: 1;
+                min-width: 0; /* Allow buttons to shrink */
+            }
+        }
+
+        /* For very small screens, stack buttons if absolutely necessary */
+        @media (max-width: 350px) {
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 54px;
+        }
+
+        .payout-btn {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .payout-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(92, 196, 126, 0.3);
+        }
+
+        .transactions-btn {
+            background: var(--secondary-blue);
+            color: white;
+        }
+
+        .transactions-btn:hover {
+            background: #3a7bc8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.3);
+        }
+
+        /* Recent Transactions */
+        .transactions-section {
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .see-all-link {
+            font-size: 14px;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .see-all-link:hover {
+            color: var(--primary-dark);
+        }
+
+        .transactions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .transaction-item {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 18px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .transaction-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .transaction-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .transaction-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .transaction-icon.earning {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .transaction-icon.pending {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--secondary-yellow);
+        }
+
+        .transaction-icon.payout {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--secondary-blue);
+        }
+
+        .transaction-details {
+            flex: 1;
+        }
+
+        .transaction-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .transaction-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .transaction-date {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .transaction-category {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .transaction-amount {
+            font-size: 16px;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .transaction-amount.positive {
+            color: var(--primary-green);
+        }
+
+        .transaction-amount.pending {
+            color: var(--secondary-yellow);
+        }
+
+        .transaction-amount.negative {
+            color: var(--secondary-red);
+        }
+
+        /* Earnings Chart */
+        .earnings-chart-section {
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow-md);
+            height: 250px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--card-background);
+            border-radius: var(--border-radius-lg);
+            width: 90%;
+            max-width: 800px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px);
+            transition: transform 0.3s ease-out;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--card-background);
+            z-index: 10;
+            border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 20px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .modal-content {
+            padding: 24px;
+        }
+
+        /* Modal Filter */
+        .modal-filter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-label {
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .filter-select {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            background: var(--card-background);
+            color: var(--text-dark);
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 150px;
+        }
+
+        .filter-select:hover {
+            border-color: var(--primary-green);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(92, 196, 126, 0.1);
+        }
+
+        /* Modal Transactions */
+        .modal-transactions {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .modal-transactions::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-transactions::-webkit-scrollbar-track {
+            background: var(--border-color);
+            border-radius: 3px;
+        }
+
+        .modal-transactions::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 3px;
+        }
+
+        .modal-transaction-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .modal-transaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .modal-transaction-item:hover {
+            background: rgba(92, 196, 126, 0.05);
+            border-radius: var(--border-radius-sm);
+        }
+
+        .modal-transaction-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .modal-transaction-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .modal-transaction-icon.earning {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .modal-transaction-icon.payout {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--secondary-blue);
+        }
+
+        .modal-transaction-icon.refund {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+        }
+
+        .modal-transaction-details {
+            flex: 1;
+        }
+
+        .modal-transaction-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .modal-transaction-meta {
+            font-size: 13px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-transaction-job {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .modal-transaction-right {
+            text-align: right;
+        }
+
+        .modal-transaction-amount {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .modal-transaction-amount.positive {
+            color: var(--primary-green);
+        }
+
+        .modal-transaction-amount.negative {
+            color: var(--secondary-red);
+        }
+
+        .modal-transaction-status {
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .status-completed {
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+        }
+
+        .status-pending {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--secondary-yellow);
+        }
+
+        .status-failed {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--secondary-red);
+        }
+
+        /* Total Summary */
+        .modal-total {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border-color);
+            text-align: right;
+        }
+
+        .total-label {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .total-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin: 20px 0;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            color: var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .empty-title {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            color: var(--text-light);
+            max-width: 300px;
+            margin: 0 auto 20px;
+        }
+
+        /* Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--card-background);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 0 18px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: var(--transition);
+            flex: 1;
+            padding: 8px 0;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        .nav-text {
+            font-size: 12px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-item.active {
+            color: var(--primary-green);
+        }
+
+        .nav-item.active .nav-text {
+            font-weight: 600;
+        }
+
+        .nav-item:hover {
+            color: var(--primary-green);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .header-container {
+                padding: 0 16px;
+            }
+            
+            .page-header {
+                padding: 20px 0 15px;
+            }
+            
+            .page-title {
+                font-size: 20px;
+            }
+            
+            .combined-summary-card {
+                padding: 16px;
+            }
+            
+            .column-amount {
+                font-size: 20px;
+            }
+            
+            .action-btn {
+                padding: 14px 16px; /* Adjusted padding for mobile */
+                font-size: 14px;
+                min-height: 50px;
+            }
+            
+            .transaction-item {
+                padding: 14px;
+            }
+            
+            .modal {
+                width: 95%;
+            }
+            
+            .modal-filter {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .filter-select {
+                min-width: 120px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .transaction-info {
+                gap: 10px;
+            }
+            
+            .transaction-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .transaction-title {
+                font-size: 14px;
+            }
+            
+            .modal-transaction-left {
+                gap: 10px;
+            }
+            
+            .modal-transaction-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+        }
+
+        /* Loader and Notification styles */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 0.3s, visibility 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            backdrop-filter: blur(6px);
+        }
+
+        .loader.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loader {
+            background: rgba(243, 255, 247, 0.95);
+        }
+
+        .dark-mode .loader {
+            background: rgba(15, 42, 28, 0.97);
+        }
+
+        .loader-spinner {
+            width: 70px;
+            height: 70px;
+            border: 4px solid rgba(92, 196, 126, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-green);
+            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+            margin-bottom: 25px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .dark-mode .loader-text {
+            color: var(--text-light);
+        }
+
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--primary-green);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            z-index: 4000;
+            font-weight: 500;
+            transform: translateX(150%);
+            transition: transform 0.3s ease-out;
+            max-width: 280px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background: var(--secondary-red);
+        }
+
+        .notification.warning {
+            background: var(--secondary-orange);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Floating Elements -->
+    <div class="bg-float"></div>
+    <div class="bg-float"></div>
+    <div class="bg-float"></div>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="../img/logo.png" alt="ErrandX" class="logo-img">
+            </div>
+            
+            <div class="user-info">
+                <button class="theme-toggle-header" id="themeToggleHeader">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">My Earnings</h1>
+            <p class="page-subtitle">Track your earnings and manage payouts</p>
+        </div>
+
+        <!-- Combined Earnings Summary Card -->
+        <div class="combined-summary-card">
+            <div class="combined-summary-header">
+                <div class="combined-summary-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h2 class="combined-summary-title">Earnings Overview</h2>
+            </div>
+            
+            <div class="combined-summary-content">
+                <div class="summary-column today">
+                    <div class="column-title">Today</div>
+                    <div class="column-amount">₦6,500</div>
+                    <div class="column-subtitle">5 completed jobs</div>
+                </div>
+                
+                <div class="summary-column week">
+                    <div class="column-title">This Week</div>
+                    <div class="column-amount">₦32,400</div>
+                    <div class="column-subtitle">24 completed jobs</div>
+                </div>
+                
+                <div class="summary-column pending">
+                    <div class="column-title">Pending</div>
+                    <div class="column-amount">₦4,000</div>
+                    <div class="column-subtitle">Available for payout</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="action-btn payout-btn" id="requestPayoutBtn">
+                <i class="fas fa-wallet"></i> Request Payout
+            </button>
+            <button class="action-btn transactions-btn" id="viewAllTransactionsBtn">
+                <i class="fas fa-history"></i> View All Transactions
+            </button>
+        </div>
+
+        <!-- Recent Transactions -->
+        <section class="transactions-section">
+            <div class="section-header">
+                <h2 class="section-title">Recent Transactions</h2>
+                <a href="#" class="see-all-link" id="seeAllLink">
+                    See All <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="transactions-list">
+                <!-- Transaction 1 -->
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon earning">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <div class="transaction-title">Gas Refill Delivery</div>
+                            <div class="transaction-meta">
+                                <div class="transaction-date">
+                                    <i class="far fa-clock"></i> Today, 10:45 AM
+                                </div>
+                                <span class="transaction-category">Gas Refill</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="transaction-amount positive">+₦1,200</div>
+                </div>
+
+                <!-- Transaction 2 -->
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon earning">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <div class="transaction-title">Package Delivery</div>
+                            <div class="transaction-meta">
+                                <div class="transaction-date">
+                                    <i class="far fa-clock"></i> Today, 09:30 AM
+                                </div>
+                                <span class="transaction-category">Package</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="transaction-amount positive">+₦1,500</div>
+                </div>
+
+                <!-- Transaction 3 -->
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon pending">
+                            <i class="fas fa-hamburger"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <div class="transaction-title">Food Delivery</div>
+                            <div class="transaction-meta">
+                                <div class="transaction-date">
+                                    <i class="far fa-clock"></i> Yesterday, 03:20 PM
+                                </div>
+                                <span class="transaction-category">Food</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="transaction-amount pending">+₦800</div>
+                </div>
+
+                <!-- Transaction 4 -->
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon payout">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <div class="transaction-title">Weekly Payout</div>
+                            <div class="transaction-meta">
+                                <div class="transaction-date">
+                                    <i class="far fa-clock"></i> Mar 15, 2024
+                                </div>
+                                <span class="transaction-category">Payout</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="transaction-amount negative">-₦28,400</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Earnings Chart -->
+        <section class="earnings-chart-section">
+            <div class="section-header">
+                <h2 class="section-title">Weekly Earnings Trend</h2>
+            </div>
+            <div class="chart-container">
+                <canvas id="earningsChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <!-- Transactions Modal -->
+    <div class="modal-overlay" id="transactionsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-history"></i>
+                    All Transactions
+                </h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <!-- Filter -->
+                <div class="modal-filter">
+                    <div class="filter-group">
+                        <span class="filter-label">Filter by:</span>
+                        <select class="filter-select" id="filterMonth">
+                            <option value="all">All Months</option>
+                            <option value="march" selected>March 2024</option>
+                            <option value="february">February 2024</option>
+                            <option value="january">January 2024</option>
+                            <option value="december">December 2023</option>
+                        </select>
+                        <select class="filter-select" id="filterType">
+                            <option value="all">All Types</option>
+                            <option value="earning">Earnings</option>
+                            <option value="payout">Payouts</option>
+                            <option value="refund">Refunds</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Sort by:</span>
+                        <select class="filter-select" id="sortBy">
+                            <option value="date">Date (Newest)</option>
+                            <option value="amount">Amount (High to Low)</option>
+                            <option value="oldest">Date (Oldest)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Transactions List -->
+                <div class="modal-transactions" id="modalTransactionsList">
+                    <!-- Transactions will be loaded here -->
+                </div>
+
+                <!-- Total Summary -->
+                <div class="modal-total">
+                    <div class="total-label">Total for March 2024</div>
+                    <div class="total-amount">₦32,400</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <span class="nav-text">Home</span>
+        </a>
+        
+        <a href="jobs.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+            <span class="nav-text">Jobs</span>
+        </a>
+        
+        <a href="earnings.html" class="nav-item active">
+            <div class="nav-icon">
+                <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <span class="nav-text">Earnings</span>
+        </a>
+        
+        <a href="profile.html" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <span class="nav-text">Profile</span>
+        </a>
+    </nav>
+
+    <!-- Loader and Notification (injected by theme-loader.js) -->
+    <div class="loader" id="pageLoader">
+        <div class="loader-spinner"></div>
+        <p class="loader-text">Loading...</p>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Notification message here</span>
+    </div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Transactions Data
+        const transactionsData = {
+            march: [
+                {
+                    id: 1,
+                    title: "Gas Refill Delivery",
+                    type: "earning",
+                    amount: 1200,
+                    date: "2024-03-25 10:45",
+                    status: "completed",
+                    category: "Gas Refill",
+                    jobId: "ERX-001234",
+                    icon: "fa-fire"
+                },
+                {
+                    id: 2,
+                    title: "Package Delivery",
+                    type: "earning",
+                    amount: 1500,
+                    date: "2024-03-25 09:30",
+                    status: "completed",
+                    category: "Package",
+                    jobId: "ERX-001235",
+                    icon: "fa-box"
+                },
+                {
+                    id: 3,
+                    title: "Food Delivery",
+                    type: "earning",
+                    amount: 800,
+                    date: "2024-03-24 15:20",
+                    status: "pending",
+                    category: "Food",
+                    jobId: "ERX-001233",
+                    icon: "fa-hamburger"
+                },
+                {
+                    id: 4,
+                    title: "Document Delivery",
+                    type: "earning",
+                    amount: 1000,
+                    date: "2024-03-24 11:45",
+                    status: "completed",
+                    category: "Documents",
+                    jobId: "ERX-001232",
+                    icon: "fa-file-invoice-dollar"
+                },
+                {
+                    id: 5,
+                    title: "Gift Delivery",
+                    type: "earning",
+                    amount: 900,
+                    date: "2024-03-23 14:30",
+                    status: "completed",
+                    category: "Gift",
+                    jobId: "ERX-001231",
+                    icon: "fa-gift"
+                },
+                {
+                    id: 6,
+                    title: "Weekly Payout",
+                    type: "payout",
+                    amount: -28400,
+                    date: "2024-03-22 16:00",
+                    status: "completed",
+                    category: "Payout",
+                    method: "Bank Transfer",
+                    icon: "fa-wallet"
+                },
+                {
+                    id: 7,
+                    title: "Laundry Pickup",
+                    type: "earning",
+                    amount: 750,
+                    date: "2024-03-22 11:30",
+                    status: "completed",
+                    category: "Laundry",
+                    jobId: "ERX-001230",
+                    icon: "fa-tshirt"
+                },
+                {
+                    id: 8,
+                    title: "Quick Shopping",
+                    type: "earning",
+                    amount: 650,
+                    date: "2024-03-21 13:15",
+                    status: "completed",
+                    category: "Shopping",
+                    jobId: "ERX-001229",
+                    icon: "fa-shopping-bag"
+                },
+                {
+                    id: 9,
+                    title: "Medicine Delivery",
+                    type: "earning",
+                    amount: 600,
+                    date: "2024-03-20 10:00",
+                    status: "completed",
+                    category: "Medicine",
+                    jobId: "ERX-001228",
+                    icon: "fa-pills"
+                },
+                {
+                    id: 10,
+                    title: "Customer Refund",
+                    type: "refund",
+                    amount: -200,
+                    date: "2024-03-19 09:45",
+                    status: "completed",
+                    category: "Refund",
+                    reason: "Late delivery",
+                    icon: "fa-undo"
+                }
+            ],
+            february: [
+                {
+                    id: 11,
+                    title: "Monthly Payout",
+                    type: "payout",
+                    amount: -45200,
+                    date: "2024-02-28 15:30",
+                    status: "completed",
+                    category: "Payout",
+                    method: "Bank Transfer",
+                    icon: "fa-wallet"
+                },
+                {
+                    id: 12,
+                    title: "Gas Refill Delivery",
+                    type: "earning",
+                    amount: 1200,
+                    date: "2024-02-27 14:20",
+                    status: "completed",
+                    category: "Gas Refill",
+                    jobId: "ERX-001227",
+                    icon: "fa-fire"
+                }
+            ],
+            january: [
+                {
+                    id: 13,
+                    title: "Monthly Payout",
+                    type: "payout",
+                    amount: -38200,
+                    date: "2024-01-31 16:15",
+                    status: "completed",
+                    category: "Payout",
+                    method: "Bank Transfer",
+                    icon: "fa-wallet"
+                }
+            ],
+            december: [
+                {
+                    id: 14,
+                    title: "Monthly Payout",
+                    type: "payout",
+                    amount: -29500,
+                    date: "2023-12-30 14:45",
+                    status: "completed",
+                    category: "Payout",
+                    method: "Bank Transfer",
+                    icon: "fa-wallet"
+                }
+            ]
+        };
+
+        // DOM Elements
+        const requestPayoutBtn = document.getElementById('requestPayoutBtn');
+        const viewAllTransactionsBtn = document.getElementById('viewAllTransactionsBtn');
+        const seeAllLink = document.getElementById('seeAllLink');
+        const transactionsModal = document.getElementById('transactionsModal');
+        const closeModal = document.getElementById('closeModal');
+        const filterMonth = document.getElementById('filterMonth');
+        const filterType = document.getElementById('filterType');
+        const sortBy = document.getElementById('sortBy');
+        const modalTransactionsList = document.getElementById('modalTransactionsList');
+
+        // Earnings Chart
+        let earningsChart;
+
+        // Format date for display
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 0) {
+                return `Today, ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+            } else if (diffDays === 1) {
+                return `Yesterday, ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+            } else if (diffDays < 7) {
+                return `${date.toLocaleDateString('en-US', {weekday: 'short'})}, ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+            } else {
+                return date.toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'});
+            }
+        }
+
+        // Format amount with currency
+        function formatAmount(amount) {
+            const sign = amount >= 0 ? '+' : '-';
+            const absAmount = Math.abs(amount);
+            return `${sign}₦${absAmount.toLocaleString()}`;
+        }
+
+        // Get status class
+        function getStatusClass(status) {
+            switch(status) {
+                case 'completed': return 'status-completed';
+                case 'pending': return 'status-pending';
+                case 'failed': return 'status-failed';
+                default: return '';
+            }
+        }
+
+        // Get type class
+        function getTypeClass(type) {
+            switch(type) {
+                case 'earning': return 'earning';
+                case 'payout': return 'payout';
+                case 'refund': return 'refund';
+                default: return '';
+            }
+        }
+
+        // Render transactions in modal
+        function renderTransactions(transactions) {
+            modalTransactionsList.innerHTML = '';
+            
+            if (transactions.length === 0) {
+                modalTransactionsList.innerHTML = `
+                    <div class="empty-state" style="margin: 0;">
+                        <div class="empty-icon">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                        <h3 class="empty-title">No Transactions Found</h3>
+                        <p class="empty-text">No transactions match your filter criteria</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Calculate total
+            let total = 0;
+            
+            transactions.forEach(transaction => {
+                total += transaction.amount;
+                
+                const transactionElement = document.createElement('div');
+                transactionElement.className = 'modal-transaction-item';
+                
+                const amountClass = transaction.amount >= 0 ? 'positive' : 'negative';
+                const statusClass = getStatusClass(transaction.status);
+                const typeClass = getTypeClass(transaction.type);
+                
+                transactionElement.innerHTML = `
+                    <div class="modal-transaction-left">
+                        <div class="modal-transaction-icon ${typeClass}">
+                            <i class="fas ${transaction.icon}"></i>
+                        </div>
+                        <div class="modal-transaction-details">
+                            <div class="modal-transaction-title">${transaction.title}</div>
+                            <div class="modal-transaction-meta">
+                                <span>${formatDate(transaction.date)}</span>
+                                ${transaction.jobId ? `<span class="modal-transaction-job">${transaction.jobId}</span>` : ''}
+                                ${transaction.method ? `<span>• ${transaction.method}</span>` : ''}
+                                ${transaction.reason ? `<span>• ${transaction.reason}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-transaction-right">
+                        <div class="modal-transaction-amount ${amountClass}">${formatAmount(transaction.amount)}</div>
+                        <div class="modal-transaction-status ${statusClass}">${transaction.status}</div>
+                    </div>
+                `;
+                
+                modalTransactionsList.appendChild(transactionElement);
+            });
+            
+            // Update total
+            const totalElement = document.querySelector('.total-amount');
+            if (totalElement) {
+                totalElement.textContent = `₦${total.toLocaleString()}`;
+            }
+        }
+
+        // Filter and sort transactions
+        function filterAndSortTransactions() {
+            const month = filterMonth.value;
+            const type = filterType.value;
+            const sort = sortBy.value;
+            
+            let transactions = [];
+            
+            // Get transactions based on month filter
+            if (month === 'all') {
+                // Combine all months
+                Object.values(transactionsData).forEach(monthTransactions => {
+                    transactions.push(...monthTransactions);
+                });
+            } else {
+                transactions = [...transactionsData[month]];
+            }
+            
+            // Filter by type
+            if (type !== 'all') {
+                transactions = transactions.filter(t => t.type === type);
+            }
+            
+            // Sort transactions
+            switch(sort) {
+                case 'date':
+                    transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    break;
+                case 'amount':
+                    transactions.sort((a, b) => Math.abs(b.amount) - Math.abs(a.amount));
+                    break;
+                case 'oldest':
+                    transactions.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    break;
+            }
+            
+            renderTransactions(transactions);
+        }
+
+        // Initialize earnings chart
+        function initEarningsChart() {
+            const ctx = document.getElementById('earningsChart').getContext('2d');
+            
+            // Chart data
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const earnings = [4200, 6500, 3800, 7200, 5800, 3200, 0];
+            
+            // Get computed styles for theme colors
+            const computedStyle = getComputedStyle(document.documentElement);
+            const primaryGreen = computedStyle.getPropertyValue('--primary-green').trim();
+            const primaryLight = computedStyle.getPropertyValue('--primary-light').trim();
+            const textLight = computedStyle.getPropertyValue('--text-light').trim();
+            const borderColor = computedStyle.getPropertyValue('--border-color').trim();
+            
+            earningsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: days,
+                    datasets: [{
+                        label: 'Daily Earnings (₦)',
+                        data: earnings,
+                        backgroundColor: primaryGreen + '80',
+                        borderColor: primaryGreen,
+                        borderWidth: 2,
+                        borderRadius: 6,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: primaryGreen,
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    return `₦${context.parsed.y.toLocaleString()}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: borderColor,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: textLight,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: borderColor,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: textLight,
+                                font: {
+                                    size: 12
+                                },
+                                callback: function(value) {
+                                    return '₦' + value;
+                                }
+                            },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Show notification function
+        function showNotification(message, type = 'success') {
+            if (window.notificationManager) {
+                window.notificationManager.show(message, type);
+            } else {
+                // Fallback notification
+                const notification = document.getElementById('notification');
+                const notificationText = document.getElementById('notificationText');
+                
+                notificationText.textContent = message;
+                notification.className = 'notification';
+                notification.classList.add(type);
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // Event Listeners
+        requestPayoutBtn.addEventListener('click', () => {
+            showNotification('Payout request submitted successfully! Funds will be transferred within 24 hours.', 'success');
+            
+            // Simulate loading
+            if (window.loaderManager) {
+                window.loaderManager.show('Processing payout request...');
+                setTimeout(() => {
+                    window.loaderManager.hide();
+                }, 1500);
+            }
+        });
+
+        viewAllTransactionsBtn.addEventListener('click', () => {
+            transactionsModal.classList.add('active');
+            filterAndSortTransactions();
+        });
+
+        seeAllLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            transactionsModal.classList.add('active');
+            filterAndSortTransactions();
+        });
+
+        closeModal.addEventListener('click', () => {
+            transactionsModal.classList.remove('active');
+        });
+
+        transactionsModal.addEventListener('click', (e) => {
+            if (e.target === transactionsModal) {
+                transactionsModal.classList.remove('active');
+            }
+        });
+
+        // Filter change events
+        filterMonth.addEventListener('change', filterAndSortTransactions);
+        filterType.addEventListener('change', filterAndSortTransactions);
+        sortBy.addEventListener('change', filterAndSortTransactions);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initEarningsChart();
+        });
+    </script>
+</body>
+</html>
